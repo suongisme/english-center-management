@@ -1,0 +1,30 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  config:
+    activate:
+      on-profile: "dev"
+  datasource:
+    url: jdbc:mysql://localhost:3306/english_center_management?createDatabaseIfNotExist=true
+    username: root
+    password: NguyenVanSuong@2001
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    open-in-view: false
+  jackson:
+    default-property-inclusion: always
+  liquibase:
+    user: root
+    password: NguyenVanSuong@2001
+logging:
+  ignores-path:
+    - "/api/resources/**"
+security:
+  cors:
+    url: http://localhost:4200

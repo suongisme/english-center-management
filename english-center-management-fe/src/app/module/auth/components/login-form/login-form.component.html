@@ -1,0 +1,34 @@
+<form class="user" [formGroup]="loginFormGroup">
+    <div class="form-group">
+        <input
+            type="email"
+            class="form-control form-control-user"
+            [placeholder]="'AUTH.INPUT_EMAIL' | translate"
+            formControlName="email"
+        />
+    </div>
+    <div class="form-group">
+        <input
+            type="password"
+            class="form-control form-control-user"
+            [placeholder]="'AUTH.INPUT_PASSWORD' | translate"
+            formControlName="password"
+        />
+    </div>
+    <button class="btn btn-primary btn-user w-100 text-capitalize">
+        {{ 'AUTH.LOGIN' | translate }}
+    </button>
+    <hr />
+
+    <div class="d-flex flex-column gap-3">
+        <ng-container
+            [ngTemplateOutlet]="ssoListTemplate"
+            [ngTemplateOutletContext]="{ items: ssoList }"
+        ></ng-container>
+    </div>
+    <hr />
+</form>
+
+<ng-template #ssoListTemplate let-items="items">
+    <sso-button *ngFor="let sso of items" [ssoProperty]="sso"></sso-button>
+</ng-template>

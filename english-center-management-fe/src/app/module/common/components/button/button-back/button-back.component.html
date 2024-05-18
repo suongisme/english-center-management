@@ -1,0 +1,8 @@
+<button
+    [class]="classes.join(' ')"
+    [ngClass]="'btn-' + size"
+    (click)="goBack()"
+>
+    <fa-icon [icon]="['fas', 'arrow-left']" [classes]="['me-2']"></fa-icon>
+    <span class="text-capitalize">{{ 'COMMON.GO_BACK' | translate }}</span>
+</button>

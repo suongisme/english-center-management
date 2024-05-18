@@ -1,0 +1,16 @@
+<form
+    class="d-flex flex-column gap-3"
+    [formGroup]="formGroup"
+    (submit)="ngOnSearch()"
+>
+    <ng-content></ng-content>
+
+    <div class="d-flex justify-content-start justify-content-md-center">
+        <button class="btn btn-primary">
+            <fa-icon [icon]="['fas', 'search']" class="me-2"></fa-icon>
+            <span class="text-capitalize">{{
+                'COMMON.SEARCH' | translate
+            }}</span>
+        </button>
+    </div>
+</form>

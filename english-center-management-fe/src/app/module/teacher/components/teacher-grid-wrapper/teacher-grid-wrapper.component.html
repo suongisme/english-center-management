@@ -1,0 +1,12 @@
+<div class="d-flex flex-column gap-2">
+    <div class="d-flex justify-content-between align-items-center">
+        <h4 class="text-capitalize">Danh sách giáo viên</h4>
+        <button class="btn btn-sm btn-success" (click)="openAddMemberModal()">
+            <fa-icon [icon]="'plus'" class="me-2"></fa-icon>
+            <span class="text-capitalize"> Thêm giáo viên </span>
+        </button>
+    </div>
+    <div style="height: 300px">
+        <teacher-grid [rowData]="[]"></teacher-grid>
+    </div>
+</div>

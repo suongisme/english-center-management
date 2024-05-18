@@ -1,0 +1,17 @@
+<div class="position-relative image-preview" style="width: fit-content">
+    <img
+        #image
+        class="rounded"
+        [src]="url"
+        [style.width.px]="size.width"
+        [style.height.px]="size.height"
+        alt="preview image"
+    />
+    <button
+        *ngIf="!readonly"
+        class="d-none border-0 position-absolute remove-image rounded-circle d-flex justify-content-center align-items-center fw-bolder bg-dark text-white"
+        (click)="onRemoveImage()"
+    >
+        &times;
+    </button>
+</div>

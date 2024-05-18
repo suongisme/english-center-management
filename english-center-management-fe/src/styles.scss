@@ -1,0 +1,58 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+
+/* Core Grid CSS */
+@import 'ag-grid-community/styles/ag-grid.css';
+/* Quartz Theme Specific CSS */
+@import 'ag-grid-community/styles/ag-theme-quartz.css';
+@import '~@ng-select/ng-select/themes/default.theme.css';
+@import 'ngx-toastr/toastr';
+@import './mixin';
+
+.form-control {
+    &:focus {
+        border-color: #007eff;
+        box-shadow:
+            inset 0 1px 1px rgba(0, 0, 0, 0.075),
+            0 0 0 3px rgba(0, 126, 255, 0.1);
+    }
+}
+
+.required:after {
+    content: ' *';
+    @extend .text-danger;
+}
+
+.ng-placeholder,
+.ag-header-cell-text,
+label {
+    text-transform: capitalize;
+}
+
+textarea,
+input {
+    &::placeholder {
+        text-transform: capitalize;
+    }
+}
+
+.fas.fa-times,
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
+.ag-overlay-no-rows-wrapper {
+    text-transform: capitalize;
+}
+
+button:disabled {
+    cursor: not-allowed !important;
+    pointer-events: unset !important;
+}
+
+.ag-header-cell-label {
+    display: flex;
+    justify-content: center;
+}

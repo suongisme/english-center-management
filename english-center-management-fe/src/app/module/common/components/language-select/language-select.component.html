@@ -1,0 +1,32 @@
+<ng-select
+    class="w-100"
+    [items]="languages"
+    [searchable]="false"
+    [clearable]="false"
+    bindLabel="label"
+    bindValue="value"
+    [(ngModel)]="language"
+    (change)="onChangeLanguage($event)"
+>
+    <ng-template ng-label-tmp let-item="item">
+        <img
+            class="me-2"
+            width="30px"
+            height="30px"
+            [src]="item.iconUrl"
+            [alt]="item.label | translate"
+        />
+        <span class="small">{{ item.label | translate }}</span>
+    </ng-template>
+
+    <ng-template ng-option-tmp let-item="item">
+        <img
+            class="me-2"
+            width="30px"
+            height="30px"
+            [src]="item.iconUrl"
+            [alt]="item.label | translate"
+        />
+        <span class="small">{{ item.label | translate }}</span>
+    </ng-template>
+</ng-select>

@@ -1,0 +1,12 @@
+// gap
+@for $i from 1 to 100 {
+    .gap-#{$i}px {
+        gap: #{$i}px;
+    }
+}
+
+@for $i from 1 to 100 {
+    .row-gap-#{$i}px {
+        row-gap: #{$i}px;
+    }
+}

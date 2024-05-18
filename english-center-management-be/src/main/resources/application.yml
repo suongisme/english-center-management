@@ -1,0 +1,18 @@
+server:
+  shutdown: graceful
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  config:
+    import:
+      - "application_dev.yml"
+  profiles:
+    active:
+      - "dev"
+  liquibase:
+    enabled: true
+    change-log: classpath:/liquibase/changelog/master.xml
+    database-change-log-lock-table: TB_LIQUIBASE_CHANGELOG_LOCK
+    database-change-log-table: TB_LIQUIBASE_CHANGELOG

@@ -1,0 +1,14 @@
+.image-preview {
+    .remove-image {
+        width: 20px;
+        height: 20px;
+        top: 5px;
+        right: 5px;
+    }
+
+    &:hover {
+        > .remove-image {
+            display: flex !important;
+        }
+    }
+}

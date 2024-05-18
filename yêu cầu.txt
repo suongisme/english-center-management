@@ -1,16 +1,17 @@
 Các tác nhân chính ảnh hưởng đến hệ thống là khách, học viên và nhân viên của trung tâm
 Khách : Là người bất kì chung đăng nhập vào hệ thống
 Khách có các chức năng chính là :
--Đăng nhập vào hệ thống ( bỏ vì sau khi test mới được cấp username/password )
--Xem thông tin khóa học, thông báo của trung tâm
--Đăng kí test thử
+- Đăng nhập vào hệ thống 
+- Đăng ký tài khoản
+- Xem thông tin khóa học, thông báo của trung tâm
+- Đăng kí test thử, xem lại kết quả test
 
-Học viên : Là người đã test thử đầu vào của trung tâm, đăng kí học và được trung tâm cấp cho một tài khoản và mật khẩu để đăng nhập vào hệ thống
+Học viên : Là người đã test thử đầu vào của trung tâm
 Học viên có các chức năng sau:
--Xem điểm
--Xem thời khóa biểu
--Đăng kí lớp học
-- xem học phí, đóng học phí
+- Xem điểm
+- Xem thời khóa biểu
+- Đăng kí lớp học ( cán bộ xếp lớp )
+- Xem học phí, đóng học phí
 
 Nhân viên trung tâm : Bao gồm nhân viên quản lý và giáo viên của trung tâm
 Nhân viên trung tâm có các chức năng sau:
@@ -20,3 +21,7 @@ Nhân viên trung tâm có các chức năng sau:
 - Quản lý lớp học
 - Xếp lớp, xếp lịch
 - Nhập điểm học viên
+- Quản lý bài test cho từng khóa học
+
+Giáo viên: 
+- Điểm danh

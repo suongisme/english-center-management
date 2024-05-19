@@ -1,13 +1,12 @@
 package com.example.ecm.module.timetable.request;
 
 import com.example.ecm.module.timetable.TimetableEntity;
-import com.example.ecm.module.timetable.detail.request.CreateTimetableDetailRequest;
+import com.example.ecm.module.timetable.student.request.CreateTimetableStudentRequest;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import java.sql.Time;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class CreateTimetableRequest {
     @NotNull
     private Integer status;
 
-    private List<CreateTimetableDetailRequest> students;
+    private List<CreateTimetableStudentRequest> students;
 
     public TimetableEntity toEntity() {
         TimetableEntity timetableEntity = new TimetableEntity();

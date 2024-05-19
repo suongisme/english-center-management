@@ -6,13 +6,15 @@ import {
     formatDate,
 } from '@ecm-module/common';
 
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTable, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
 import { ROLE } from '../../constant';
 import { CreateUserModal } from '../create-user-modal/create-user-modal.component';
+import { TimetableService } from '@ecm-module/timetable';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'user-grid',
@@ -26,6 +28,7 @@ export class UserGridComponent extends GridCore<any> {
     @Output() afterUpdate = new EventEmitter();
 
     private readonly modalService = inject(NgbModal);
+    private readonly router = inject(Router);
 
     constructor() {
         super();
@@ -117,6 +120,11 @@ export class UserGridComponent extends GridCore<any> {
                             classes: 'text-warning',
                             onClick: this.onEditMember.bind(this),
                         },
+                        {
+                            icon: faTable,
+                            classes: 'text-warning',
+                            onClick: this.onShowTimetable.bind(this),
+                        },
                     ],
                 },
                 minWidth: 50,
@@ -147,6 +155,15 @@ export class UserGridComponent extends GridCore<any> {
             if (res) {
                 this.afterUpdate.emit();
             }
+        });
+    }
+
+    public onShowTimetable(param: ICellRendererParams): void {
+        const { id } = param.data;
+        this.router.navigate(['timetable'], {
+            queryParams: {
+                userId: id,
+            },
         });
     }
 }

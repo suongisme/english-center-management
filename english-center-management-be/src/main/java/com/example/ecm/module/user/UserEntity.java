@@ -45,4 +45,10 @@ public class UserEntity extends BaseEntity {
 
     @Column(name = "ROLE")
     private String role;
+
+    @Column(name = "USERNAME", unique = true)
+    private String username;
+
+    @Column(name = "PASSWORD")
+    private String password;
 }

@@ -8,11 +8,11 @@ import com.example.ecm.module.user.request.UpdateUserRequest;
 
 public interface IUserService {
 
-    void createStudent(CreateUserRequest createStudentRequest);
+    void createUser(CreateUserRequest createStudentRequest);
 
-    void updateStudent(UpdateUserRequest updateStudentRequest);
+    void updateUser(UpdateUserRequest updateStudentRequest);
 
-    ApiBody searchStudent(SearchRequest<SearchUserRequest> searchStudentRequest);
+    ApiBody searchUser(SearchRequest<SearchUserRequest> searchStudentRequest);
 
     UserEntity findByIdThrowIfNotPresent(Long id);
 }

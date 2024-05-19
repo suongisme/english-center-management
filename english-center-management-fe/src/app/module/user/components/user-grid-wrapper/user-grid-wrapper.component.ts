@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { TimetableModal } from '@ecm-module/timetable';
+import { CreateTimetableModal } from '@ecm-module/timetable';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -33,7 +33,7 @@ export class UserGridWrapperComponent {
 
     public openAssign(): void {
         this.modalService
-            .open(TimetableModal, {
+            .open(CreateTimetableModal, {
                 size: 'md',
                 centered: true,
             })

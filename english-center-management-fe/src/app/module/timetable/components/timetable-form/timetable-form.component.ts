@@ -1,5 +1,12 @@
 import { AsyncPipe, NgFor } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    inject,
+} from '@angular/core';
 import {
     FormBuilder,
     FormGroup,
@@ -23,6 +30,7 @@ import { PagingResponse } from 'src/app/module/common/interface/paging.interface
 import { DATE_OF_WEEK } from '../../constant';
 import { UserService } from 'src/app/module/user/services';
 import { Role } from 'src/app/module/user/constant';
+import { GetTimetableResponse } from '../../interface';
 
 @Component({
     selector: 'timetable-form',
@@ -38,6 +46,8 @@ import { Role } from 'src/app/module/user/constant';
     ],
 })
 export class TimetableFormComponent implements OnInit {
+    @Input() timetable: GetTimetableResponse;
+
     @Output() formInitialized = new EventEmitter<FormGroup>();
 
     public formGroup: FormGroup;
@@ -71,6 +81,9 @@ export class TimetableFormComponent implements OnInit {
             status: [null, [Validators.required]],
             students: [null],
         });
+        if (this.timetable) {
+            this.formGroup.patchValue(this.timetable);
+        }
         this.formInitialized.emit(this.formGroup);
     }
 

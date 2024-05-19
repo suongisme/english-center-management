@@ -19,19 +19,19 @@ public class UserController {
 
     @PostMapping("/search")
     public ApiResponse searchUser(@RequestBody @Valid SearchRequest<SearchUserRequest> searchStudentRequestSearchRequest) {
-        ApiBody apiBody = this.studentService.searchStudent(searchStudentRequestSearchRequest);
+        ApiBody apiBody = this.studentService.searchUser(searchStudentRequestSearchRequest);
         return ApiResponse.ok(apiBody);
     }
 
     @PostMapping
     public ApiResponse createUser(@RequestBody @Valid CreateUserRequest createStudentRequest) {
-        this.studentService.createStudent(createStudentRequest);
+        this.studentService.createUser(createStudentRequest);
         return ApiResponse.ok();
     }
 
     @PutMapping
     public ApiResponse updateUser(@RequestBody @Valid UpdateUserRequest updateStudentRequest) {
-        this.studentService.updateStudent(updateStudentRequest);
+        this.studentService.updateUser(updateStudentRequest);
         return ApiResponse.ok();
     }
 }

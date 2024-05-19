@@ -45,7 +45,7 @@ export class ClassRoomGridComponent extends GridCore<any> {
                 pinned: 'left',
             },
             {
-                headerValueGetter: (param) => 'Tên phòng',
+                headerValueGetter: (param) => 'Tên lớp',
                 minWidth: 100,
                 field: 'name',
                 tooltipField: 'name',

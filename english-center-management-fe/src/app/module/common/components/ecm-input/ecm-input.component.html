@@ -13,6 +13,7 @@
             [placeholder]="placeholder"
             class="form-control"
             [(ngModel)]="value"
+            autocomplete="off webauthn"
             (blur)="markAsTouched()"
             (ngModelChange)="onChangeValue()"
         />

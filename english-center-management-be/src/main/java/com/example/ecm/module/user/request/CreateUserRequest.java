@@ -45,6 +45,11 @@ public class CreateUserRequest {
     @NotNull
     private RoleEnum role;
 
+    @NotBlank
+    private String username;
+
+    private String password;
+
     public UserEntity toEntity() {
         UserEntity user = new UserEntity();
         user.setStatus(this.getStatus());
@@ -55,6 +60,8 @@ public class CreateUserRequest {
         user.setEmail(this.getEmail());
         user.setPhone(this.getPhone());
         user.setRole(this.getRole().name());
+        user.setUsername(this.getUsername());
+        user.setPassword(this.getPassword());
         return user;
     }
 

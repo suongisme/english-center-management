@@ -1,9 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { ApiResponse } from '../../common/interface';
-import { CreateTimetableRequest } from '../interface';
+import { ApiBody, ApiResponse } from '../../common/interface';
+import {
+    CreateTimetableRequest,
+    GetTimetableResponse,
+    TimetableResponse,
+} from '../interface';
 import { environment } from 'environment';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -20,5 +24,43 @@ export class TimetableService {
             TimetableService.ENDPOINT,
             request,
         );
+    }
+
+    public updateTimetable(
+        request: GetTimetableResponse,
+    ): Observable<ApiResponse> {
+        return this.httpClient.put<ApiResponse>(
+            TimetableService.ENDPOINT,
+            request,
+        );
+    }
+
+    public getByUserId(userId: number): Observable<TimetableResponse[]> {
+        return this.httpClient
+            .get<TimetableResponse>(
+                `${TimetableService.ENDPOINT}/get-by-user-id`,
+                {
+                    params: {
+                        userId: userId,
+                    },
+                },
+            )
+            .pipe(
+                map<any, ApiBody>((x: ApiResponse) => x.apiBody),
+                map<ApiBody, TimetableResponse[]>((apiBody) => apiBody.data),
+            );
+    }
+
+    public getById(id: number): Observable<GetTimetableResponse> {
+        return this.httpClient
+            .get<GetTimetableResponse>(TimetableService.ENDPOINT, {
+                params: {
+                    id: id,
+                },
+            })
+            .pipe(
+                map<any, ApiBody>((x: ApiResponse) => x.apiBody),
+                map<ApiBody, GetTimetableResponse>((x) => x.data),
+            );
     }
 }

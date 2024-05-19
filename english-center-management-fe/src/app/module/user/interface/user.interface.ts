@@ -8,6 +8,8 @@ export interface CreateUser {
     dob: Date;
     address: string;
     role: Role;
+    username: string;
+    password: string;
 }
 
 export interface UpdateUser extends CreateUser {

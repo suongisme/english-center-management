@@ -8,7 +8,11 @@
     </div>
 
     <div class="modal-footer d-flex justify-content-center gap-2">
-        <button class="btn btn-primary text-capitalize" (click)="ngOnSave()">
+        <button
+            *ngIf="!readonly"
+            class="btn btn-primary text-capitalize"
+            (click)="ngOnSave()"
+        >
             {{ 'COMMON.SAVE' | translate }}
         </button>
         <button

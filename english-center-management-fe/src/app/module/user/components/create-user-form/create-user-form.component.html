@@ -113,4 +113,31 @@
             ></ecm-select>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <ecm-input
+                [label]="'username'"
+                [required]="true"
+                [type]="'text'"
+                [variant]="'input'"
+                formControlName="username"
+                [errorsMessage]="{
+                    required: 'username không được trống'
+                }"
+            ></ecm-input>
+        </div>
+        <div class="col-md-6">
+            <ecm-input
+                [label]="'password'"
+                [required]="!this.user"
+                [type]="'password'"
+                [variant]="'input'"
+                formControlName="password"
+                [errorsMessage]="{
+                    required: 'Mật khẩu không được trống'
+                }"
+            ></ecm-input>
+        </div>
+    </div>
 </form>

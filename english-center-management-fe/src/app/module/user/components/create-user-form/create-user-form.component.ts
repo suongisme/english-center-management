@@ -77,6 +77,11 @@ export class CreateUserFormComponent implements OnInit {
             address: [null, [Validators.required, Validators.maxLength(2000)]],
             status: [this.status[0].id, [Validators.required]],
             role: [this.roles[0].id, [Validators.required]],
+            username: [null, [Validators.required]],
+            password: [null, [Validators.required]],
         });
+        if (this.user) {
+            this.formGroup.controls.password.setValidators([]);
+        }
     }
 }

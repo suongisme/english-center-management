@@ -2,6 +2,7 @@ package com.example.ecm.module.timetable.impl;
 
 import com.example.ecm.constant.ErrorCode;
 import com.example.ecm.exception.BusinessException;
+import com.example.ecm.model.ApiBody;
 import com.example.ecm.module.class_room.ClassRoomEntity;
 import com.example.ecm.module.class_room.IClassRoomService;
 import com.example.ecm.module.course.CourseEntity;
@@ -9,25 +10,25 @@ import com.example.ecm.module.course.ICourseService;
 import com.example.ecm.module.timetable.ITimetableRepository;
 import com.example.ecm.module.timetable.ITimetableService;
 import com.example.ecm.module.timetable.TimetableEntity;
-import com.example.ecm.module.timetable.detail.ITimetableDetailService;
-import com.example.ecm.module.timetable.detail.request.CreateTimetableDetailRequest;
 import com.example.ecm.module.timetable.request.CreateTimetableRequest;
 import com.example.ecm.module.timetable.request.UpdateTimetableRequest;
+import com.example.ecm.module.timetable.response.GetTimetableResponse;
+import com.example.ecm.module.timetable.response.IUserTimetableResponse;
+import com.example.ecm.module.timetable.student.ITimetableStudentService;
+import com.example.ecm.module.timetable.student.TimetableStudentEntity;
+import com.example.ecm.module.timetable.student.request.CreateTimetableStudentRequest;
 import com.example.ecm.module.user.IUserService;
 import com.example.ecm.module.user.UserEntity;
 import com.example.ecm.module.user.constant.RoleEnum;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.sql.Time;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -40,53 +41,82 @@ public class TimetableServiceImpl implements ITimetableService {
     private final IUserService userService;
     private final ICourseService courseService;
     private final IClassRoomService classRoomService;
-    private final ITimetableDetailService timetableDetailService;
+    private final ITimetableStudentService timetableStudentService;
 
     @Override
-    public void getByUserId(Long userId) {
+    public ApiBody getByUserId(Long userId) {
         final UserEntity user = this.userService.findByIdThrowIfNotPresent(userId);
+        List<IUserTimetableResponse> response;
         if (RoleEnum.TEACHER.name().equalsIgnoreCase(user.getRole())) {
-            final Stream<TimetableEntity> byTeacherId = this.timetableRepository.findByTeacherId(userId);
-            return;
+            response = this.timetableRepository.findByTeacherId(userId);
+        } else {
+            response = this.timetableRepository.findByStudentId(userId);
         }
-        final Stream<TimetableEntity> byStudentId = this.timetableRepository.findByStudentId(userId);
+        return ApiBody.of(response);
+    }
+
+    @Override
+    public ApiBody getById(Long id) {
+        return this.timetableRepository.findById(id)
+                .map(GetTimetableResponse::from)
+                .map(dto -> {
+                    final List<Long> studentIds = this.timetableStudentService.findByTimetableId(dto.getId())
+                            .stream()
+                            .map(TimetableStudentEntity::getStudentId)
+                            .toList();
+                    dto.setStudents(studentIds);
+                    return dto;
+                })
+                .map(ApiBody::of)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RECORD));
     }
 
     @Override
     @Transactional
     public void createTimetable(CreateTimetableRequest createTimetableRequest) {
+        this.saveTimetable(createTimetableRequest, null);
+    }
+
+    @Override
+    @Transactional
+    public void updateTimetable(UpdateTimetableRequest updateTimetableRequest) {
+        final TimetableEntity timetable = this.timetableRepository.findById(updateTimetableRequest.getId())
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RECORD));
+        this.timetableStudentService.deleteByTimetableId(timetable.getId());
+        this.saveTimetable(updateTimetableRequest, timetable);
+    }
+
+    private void saveTimetable(CreateTimetableRequest createTimetableRequest, TimetableEntity timetableEntity) {
         final UserEntity teacher = this.userService.findByIdThrowIfNotPresent(createTimetableRequest.getTeacherId());
         final CourseEntity course = this.courseService.findByIdThrowIfNotPresent(createTimetableRequest.getCourseId());
         final ClassRoomEntity classRoom = this.classRoomService.findByIdThrowIfNotPresent(createTimetableRequest.getClassRoomId());
 
         final TimetableEntity entity = createTimetableRequest.toEntity();
-        final LocalTime startTime = entity.getStartTime();
-        final LocalTime endTime = startTime.plus(course.getDuration(), ChronoUnit.HOURS);
-
-        final Optional<TimetableEntity> timetableEntityOptional = this.timetableRepository.findByDuration(
-                startTime,
-                endTime,
-                classRoom.getId(),
-                teacher.getId(),
-                entity.getDay()
-        );
-
-        if (timetableEntityOptional.isPresent()) {
-            throw new BusinessException(ErrorCode.TIMETABLE_EXIST);
+        if (Objects.nonNull(timetableEntity)) {
+            entity.setId(timetableEntity.getId());
         }
+        final LocalTime startTime = entity.getStartTime();
+        final LocalTime endTime = startTime.plusHours(course.getDuration());
+
+//        final Optional<TimetableEntity> timetableEntityOptional = this.timetableRepository.findByDuration(
+//                startTime,
+//                endTime,
+//                classRoom.getId(),
+//                teacher.getId(),
+//                entity.getDay()
+//        );
+//
+//        if (timetableEntityOptional.isPresent()) {
+//            throw new BusinessException(ErrorCode.TIMETABLE_EXIST);
+//        }
 
         this.timetableRepository.save(entity);
         final List<Long> studentsIds = Stream.ofNullable(createTimetableRequest.getStudents())
                 .flatMap(Collection::stream)
-                .map(CreateTimetableDetailRequest::getStudentId)
+                .map(CreateTimetableStudentRequest::getStudentId)
                 .toList();
         if (!CollectionUtils.isEmpty(studentsIds)) {
-            this.timetableDetailService.saveBatchTimetableDetail(entity.getId(), studentsIds);
+            this.timetableStudentService.saveBatchTimetableStudent(entity.getId(), studentsIds);
         }
-    }
-
-    @Override
-    public void updateTimetable(UpdateTimetableRequest updateTimetableRequest) {
-
     }
 }

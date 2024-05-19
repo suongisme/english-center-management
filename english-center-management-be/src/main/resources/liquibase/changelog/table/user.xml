@@ -34,4 +34,14 @@
         <addPrimaryKey tableName="${tableName}" columnNames="ID" />
         <addAutoIncrement tableName="${tableName}" columnName="ID" columnDataType="bigint" />
     </changeSet>
+
+    <changeSet id="${tableName}-2" author="anonymous">
+        <comment>Thêm cột username password</comment>
+        <addColumn tableName="${tableName}">
+            <column name="USERNAME" type="varchar(255)"/>
+            <column name="PASSWORD" type="longtext" />
+        </addColumn>
+
+        <addUniqueConstraint tableName="${tableName}" columnNames="USERNAME" />
+    </changeSet>
 </databaseChangeLog>

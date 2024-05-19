@@ -28,3 +28,9 @@ logging:
 security:
   cors:
     url: http://localhost:4200
+
+schedule:
+  timetable:
+    change-status:
+      enabled: false
+      cron: '0 * * ? * *'

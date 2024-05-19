@@ -1,12 +1,13 @@
 package com.example.ecm.module.timetable;
 
+import com.example.ecm.module.timetable.response.IUserTimetableResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 public interface ITimetableRepository extends JpaRepository<TimetableEntity, Long> {
 
@@ -30,10 +31,31 @@ public interface ITimetableRepository extends JpaRepository<TimetableEntity, Lon
             @Param("day") Integer day
     );
 
-    @Query("SELECT t FROM TimetableEntity t WHERE t.status = 1 AND t.teacherId = ?1")
-    Stream<TimetableEntity> findByTeacherId(Long teacherId);
+    @Query("SELECT t.id as id," +
+            "   t.day as day, t.startTime as startTime," +
+            "   t.status as status, c.name as courseName," +
+            "   cr.name as classRoomName, u.firstName as firstName," +
+            "   u.lastName as lastName, c.duration as courseDuration" +
+            " FROM TimetableEntity t" +
+            "   JOIN CourseEntity c ON c.id = t.courseId" +
+            "   JOIN ClassRoomEntity cr ON cr.id = t.classRoomId" +
+            "   JOIN UserEntity u ON u.id = t.teacherId" +
+            " WHERE t.status = 1 AND t.teacherId = ?1" +
+            " ORDER BY t.startTime ASC")
+    List<IUserTimetableResponse> findByTeacherId(Long teacherId);
 
-    @Query("SELECT t FROM TimetableEntity t JOIN TimetableDetailEntity td ON t.id = td.timetableId" +
-            " WHERE td.studentId = ?1 AND t.status = 1")
-    Stream<TimetableEntity> findByStudentId(Long studentId);
+    @Query("SELECT t.id as id," +
+            "   t.day as day, t.startTime as startTime," +
+            "   t.status as status, c.name as courseName," +
+            "   cr.name as classRoomName, u.firstName as firstName," +
+            "   u.lastName as lastName, c.duration as courseDuration" +
+            " FROM TimetableEntity t" +
+            "   JOIN CourseEntity c ON c.id = t.courseId" +
+            "   JOIN ClassRoomEntity cr ON cr.id = t.classRoomId" +
+            "   JOIN UserEntity u ON u.id = t.teacherId" +
+            "   JOIN TimetableStudentEntity d ON d.timetableId = t.id" +
+            " WHERE t.status = 1 AND d.studentId = ?1" +
+            " ORDER BY t.startTime ASC")
+    List<IUserTimetableResponse> findByStudentId(Long studentId);
+
 }

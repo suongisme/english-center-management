@@ -23,4 +23,6 @@ public interface ISearchUserResponse {
     Date getDob();
 
     String getRole();
+
+    String getUsername();
 }

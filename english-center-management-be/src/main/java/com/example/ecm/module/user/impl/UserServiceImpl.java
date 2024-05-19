@@ -13,6 +13,8 @@ import com.example.ecm.module.user.request.SearchUserRequest;
 import com.example.ecm.module.user.request.UpdateUserRequest;
 import com.example.ecm.module.user.response.ISearchUserResponse;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +36,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public ApiBody searchStudent(SearchRequest<SearchUserRequest> searchStudentRequest) {
+    public ApiBody searchUser(SearchRequest<SearchUserRequest> searchStudentRequest) {
         Pageable pageable = Pageable.unpaged();
         if (searchStudentRequest.isPaged()) {
             pageable = PageRequest.of(searchStudentRequest.getPageNo() - 1, searchStudentRequest.getPageSize(), Sort.Direction.DESC, "createdDate");
@@ -46,17 +48,24 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void createStudent(CreateUserRequest createStudentRequest) {
-        final UserEntity student = createStudentRequest.toEntity();
-        this.studentRepository.save(student);
+    public void createUser(CreateUserRequest createStudentRequest) {
+        try {
+            final UserEntity student = createStudentRequest.toEntity();
+            this.studentRepository.save(student);
+        } catch (DataIntegrityViolationException ex) {
+            throw new BusinessException(ErrorCode.USERNAME_EXIST);
+        }
     }
 
     @Override
-    public void updateStudent(UpdateUserRequest updateStudentRequest) {
-        UserEntity student = this.studentRepository.findById(updateStudentRequest.getId())
+    public void updateUser(UpdateUserRequest updateStudentRequest) {
+        UserEntity user = this.studentRepository.findById(updateStudentRequest.getId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RECORD));
         final UserEntity requestEntity = updateStudentRequest.toEntity();
-        requestEntity.setId(student.getId());
+        if (StringUtils.isBlank(updateStudentRequest.getPassword())) {
+            requestEntity.setPassword(user.getPassword());
+        }
+        requestEntity.setId(user.getId());
         this.studentRepository.save(requestEntity);
     }
 }

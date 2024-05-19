@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <property name="tableName" value="${prefixTableName}TIMETABLE_DETAIL" global="false" />
+    <property name="tableName" value="${prefixTableName}TIMETABLE_STUDENT" global="false" />
 
     <changeSet id="${tableName}-1" author="anonymous">
         <preConditions onFail="CONTINUE" onFailMessage="${tableName} existed">

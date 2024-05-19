@@ -14,3 +14,14 @@ export const LANGUAGES: Language[] = [
         resourceUrl: 'assets/i18n/en.json',
     },
 ];
+
+export const STATUS = [
+    {
+        id: 0,
+        label: 'Không hoạt động',
+    },
+    {
+        id: 1,
+        label: 'Đang hoạt động',
+    },
+];

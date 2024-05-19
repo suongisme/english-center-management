@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <property name="tableName" value="${prefixTableName}TIMETABLE" global="false" />
+
+    <changeSet id="${tableName}-1" author="anonymous">
+        <preConditions onFail="CONTINUE" onFailMessage="${tableName} existed">
+            <not>
+                <tableExists tableName="${tableName}" />
+            </not>
+        </preConditions>
+        <comment>
+            Create new ${tableName}
+        </comment>
+        <createTable tableName="${tableName}">
+            <column name="ID" type="bigint" />
+            <column name="STATUS" type="number" />
+            <column name="COURSE_ID" type="bigint" />
+            <column name="CLASS_ROOM_ID" type="bigint" />
+            <column name="TEACHER_ID" type="bigint" />
+            <column name="DAY" type="number" />
+            <column name="START_TIME" type="time" />
+            <column name="CREATED_DATE" type="datetime" />
+            <column name="CREATED_BY" type="varchar(255)" />
+            <column name="UPDATED_DATE" type="datetime" />
+            <column name="UPDATED_BY" type="varchar(255)" />
+        </createTable>
+        <addPrimaryKey tableName="${tableName}" columnNames="ID" />
+        <addAutoIncrement tableName="${tableName}" columnName="ID" columnDataType="bigint" />
+    </changeSet>
+</databaseChangeLog>

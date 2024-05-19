@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <property name="tableName" value="${prefixTableName}TIMETABLE_DETAIL" global="false" />
+
+    <changeSet id="${tableName}-1" author="anonymous">
+        <preConditions onFail="CONTINUE" onFailMessage="${tableName} existed">
+            <not>
+                <tableExists tableName="${tableName}" />
+            </not>
+        </preConditions>
+        <comment>
+            Create new ${tableName}
+        </comment>
+        <createTable tableName="${tableName}">
+            <column name="ID" type="bigint" />
+            <column name="STUDENT_ID" type="bigint" />
+            <column name="TIMETABLE_ID" type="bigint" />
+        </createTable>
+        <addPrimaryKey tableName="${tableName}" columnNames="ID" />
+        <addAutoIncrement tableName="${tableName}" columnName="ID" columnDataType="bigint" />
+    </changeSet>
+</databaseChangeLog>

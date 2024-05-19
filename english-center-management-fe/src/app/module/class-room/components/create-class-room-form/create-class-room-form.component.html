@@ -1,0 +1,58 @@
+<form [formGroup]="formGroup" class="d-flex flex-column row-gap-2">
+    <div class="row">
+        <div class="col-md-12">
+            <ecm-input
+                [label]="'Tên phòng'"
+                [required]="true"
+                [variant]="'input'"
+                [placeholder]="'Nhập tên phòng'"
+                formControlName="name"
+                [errorsMessage]="{
+                    required: 'Tên phòng không được trống',
+                    maxLength: 'Tên phòng tối đa 255 ký tự'
+                }"
+            ></ecm-input>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <ecm-select
+                [label]="'Tầng'"
+                [items]="position"
+                [required]="true"
+                formControlName="position"
+                [errorsMessage]="{
+                    required: 'Tầng không được trống'
+                }"
+            ></ecm-select>
+        </div>
+        <div class="col-md-6">
+            <ecm-input
+                [label]="'Số lượng học viên'"
+                [required]="true"
+                [type]="'number'"
+                [variant]="'input'"
+                [placeholder]="'Nhập số lượng học viên'"
+                formControlName="size"
+                [errorsMessage]="{
+                    required: 'Số lượng không được trống'
+                }"
+            ></ecm-input>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <ecm-select
+                [label]="'Trạng thái'"
+                [required]="true"
+                [items]="status"
+                bindLabel="label"
+                bindValue="id"
+                placeholder="Chọn trạng thái"
+                formControlName="status"
+            ></ecm-select>
+        </div>
+    </div>
+</form>

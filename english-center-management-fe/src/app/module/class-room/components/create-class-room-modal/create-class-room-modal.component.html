@@ -1,0 +1,9 @@
+<modal-wrapper
+    [headerTitle]="classRoom ? 'Cập nhật lớp học' : 'Tạo mới lớp học'"
+    (save)="onSaveClassRoom()"
+>
+    <create-class-room-form
+        [classRoom]="classRoom"
+        (formInitialized)="formGroup = $event"
+    ></create-class-room-form>
+</modal-wrapper>

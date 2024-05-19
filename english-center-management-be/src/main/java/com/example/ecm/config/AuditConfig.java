@@ -8,12 +8,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import java.util.Optional;
 
 @Configuration
-@EnableJpaAuditing(auditorAwareRef = "auditAwareImpl")
+@EnableJpaAuditing
 public class AuditConfig {
 
     @Bean("auditAwareImpl")
     public AuditorAware<String> auditorAware() {
-        return () -> Optional.of("FC_MANAGEMENT");
+        return () -> Optional.of("ANONYMOUS");
     }
 
 }

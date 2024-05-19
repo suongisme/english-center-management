@@ -1,9 +1,8 @@
 package com.example.ecm.model;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -11,14 +10,13 @@ import lombok.*;
 @Setter
 @Builder
 public class SearchRequest<T> {
-    @NotNull
     private T data;
 
-    @NotNull
-    @Min(value = 1, message = "pageNo >= 1")
     private Integer pageNo;
 
-    @NotNull
-    @Max(value = 500, message = "pageSize <= 500")
     private Integer pageSize;
+
+    public boolean isPaged() {
+        return Objects.nonNull(this.pageNo) && Objects.nonNull(this.pageSize);
+    }
 }

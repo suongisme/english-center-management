@@ -1,6 +1,6 @@
 export interface PagingRequest<T> {
-    pageNo: number;
-    pageSize: number;
+    pageNo?: number;
+    pageSize?: number;
     data: T;
 }
 

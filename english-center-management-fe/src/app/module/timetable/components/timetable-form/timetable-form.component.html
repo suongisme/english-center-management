@@ -1,0 +1,117 @@
+<form [formGroup]="formGroup" class="d-flex flex-column row-gap-2">
+    <div class="row">
+        <div class="col-md-6">
+            <ecm-select
+                label="Khóa học"
+                [items]="$course | async"
+                bindLabel="name"
+                bindValue="id"
+                [required]="true"
+                placeholder="Chọn khóa học"
+                formControlName="courseId"
+            ></ecm-select>
+        </div>
+
+        <div class="col-md-6">
+            <ecm-select
+                label="Lớp học"
+                [items]="$classRooms | async"
+                bindLabel="name"
+                bindValue="id"
+                [required]="true"
+                placeholder="Chọn lớp học"
+                formControlName="classRoomId"
+            ></ecm-select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <ecm-select
+                label="Giáo viên"
+                [items]="$teachers | async"
+                bindLabel="name"
+                bindValue="id"
+                [required]="true"
+                placeholder="Chọn giáo viên"
+                formControlName="teacherId"
+                [templates]="[
+                    {
+                        name: 'ng-option-tmp',
+                        templateRef: user
+                    },
+                    {
+                        name: 'ng-label-tmp',
+                        templateRef: user
+                    }
+                ]"
+            ></ecm-select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <ecm-select
+                label="Thứ"
+                [items]="day"
+                bindLabel="label"
+                bindValue="id"
+                [required]="true"
+                placeholder="Chọn thứ"
+                formControlName="day"
+            ></ecm-select>
+        </div>
+
+        <div class="col-md-6">
+            <ecm-input
+                label="Giờ bắt đầu"
+                [required]="true"
+                [type]="'time'"
+                formControlName="startTime"
+            ></ecm-input>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <ecm-select
+                label="Trạng thái"
+                [items]="status"
+                bindLabel="label"
+                bindValue="id"
+                [required]="true"
+                placeholder="Chọn trạng thái"
+                formControlName="status"
+            ></ecm-select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <ecm-select
+                label="Học viên"
+                [items]="$students | async"
+                [multiple]="true"
+                bindLabel="name"
+                bindValue="id"
+                [required]="true"
+                placeholder="Chọn học viên"
+                formControlName="students"
+                [templates]="[
+                    {
+                        name: 'ng-option-tmp',
+                        templateRef: user
+                    },
+                    {
+                        name: 'ng-label-tmp',
+                        templateRef: user
+                    }
+                ]"
+            ></ecm-select>
+        </div>
+    </div>
+</form>
+
+<ng-template #user ng-option-tmp let-item="item">
+    <span>{{ item.lastName }} {{ item.firstName }}</span>
+</ng-template>

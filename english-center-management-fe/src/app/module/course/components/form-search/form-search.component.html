@@ -1,0 +1,44 @@
+<search-wrapper
+    [formGroup]="formGroup"
+    class="d-flex flex-column row-gap-3"
+    (search)="ngOnSearch($event)"
+>
+    <div class="row row-gap-3">
+        <div class="col-md-3">
+            <ecm-input
+                [label]="'Tên'"
+                [placeholder]="'Nhập tên khóa học'"
+                formControlName="name"
+            ></ecm-input>
+        </div>
+
+        <div class="col-md-3">
+            <ecm-select
+                [items]="status"
+                placeholder="Chọn trạng thái"
+                bindLabel="label"
+                bindValue="id"
+                label="Trạng thái"
+                formControlName="status"
+            ></ecm-select>
+        </div>
+
+        <div class="col-md-3">
+            <ecm-input
+                [label]="'Giá'"
+                [type]="'number'"
+                [placeholder]="'Nhập giá tối thiêu'"
+                formControlName="fromPrice"
+            ></ecm-input>
+        </div>
+
+        <div class="col-md-3">
+            <ecm-input
+                [label]="'Giá'"
+                [type]="'number'"
+                [placeholder]="'Nhập giá tối đa'"
+                formControlName="toPrice"
+            ></ecm-input>
+        </div>
+    </div>
+</search-wrapper>

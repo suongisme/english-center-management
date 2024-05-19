@@ -1,0 +1,15 @@
+<div class="d-flex flex-column gap-2">
+    <div class="d-flex justify-content-between align-items-center">
+        <h4 class="text-capitalize">Danh sách khóa học</h4>
+        <button class="btn btn-sm btn-success" (click)="openAddCourseModal()">
+            <fa-icon [icon]="'plus'" class="me-2"></fa-icon>
+            <span class="text-capitalize"> Thêm khóa học</span>
+        </button>
+    </div>
+    <div style="height: 300px">
+        <course-grid
+            [rowData]="courses"
+            (afterUpdate)="afterUpdateClassRoom()"
+        ></course-grid>
+    </div>
+</div>

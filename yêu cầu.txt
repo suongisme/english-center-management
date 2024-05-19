@@ -17,7 +17,6 @@ Nhân viên trung tâm : Bao gồm nhân viên quản lý và giáo viên của 
 Nhân viên trung tâm có các chức năng sau:
 - Quản lý học viên :Cập nhật, thêm sửa, xóa
 - Quản lý giáo viên : Cập nhật, thêm sửa, xóa
-- Quản lý thông báo : thêm mới, cập nhật các mục thông báo được đăng trên website của trung tâm
 - Quản lý lớp học
 - Xếp lớp, xếp lịch
 - Nhập điểm học viên

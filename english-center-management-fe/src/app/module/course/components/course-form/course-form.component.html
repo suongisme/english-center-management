@@ -1,0 +1,103 @@
+<form [formGroup]="formGroup" class="d-flex flex-column row-gap-2">
+    <div class="row">
+        <div class="col-md-12">
+            <ecm-input
+                [label]="'Tên khóa học'"
+                [required]="true"
+                [variant]="'input'"
+                [placeholder]="'Nhập tên khóa học'"
+                formControlName="name"
+                [errorsMessage]="{
+                    required: 'Tên khóa học không được trống',
+                    maxLength: 'Tên khóa học tối đa 255 ký tự'
+                }"
+            ></ecm-input>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <ecm-input
+                [label]="'Giá'"
+                [type]="'number'"
+                [required]="true"
+                formControlName="price"
+                placeholder="Nhập giá khóa học"
+                [errorsMessage]="{
+                    required: 'Giá không được trống'
+                }"
+            ></ecm-input>
+        </div>
+        <div class="col-md-6">
+            <ecm-input
+                [label]="'Giảm giá (%)'"
+                [required]="true"
+                [type]="'number'"
+                [variant]="'input'"
+                [placeholder]="'Nhập giảm giá khóa học'"
+                formControlName="discount"
+                [errorsMessage]="{
+                    required: 'Giảm giá không được trống',
+                    min: 'Giảm giá tối thiểu là 0%',
+                    max: 'Giảm giá tối đa 100%'
+                }"
+            ></ecm-input>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <ecm-input
+                [label]="'Thời gian (giờ)'"
+                [required]="true"
+                [type]="'number'"
+                [variant]="'input'"
+                [placeholder]="'Nhập thời gian khóa học'"
+                formControlName="duration"
+                [errorsMessage]="{
+                    required: 'Thời gian không được trống',
+                    min: 'Thời gian tối thiểu là 1 giờ',
+                    max: 'Thời gian tối đa 24 giờ'
+                }"
+            ></ecm-input>
+        </div>
+
+        <div class="col-md-6">
+            <ecm-input
+                [label]="'Số khóa học'"
+                [required]="true"
+                [type]="'number'"
+                [variant]="'input'"
+                [placeholder]="'Nhập số khóa khóa học'"
+                formControlName="numberOfLesson"
+                [errorsMessage]="{
+                    required: 'Số khóa học không được trống'
+                }"
+            ></ecm-input>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <ecm-select
+                [label]="'Trạng thái'"
+                [required]="true"
+                [items]="status"
+                bindLabel="label"
+                bindValue="id"
+                placeholder="Chọn trạng thái"
+                formControlName="status"
+            ></ecm-select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <label class="fw-bold">Mô tả</label>
+            <p-editor
+                formControlName="description"
+                [style]="{ height: '320px' }"
+            />
+        </div>
+    </div>
+</form>

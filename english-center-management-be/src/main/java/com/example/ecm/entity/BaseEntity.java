@@ -22,11 +22,11 @@ import java.util.Date;
 public class BaseEntity {
 
     @CreatedDate
-    @Column(name = "CREATED_DATE")
+    @Column(name = "CREATED_DATE", updatable = false)
     private Date createdDate;
 
     @CreatedBy
-    @Column(name = "CREATED_BY")
+    @Column(name = "CREATED_BY", updatable = false)
     private String createdBy;
 
     @LastModifiedDate

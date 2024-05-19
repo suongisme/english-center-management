@@ -1,0 +1,18 @@
+<div class="d-flex flex-column gap-4 h-100">
+    <ecm-box>
+        <course-form-search (search)="ngOnSearch($event)"></course-form-search>
+    </ecm-box>
+    <ecm-box>
+        <div class="d-flex flex-column row-gap-4 h-100">
+            <course-grid-wrapper
+                [courses]="courses"
+                (createNew)="paginate(this.pagination)"
+            ></course-grid-wrapper>
+            <pagination
+                [pagination]="pagination"
+                (pageSizeChange)="paginate($event)"
+                (paginate)="paginate($event)"
+            ></pagination>
+        </div>
+    </ecm-box>
+</div>

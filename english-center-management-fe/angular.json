@@ -31,7 +31,12 @@
             ],
             "styles": [
               "src/template.scss",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/primeng/resources/themes/saga-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/quill/dist/quill.snow.css"
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
@@ -75,10 +80,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "fc-management-frontend:build:production"
+              "browserTarget": "english-center-management:build:production"
             },
             "development": {
-              "browserTarget": "fc-management-frontend:build:development"
+              "browserTarget": "english-center-management:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -86,7 +91,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "fc-management-frontend:build"
+            "browserTarget": "english-center-management:build"
           }
         },
         "test": {

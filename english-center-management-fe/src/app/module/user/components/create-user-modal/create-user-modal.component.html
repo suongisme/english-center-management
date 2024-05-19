@@ -1,0 +1,9 @@
+<modal-wrapper
+    [headerTitle]="user ? 'Cập nhật học viên' : 'Tạo mới học viên'"
+    (save)="onSaveUser()"
+>
+    <create-user-form
+        [user]="user"
+        (formInitialized)="formGroup = $event"
+    ></create-user-form>
+</modal-wrapper>

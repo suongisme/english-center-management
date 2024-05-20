@@ -10,10 +10,12 @@ import org.springframework.data.repository.query.Param;
 
 public interface IClassRoomRepository extends JpaRepository<ClassRoomEntity, Long> {
 
-    @Query("SELECT c FROM ClassRoomEntity c" +
-            " WHERE (:#{#data.name} IS NULL OR c.name LIKE CONCAT('%', :#{#data.name}, '%'))" +
-            "  AND (:#{#data.status} IS NULL OR c.status = :#{#data.status})" +
-            "  AND (:#{#data.position} IS NULL OR c.position = :#{#data.position})")
+    @Query("""
+        SELECT c FROM ClassRoomEntity c
+        WHERE (:#{#data.name} IS NULL OR c.name LIKE CONCAT('%', :#{#data.name}, '%'))
+            AND (:#{#data.status} IS NULL OR c.status = :#{#data.status})
+            AND (:#{#data.position} IS NULL OR c.position = :#{#data.position})
+    """)
     Page<ISearchClassRoomResponse> searchBy(
             @Param("data") SearchClassRoomRequest searchClassRoomRequest,
             Pageable pageable

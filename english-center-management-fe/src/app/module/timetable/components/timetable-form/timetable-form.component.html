@@ -100,11 +100,11 @@
                 [templates]="[
                     {
                         name: 'ng-option-tmp',
-                        templateRef: user
+                        templateRef: templateOption
                     },
                     {
                         name: 'ng-label-tmp',
-                        templateRef: user
+                        templateRef: templateLabel
                     }
                 ]"
             ></ecm-select>
@@ -114,4 +114,18 @@
 
 <ng-template #user ng-option-tmp let-item="item">
     <span>{{ item.lastName }} {{ item.firstName }}</span>
+</ng-template>
+
+<ng-template #templateLabel let-item="item" let-index="index" let-clear="clear">
+    <div class="ng-value">
+        <span class="ng-value-icon left" (click)="clear(item)"> &times; </span>
+        <span class="ng-value-label text-capitalize">
+            {{ item.lastName }} {{ item.firstName }}
+        </span>
+    </div>
+</ng-template>
+<ng-template #templateOption let-item="item" let-index="index">
+    <span class="text-capitalize ng-option-label">
+        {{ item.lastName }} {{ item.firstName }}
+    </span>
 </ng-template>

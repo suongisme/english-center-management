@@ -10,11 +10,13 @@ import org.springframework.data.repository.query.Param;
 
 public interface ICourseRepository extends JpaRepository<CourseEntity, Long> {
 
-    @Query("SELECT c FROM CourseEntity c" +
-            " WHERE (:#{#data.name} IS NULL OR c.name LIKE CONCAT('%', :#{#data.name}, '%'))" +
-            "  AND (:#{#data.fromPrice} IS NULL OR c.price >= :#{#data.fromPrice})" +
-            "  AND (:#{#data.toPrice} IS NULL OR c.price <= :#{#data.toPrice})" +
-            "  AND (:#{#data.status} IS NULL OR c.status = :#{#data.status})")
+    @Query("""
+        SELECT c FROM CourseEntity c
+        WHERE (:#{#data.name} IS NULL OR c.name LIKE CONCAT('%', :#{#data.name}, '%'))
+            AND (:#{#data.fromPrice} IS NULL OR c.price >= :#{#data.fromPrice})
+            AND (:#{#data.toPrice} IS NULL OR c.price <= :#{#data.toPrice})
+            AND (:#{#data.status} IS NULL OR c.status = :#{#data.status})
+    """)
     Page<ISearchCourseResponse> searchBy(
             @Param("data") SearchCourserRequest searchCourserRequest,
             Pageable pageable

@@ -38,7 +38,7 @@ export class CreateTimetableModal {
                         .success('Cập nhật lịch thành công')
                         .then((x) => {
                             if (x.isConfirmed) {
-                                this.activeModal.close();
+                                this.activeModal.close(true);
                             }
                         });
                 });
@@ -55,7 +55,7 @@ export class CreateTimetableModal {
                         .success('Tạo lịch thành công')
                         .then((x) => {
                             if (x.isConfirmed) {
-                                this.activeModal.close();
+                                this.activeModal.close(true);
                             }
                         });
                 });

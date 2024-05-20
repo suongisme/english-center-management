@@ -98,17 +98,18 @@ public class TimetableServiceImpl implements ITimetableService {
         final LocalTime startTime = entity.getStartTime();
         final LocalTime endTime = startTime.plusHours(course.getDuration());
 
-//        final Optional<TimetableEntity> timetableEntityOptional = this.timetableRepository.findByDuration(
-//                startTime,
-//                endTime,
-//                classRoom.getId(),
-//                teacher.getId(),
-//                entity.getDay()
-//        );
-//
-//        if (timetableEntityOptional.isPresent()) {
-//            throw new BusinessException(ErrorCode.TIMETABLE_EXIST);
-//        }
+        final Optional<TimetableEntity> timetableEntityOptional = this.timetableRepository.findByDuration(
+                        startTime,
+                        endTime,
+                        classRoom.getId(),
+                        teacher.getId(),
+                        entity.getDay()
+                )
+                .filter(x -> Objects.isNull(entity.getId()) || !x.getId().equals(entity.getId()));
+
+        if (timetableEntityOptional.isPresent()) {
+            throw new BusinessException(ErrorCode.TIMETABLE_EXIST);
+        }
 
         this.timetableRepository.save(entity);
         final List<Long> studentsIds = Stream.ofNullable(createTimetableRequest.getStudents())

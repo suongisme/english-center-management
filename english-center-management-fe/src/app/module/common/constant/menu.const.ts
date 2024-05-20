@@ -50,6 +50,6 @@ export const BASE_MENU: Menu[] = [
     {
         label: 'Quản lý bài test',
         icon: faTable,
-        link: 'test',
+        link: 'testing',
     },
 ];

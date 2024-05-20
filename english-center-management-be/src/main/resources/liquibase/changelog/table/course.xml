@@ -6,8 +6,8 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <property name="tableName" value="${prefixTableName}COURSE" global="false" />
-    <property name="clobType" value="longtext" dbms="mysql" global="false" />
-    <property name="idType" value="bigint" dbms="mysql" global="false" />
+    <property name="clobType" value="longtext" dbms="mysql, mariadb" global="false" />
+    <property name="idType" value="bigint" dbms="mysql, mariadb" global="false" />
 
     <changeSet id="${tableName}-1" author="anonymous">
         <preConditions onFail="CONTINUE" onFailMessage="${tableName} existed">

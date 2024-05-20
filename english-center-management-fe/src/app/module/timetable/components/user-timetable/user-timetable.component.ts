@@ -5,12 +5,12 @@ import {
     DestroyService,
     STATUS,
 } from '@ecm-module/common';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { takeUntil } from 'rxjs';
 import { DATE_OF_WEEK } from '../../constant';
-import { GetTimetableResponse, TimetableResponse } from '../../interface';
+import { TimetableResponse } from '../../interface';
 import { AddTimePipe } from '../../pipe';
 import { TimetableService } from '../../service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateTimetableModal } from '../create-timetable-modal/create-timetable-modal.component';
 
 @Component({
@@ -57,17 +57,22 @@ export class UserTimetableComponent implements OnInit {
                 this.timetableMap.forEach((value, key) => {
                     value.sort((x1, x2) => (x1.day > x2.day ? 1 : -1));
                 });
-                console.log(this.timetableMap);
             });
     }
 
     public openUpdateTimetable(id: number): void {
-        this.timetableService.getById(id).subscribe((res) => {
-            const modalRef = this.modalService.open(CreateTimetableModal, {
-                centered: true,
-                size: 'md',
+        this.timetableService
+            .getById(id)
+            .pipe(takeUntil(this.destroyService.$destroy))
+            .subscribe((res) => {
+                const modalRef = this.modalService.open(CreateTimetableModal, {
+                    centered: true,
+                    size: 'md',
+                });
+                modalRef.componentInstance.timetable = res;
+                modalRef.closed.subscribe((res) => {
+                    if (res) this.loadTimetable();
+                });
             });
-            modalRef.componentInstance.timetable = res;
-        });
     }
 }

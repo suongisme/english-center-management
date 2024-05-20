@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
             .pipe(takeUntil(this.destroyService.$destroy))
             .subscribe((lang) => {
                 this.titleService.setTitle(
-                    `${this.translateService.instant(this.title).toUpperCase()} | FMS`,
+                    `${this.translateService.instant(this.title).toUpperCase()} | ECM`,
                 );
             });
     }
@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
                 this.title = data.title;
                 this.sidebarService.changeTitle(this.title);
                 this.titleService.setTitle(
-                    `${this.translateService.instant(this.title).toUpperCase()} | FMS`,
+                    `${this.translateService.instant(this.title).toUpperCase()} | ECM`,
                 );
             });
     }

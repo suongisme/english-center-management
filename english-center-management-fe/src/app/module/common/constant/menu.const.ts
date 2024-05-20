@@ -48,6 +48,11 @@ export const BASE_MENU: Menu[] = [
         link: 'grade',
     },
     {
+        label: 'Ngân hàng câu hỏi',
+        icon: faTable,
+        link: 'question',
+    },
+    {
         label: 'Quản lý bài test',
         icon: faTable,
         link: 'testing',

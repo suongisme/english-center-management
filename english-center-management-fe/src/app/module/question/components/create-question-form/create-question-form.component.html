@@ -1,0 +1,110 @@
+<form [formGroup]="formGroup" class="d-flex flex-column row-gap-2">
+    <div class="row">
+        <div class="col-md-12">
+            <ecm-input
+                [label]="'Câu hỏi'"
+                [required]="true"
+                [variant]="'input'"
+                [placeholder]="'Nhập câu hỏi'"
+                formControlName="title"
+                [errorsMessage]="{
+                    required: 'Câu hỏi không được trống'
+                }"
+            ></ecm-input>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <ecm-select
+                [label]="'Cấp độ'"
+                [items]="level"
+                [required]="true"
+                bindLabel="label"
+                bindValue="id"
+                formControlName="level"
+                [errorsMessage]="{
+                    required: 'Cấp độ không được trống'
+                }"
+            ></ecm-select>
+        </div>
+        <div class="col-md-6">
+            <ecm-input
+                [label]="'Điểm'"
+                [required]="true"
+                [type]="'number'"
+                [variant]="'input'"
+                [placeholder]="'Nhập điểm'"
+                formControlName="score"
+                [errorsMessage]="{
+                    required: 'Điểm không được trống'
+                }"
+            ></ecm-input>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <ecm-select
+                [label]="'Trạng thái'"
+                [required]="true"
+                [items]="status"
+                bindLabel="label"
+                bindValue="id"
+                placeholder="Chọn trạng thái"
+                formControlName="status"
+            ></ecm-select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 d-flex flex-column row-gap-10px">
+            <div class="d-flex justify-content-between align-items-center">
+                <label class="fw-bold">Đáp án</label>
+                <button class="btn btn-sm btn-success" (click)="addAnswer()">
+                    Thêm đáp án
+                </button>
+            </div>
+
+            <div
+                class="d-flex flex-column row-gap-10px"
+                formArrayName="answers"
+            >
+                <div
+                    class="d-flex align-items-center justify-content-between gap-2"
+                    *ngFor="let answerForm of answers.controls; let i = index"
+                    [formArrayName]="i"
+                >
+                    <div class="form-check">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            [value]="true"
+                            formControlName="correct"
+                            (change)="onChangeCorrectAnswer(i)"
+                        />
+                    </div>
+
+                    <ecm-input
+                        [required]="true"
+                        [type]="'text'"
+                        [variant]="'input'"
+                        [placeholder]="'Nhập đáp án'"
+                        formControlName="title"
+                        class="flex-grow-1"
+                        [errorsMessage]="{
+                            required: 'Đáp án không được trống'
+                        }"
+                    ></ecm-input>
+
+                    <button
+                        class="text-danger bg-transparent border-0"
+                        (click)="removeAnswer(i)"
+                    >
+                        <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -5,5 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
     <property name="prefixTableName" value="TB_" global="true" />
+    <property name="clobType" value="longtext" dbms="mysql, mariadb" global="true" />
+    <property name="idType" value="bigint" dbms="mysql, mariadb" global="true" />
     <includeAll path="./table" relativeToChangelogFile="true" />
 </databaseChangeLog>

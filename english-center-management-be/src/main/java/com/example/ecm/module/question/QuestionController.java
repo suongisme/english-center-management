@@ -1,0 +1,43 @@
+package com.example.ecm.module.question;
+
+import com.example.ecm.model.ApiBody;
+import com.example.ecm.model.ApiResponse;
+import com.example.ecm.model.SearchRequest;
+import com.example.ecm.module.question.request.CreateQuestionRequest;
+import com.example.ecm.module.question.request.SearchQuestionRequest;
+import com.example.ecm.module.question.request.UpdateQuestionRequest;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/questions")
+@RequiredArgsConstructor
+public class QuestionController {
+
+    private final IQuestionService questionService;
+
+    @GetMapping
+    public ApiResponse findById(@RequestParam Long questionId) {
+        final ApiBody apiBody = this.questionService.findById(questionId);
+        return ApiResponse.ok(apiBody);
+    }
+
+    @PostMapping("/search")
+    public ApiResponse searchQuestion(@RequestBody @Valid SearchRequest<SearchQuestionRequest> request) {
+        final ApiBody apiBody = this.questionService.searchQuestion(request);
+        return ApiResponse.ok(apiBody);
+    }
+
+    @PostMapping
+    public ApiResponse createQuestion(@RequestBody @Valid CreateQuestionRequest request) {
+        this.questionService.createQuestion(request);
+        return ApiResponse.ok();
+    }
+
+    @PutMapping
+    public ApiResponse updateQuestion(@RequestBody @Valid UpdateQuestionRequest request) {
+        this.questionService.updateQuestion(request);
+        return ApiResponse.ok();
+    }
+}

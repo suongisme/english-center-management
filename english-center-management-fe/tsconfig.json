@@ -45,6 +45,9 @@
       "@ecm-module/timetable": [
         "src/app/module/timetable/index.ts"
       ],
+      "@ecm-module/question": [
+        "src/app/module/question/index.ts"
+      ],
       "@ecm-layout/main": [
         "src/app/layout/main/index.ts"
       ],

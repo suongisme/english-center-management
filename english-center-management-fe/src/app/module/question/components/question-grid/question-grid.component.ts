@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
-import { CreateClassRoomModal } from '@ecm-module/class-room';
 import {
     ActionColumnComponent,
     GridCore,
-    MoneyPipe,
     STATUS,
     formatDate,
 } from '@ecm-module/common';
@@ -13,22 +11,24 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
-import { CreateCourseModal } from '../create-course-modal/create-course-modal.component';
+import { CreateQuestionModal } from '../create-question-modal/create-question-modal.component';
+import { SearchQuestionResponse } from '../../interface';
+import { LEVEL } from '../../constant';
+import { QuestionService } from '../../service';
 
 @Component({
-    selector: 'course-grid',
+    selector: 'question-grid',
     templateUrl:
         '../../../common/components/grid-core/grid-core.component.html',
-    styleUrls: ['./course-grid.component.scss'],
+    styleUrls: ['./question-grid.component.scss'],
     standalone: true,
     imports: [AgGridAngular, TranslateModule],
-    providers: [MoneyPipe],
 })
-export class CourseGridComponent extends GridCore<any> {
+export class QuestionGridComponent extends GridCore<SearchQuestionResponse> {
     @Output() afterUpdate = new EventEmitter();
 
     private readonly modalService = inject(NgbModal);
-    private readonly moneyPipe = inject(MoneyPipe);
+    private readonly questionService = inject(QuestionService);
 
     constructor() {
         super();
@@ -49,51 +49,34 @@ export class CourseGridComponent extends GridCore<any> {
                 pinned: 'left',
             },
             {
-                headerValueGetter: (param) => 'Tên khóa học',
+                headerValueGetter: (param) => 'Câu hỏi',
                 minWidth: 100,
-                field: 'name',
-                tooltipField: 'name',
+                field: 'title',
+                tooltipField: 'title',
             },
             {
-                headerValueGetter: (param) => 'Giá tiền',
+                headerValueGetter: (param) => 'Đáp án',
                 minWidth: 50,
-                valueGetter: ({ data }) => {
-                    return this.moneyPipe.transform(data.price, 'VND');
-                },
-                tooltipValueGetter: ({ data }) => {
-                    return this.moneyPipe.transform(data.price, 'VND');
-                },
-            },
-            {
-                headerValueGetter: (param) => 'Giảm giá (%)',
-                minWidth: 100,
-                field: 'discount',
-                tooltipField: 'discount',
+                field: 'answerTitle',
+                tooltipField: 'answerTitle',
             },
 
             {
-                headerValueGetter: (param) => 'Thời lượng (giờ)',
-                minWidth: 100,
-                field: 'duration',
-                tooltipField: 'duration',
-            },
-
-            {
-                headerValueGetter: (param) => 'Số tiết học',
-                minWidth: 100,
-                field: 'numberOfLesson',
-                tooltipField: 'numberOfLesson',
-            },
-
-            {
-                headerValueGetter: (param) => 'Trạng thái',
+                headerValueGetter: (param) => 'Cấp độ',
                 minWidth: 100,
                 valueGetter: ({ data }) => {
-                    return STATUS[data.status].label;
+                    return LEVEL[data.level - 1].label;
                 },
                 tooltipValueGetter: ({ data }) => {
-                    return STATUS[data.status].label;
+                    return LEVEL[data.level - 1].label;
                 },
+            },
+
+            {
+                headerValueGetter: (param) => 'Điểm',
+                minWidth: 100,
+                field: 'score',
+                tooltipField: 'score',
             },
 
             {
@@ -115,6 +98,17 @@ export class CourseGridComponent extends GridCore<any> {
             },
 
             {
+                headerValueGetter: (param) => 'Trạng thái',
+                minWidth: 100,
+                valueGetter: ({ data }) => {
+                    return STATUS[data.status].label;
+                },
+                tooltipValueGetter: ({ data }) => {
+                    return STATUS[data.status].label;
+                },
+            },
+
+            {
                 headerValueGetter: (param) =>
                     this.translateService.instant('COMMON.ACTION'),
                 cellRenderer: ActionColumnComponent,
@@ -123,7 +117,7 @@ export class CourseGridComponent extends GridCore<any> {
                         {
                             icon: faEdit,
                             classes: 'text-warning',
-                            onClick: this.onEditCourse.bind(this),
+                            onClick: this.onEditQuestion.bind(this),
                         },
                     ],
                 },
@@ -141,17 +135,21 @@ export class CourseGridComponent extends GridCore<any> {
         return null;
     }
 
-    public onEditCourse(param: ICellRendererParams): void {
-        const course = param.data;
-        const modalRef = this.modalService.open(CreateCourseModal, {
-            centered: true,
-            size: 'xl',
-        });
-        modalRef.componentInstance.course = course;
-        modalRef.closed.subscribe((res) => {
-            if (res) {
-                this.afterUpdate.emit();
-            }
-        });
+    public onEditQuestion(param: ICellRendererParams): void {
+        const question = param.data;
+        this.questionService
+            .getById(question.id)
+            .subscribe((questionResponse) => {
+                const modalRef = this.modalService.open(CreateQuestionModal, {
+                    centered: true,
+                    size: 'md',
+                });
+                modalRef.componentInstance.question = questionResponse;
+                modalRef.closed.subscribe((res) => {
+                    if (res) {
+                        this.afterUpdate.emit();
+                    }
+                });
+            });
     }
 }

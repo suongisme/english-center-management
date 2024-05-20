@@ -1,0 +1,9 @@
+<modal-wrapper
+    [headerTitle]="question ? 'Cập nhật câu hỏi' : 'Tạo mới câu hỏi'"
+    (save)="onSaveClassRoom()"
+>
+    <create-question-form
+        [question]="question"
+        (formInitialized)="formGroup = $event"
+    ></create-question-form>
+</modal-wrapper>

@@ -5,6 +5,7 @@ import { router as userRouter } from '../../pages/user/router';
 import { router as classRoomRouter } from '../../pages/class-room/router';
 import { router as courseRouter } from '../../pages/course/router';
 import { router as timetableRouter } from '../../pages/timetable/router';
+import { router as questionRouter } from '../../pages/question/router';
 
 export const routes: Routes = [
     {
@@ -16,6 +17,7 @@ export const routes: Routes = [
             classRoomRouter,
             courseRouter,
             timetableRouter,
+            questionRouter,
         ],
     },
 ];

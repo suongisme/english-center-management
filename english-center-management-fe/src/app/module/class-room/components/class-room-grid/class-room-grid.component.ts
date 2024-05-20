@@ -101,7 +101,7 @@ export class ClassRoomGridComponent extends GridCore<any> {
                         {
                             icon: faEdit,
                             classes: 'text-warning',
-                            onClick: this.onEditMember.bind(this),
+                            onClick: this.onEditClassRoom.bind(this),
                         },
                     ],
                 },
@@ -119,7 +119,7 @@ export class ClassRoomGridComponent extends GridCore<any> {
         return null;
     }
 
-    public onEditMember(param: ICellRendererParams): void {
+    public onEditClassRoom(param: ICellRendererParams): void {
         const classRoom = param.data;
         const modalRef = this.modalService.open(CreateClassRoomModal, {
             centered: true,

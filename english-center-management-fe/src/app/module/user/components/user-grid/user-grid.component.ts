@@ -118,7 +118,7 @@ export class UserGridComponent extends GridCore<any> {
                         {
                             icon: faEdit,
                             classes: 'text-warning',
-                            onClick: this.onEditMember.bind(this),
+                            onClick: this.onEditUser.bind(this),
                         },
                         {
                             icon: faTable,
@@ -141,7 +141,7 @@ export class UserGridComponent extends GridCore<any> {
         return null;
     }
 
-    public onEditMember(param: ICellRendererParams): void {
+    public onEditUser(param: ICellRendererParams): void {
         const user = param.data;
         const modalRef = this.modalService.open(CreateUserModal, {
             centered: true,

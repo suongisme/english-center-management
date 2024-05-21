@@ -57,4 +57,9 @@ export const BASE_MENU: Menu[] = [
         icon: faTable,
         link: 'testing',
     },
+    {
+        label: 'Điểm danh',
+        icon: faTable,
+        link: 'checkin',
+    },
 ];

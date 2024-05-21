@@ -2,11 +2,14 @@ package com.example.ecm.module.user;
 
 import com.example.ecm.module.user.request.SearchUserRequest;
 import com.example.ecm.module.user.response.ISearchUserResponse;
+import com.example.ecm.module.user.response.IStudentTimetableResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 public interface IUserRepository extends JpaRepository<UserEntity, Long> {
 
@@ -17,4 +20,20 @@ public interface IUserRepository extends JpaRepository<UserEntity, Long> {
             AND (:#{#data.role} IS NULL OR :#{#data.role} = s.role)
     """)
     Page<ISearchUserResponse> searchBy(@Param("data") SearchUserRequest searchStudentRequest, Pageable pageable);
+
+    @Query("""
+        SELECT
+            u.firstName as firstName,
+            u.lastName as lastName,
+            u.id as id,
+            cks.absent as absent,
+            cks.note as note
+        FROM TimetableEntity t
+            JOIN TimetableStudentEntity ts ON t.id = ts.timetableId
+            JOIN UserEntity u ON u.id = ts.studentId
+            LEFT JOIN CheckinEntity ck ON ck.timetableId = t.id
+            LEFT JOIN CheckinStudentEntity cks ON cks.checkinId = ck.id AND cks.studentId = u.id
+        WHERE t.id = ?1
+    """)
+    List<IStudentTimetableResponse> getByTimetableId(Long timetableId);
 }

@@ -15,23 +15,29 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final IUserService studentService;
+    private final IUserService userService;
 
     @PostMapping("/search")
     public ApiResponse searchUser(@RequestBody @Valid SearchRequest<SearchUserRequest> searchStudentRequestSearchRequest) {
-        ApiBody apiBody = this.studentService.searchUser(searchStudentRequestSearchRequest);
+        ApiBody apiBody = this.userService.searchUser(searchStudentRequestSearchRequest);
         return ApiResponse.ok(apiBody);
     }
 
     @PostMapping
     public ApiResponse createUser(@RequestBody @Valid CreateUserRequest createStudentRequest) {
-        this.studentService.createUser(createStudentRequest);
+        this.userService.createUser(createStudentRequest);
         return ApiResponse.ok();
     }
 
     @PutMapping
     public ApiResponse updateUser(@RequestBody @Valid UpdateUserRequest updateStudentRequest) {
-        this.studentService.updateUser(updateStudentRequest);
+        this.userService.updateUser(updateStudentRequest);
         return ApiResponse.ok();
+    }
+
+    @GetMapping("/timetable")
+    public ApiResponse getStudentInTimetable(@RequestParam Long timetableId) {
+        final ApiBody apiBody = this.userService.getByTimetableId(timetableId);
+        return ApiResponse.ok(apiBody);
     }
 }

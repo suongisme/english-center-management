@@ -12,6 +12,7 @@ import com.example.ecm.module.user.UserEntity;
 import com.example.ecm.module.user.request.SearchUserRequest;
 import com.example.ecm.module.user.request.UpdateUserRequest;
 import com.example.ecm.module.user.response.ISearchUserResponse;
+import com.example.ecm.module.user.response.IStudentTimetableResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -21,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -67,5 +69,11 @@ public class UserServiceImpl implements IUserService {
         }
         requestEntity.setId(user.getId());
         this.studentRepository.save(requestEntity);
+    }
+
+    @Override
+    public ApiBody getByTimetableId(Long timetableId) {
+        final List<IStudentTimetableResponse> response = this.studentRepository.getByTimetableId(timetableId);
+        return ApiBody.of(response);
     }
 }

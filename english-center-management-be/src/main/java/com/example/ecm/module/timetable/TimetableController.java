@@ -8,6 +8,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 @RestController
 @RequestMapping("/timetable")
 @RequiredArgsConstructor
@@ -22,8 +24,8 @@ public class TimetableController {
     }
 
     @GetMapping("/get-by-user-id")
-    public ApiResponse getTimetableByUser(@RequestParam Long userId) {
-        final ApiBody apiBody = this.timetableService.getByUserId(userId);
+    public ApiResponse getTimetableByUser(@RequestParam Long userId, @RequestParam(required = false) Integer day) {
+        final ApiBody apiBody = this.timetableService.getByUserIdAndDay(userId, day);
         return ApiResponse.ok(apiBody);
     }
 

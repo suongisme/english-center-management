@@ -26,10 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.time.LocalTime;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Stream;
 
 @Service
@@ -44,11 +41,17 @@ public class TimetableServiceImpl implements ITimetableService {
     private final ITimetableStudentService timetableStudentService;
 
     @Override
-    public ApiBody getByUserId(Long userId) {
+    public TimetableEntity findByIdThrowIfNotPresent(Long id) {
+        return this.timetableRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RECORD));
+    }
+
+    @Override
+    public ApiBody getByUserIdAndDay(Long userId, Integer day) {
         final UserEntity user = this.userService.findByIdThrowIfNotPresent(userId);
         List<IUserTimetableResponse> response;
         if (RoleEnum.TEACHER.name().equalsIgnoreCase(user.getRole())) {
-            response = this.timetableRepository.findByTeacherId(userId);
+            response = this.timetableRepository.findByTeacherIdAndDay(userId, day);
         } else {
             response = this.timetableRepository.findByStudentId(userId);
         }

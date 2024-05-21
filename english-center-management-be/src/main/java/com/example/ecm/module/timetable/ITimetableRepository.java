@@ -44,10 +44,10 @@ public interface ITimetableRepository extends JpaRepository<TimetableEntity, Lon
             JOIN CourseEntity c ON c.id = t.courseId
             JOIN ClassRoomEntity cr ON cr.id = t.classRoomId
             JOIN UserEntity u ON u.id = t.teacherId
-        WHERE t.status = 1 AND t.teacherId = ?1
+        WHERE t.status = 1 AND t.teacherId = ?1 AND (?2 IS NULL OR t.day = ?2)
             ORDER BY t.startTime ASC
     """)
-    List<IUserTimetableResponse> findByTeacherId(Long teacherId);
+    List<IUserTimetableResponse> findByTeacherIdAndDay(Long teacherId, Integer day);
 
     @Query("""
         SELECT t.id as id,

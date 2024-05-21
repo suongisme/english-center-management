@@ -35,14 +35,21 @@ export class TimetableService {
         );
     }
 
-    public getByUserId(userId: number): Observable<TimetableResponse[]> {
+    public getByUserId(
+        userId: number,
+        day?: number,
+    ): Observable<TimetableResponse[]> {
+        const param: any = {
+            userId: userId,
+        };
+        if (day) {
+            param.day = day;
+        }
         return this.httpClient
             .get<TimetableResponse>(
                 `${TimetableService.ENDPOINT}/get-by-user-id`,
                 {
-                    params: {
-                        userId: userId,
-                    },
+                    params: param,
                 },
             )
             .pipe(

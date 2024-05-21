@@ -51,6 +51,9 @@
       "@ecm-module/testing": [
         "src/app/module/testing/index.ts"
       ],
+      "@ecm-module/checkin": [
+        "src/app/module/checkin/index.ts"
+      ],
       "@ecm-layout/main": [
         "src/app/layout/main/index.ts"
       ],

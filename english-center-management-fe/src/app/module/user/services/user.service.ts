@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { ApiBody, ApiResponse } from '@ecm-module/common';
+import { ApiBody, ApiResponse, mappingDataResponse } from '@ecm-module/common';
 import {
     CreateUser,
+    StudentTimetableResponse,
     UpdateUser,
     UserSearchRequest,
     UserSearchResponse,
@@ -42,5 +43,19 @@ export class UserService {
                 map<any, ApiBody>((x: ApiResponse) => x.apiBody),
                 map<ApiBody, PagingResponse<UserSearchResponse>>((x) => x.data),
             );
+    }
+
+    public getByTimetable(
+        timetableId: number,
+    ): Observable<StudentTimetableResponse[]> {
+        const response = this.httpClient.get<ApiResponse>(
+            `${environment.BE_URL}/users/timetable`,
+            {
+                params: {
+                    timetableId: timetableId,
+                },
+            },
+        );
+        return mappingDataResponse(response);
     }
 }

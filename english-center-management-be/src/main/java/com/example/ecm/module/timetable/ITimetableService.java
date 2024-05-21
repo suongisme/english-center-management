@@ -3,10 +3,15 @@ package com.example.ecm.module.timetable;
 import com.example.ecm.model.ApiBody;
 import com.example.ecm.module.timetable.request.CreateTimetableRequest;
 import com.example.ecm.module.timetable.request.UpdateTimetableRequest;
+import org.springframework.lang.Nullable;
+
+import java.util.Date;
 
 public interface ITimetableService {
 
-    ApiBody getByUserId(Long userId);
+    TimetableEntity findByIdThrowIfNotPresent(Long id);
+
+    ApiBody getByUserIdAndDay(Long userId, @Nullable Integer day);
 
     ApiBody getById(Long id);
 

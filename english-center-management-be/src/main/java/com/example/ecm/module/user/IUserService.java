@@ -6,6 +6,8 @@ import com.example.ecm.module.user.request.CreateUserRequest;
 import com.example.ecm.module.user.request.SearchUserRequest;
 import com.example.ecm.module.user.request.UpdateUserRequest;
 
+import java.util.List;
+
 public interface IUserService {
 
     void createUser(CreateUserRequest createStudentRequest);
@@ -15,4 +17,6 @@ public interface IUserService {
     ApiBody searchUser(SearchRequest<SearchUserRequest> searchStudentRequest);
 
     UserEntity findByIdThrowIfNotPresent(Long id);
+
+    ApiBody getByTimetableId(Long timetableId);
 }

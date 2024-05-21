@@ -6,15 +6,14 @@ import {
     formatDate,
 } from '@ecm-module/common';
 
-import { faEdit, faTable, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
+import { faEdit, faTable } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
 import { ROLE } from '../../constant';
 import { CreateUserModal } from '../create-user-modal/create-user-modal.component';
-import { TimetableService } from '@ecm-module/timetable';
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'user-grid',

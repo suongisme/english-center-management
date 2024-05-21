@@ -1,0 +1,10 @@
+<div *ngIf="users">
+    <user-checkin
+        [readonly]="isExist"
+        [users]="users"
+        (formInitialized)="formArray = $event"
+    ></user-checkin>
+    <button *ngIf="!isExist" class="btn btn-success" (click)="ngOnSubmit()">
+        Điểm danh
+    </button>
+</div>

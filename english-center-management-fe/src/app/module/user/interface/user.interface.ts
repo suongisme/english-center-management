@@ -23,3 +23,10 @@ export interface UserSearchRequest {
 }
 
 export interface UserSearchResponse extends UpdateUser {}
+
+export interface StudentTimetableResponse {
+    id: number;
+    name: string;
+    absent: boolean;
+    note: string;
+}

@@ -6,7 +6,14 @@ import {
     HttpRequest,
 } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { EMPTY, Observable, TimeoutError, catchError, timeout } from 'rxjs';
+import {
+    EMPTY,
+    Observable,
+    TimeoutError,
+    catchError,
+    throwError,
+    timeout,
+} from 'rxjs';
 import { NotifierService } from './notifier.service';
 import { environment } from 'environment';
 import { TranslateService } from '@ngx-translate/core';
@@ -50,7 +57,7 @@ export class AuthInterceptor implements HttpInterceptor {
                 } else {
                     this.notifierService.error(err.message, null);
                 }
-                return EMPTY;
+                return throwError(() => err);
             }),
         );
     }

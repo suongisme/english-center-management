@@ -1,0 +1,12 @@
+<div class="d-flex flex-column row-gap-20px">
+    <button-back></button-back>
+    <create-testing-form
+        [testing]="testingResponse"
+        (formInitialized)="formGroup = $event"
+    ></create-testing-form>
+    <div class="d-flex justify-content-center">
+        <button class="btn btn-sm btn-success" (click)="ngOnSaveTesting()">
+            lưu bài test
+        </button>
+    </div>
+</div>

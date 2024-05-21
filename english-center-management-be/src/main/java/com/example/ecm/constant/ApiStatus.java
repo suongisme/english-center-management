@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
-public enum Status {
+public enum ApiStatus {
     SUCCESS("SUCCESS", "Thao tác thành công"),
     FAIL("FAIL", "Tháo tác thất bại"),
     UNKNOWN("UNKNOWN", "Không xác định");

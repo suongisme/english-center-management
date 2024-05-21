@@ -3,7 +3,6 @@ import {
     ClassRoomFormSearchComponent,
     ClassRoomGridWrapperComponent,
     ClassRoomService,
-    CreateClassRoomModal,
     SearchClassRoomRequest,
     SearchClassRoomResponse,
 } from '@ecm-module/class-room';
@@ -15,7 +14,6 @@ import {
 } from '@ecm-module/common';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { takeUntil } from 'rxjs';
 
@@ -40,18 +38,10 @@ export class ClassRoomPage implements OnInit {
     public classRooms: SearchClassRoomResponse[];
 
     private readonly destroyService = inject(DestroyService);
-    private readonly modalService = inject(NgbModal);
     private readonly classRoomService = inject(ClassRoomService);
 
     public ngOnInit(): void {
         this.paginate(this.pagination);
-    }
-
-    public ngOnOpenCreateUser(): void {
-        this.modalService.open(CreateClassRoomModal, {
-            size: 'md',
-            centered: true,
-        });
     }
 
     public ngOnSearch(searchRequest: SearchClassRoomRequest): void {

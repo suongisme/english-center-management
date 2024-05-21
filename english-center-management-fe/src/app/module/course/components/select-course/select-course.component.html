@@ -1,0 +1,10 @@
+<ecm-select
+    [label]="'Khóa học'"
+    [required]="true"
+    [items]="$course | async"
+    bindLabel="name"
+    bindValue="id"
+    placeholder="Chọn khóa học"
+    [(ngModel)]="courseId"
+    (ngModelChange)="change.emit($event)"
+></ecm-select>

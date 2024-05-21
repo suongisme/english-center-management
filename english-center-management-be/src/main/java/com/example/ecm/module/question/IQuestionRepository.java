@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface IQuestionRepository extends JpaRepository<QuestionEntity, Long> {
 
     @Query("""
@@ -21,4 +23,12 @@ public interface IQuestionRepository extends JpaRepository<QuestionEntity, Long>
             @Param("data") SearchQuestionRequest questionRequest,
             Pageable pageable
     );
+
+    @Query("""
+        SELECT q as question, a.id as answerid, a.title as answerTitle FROM QuestionEntity q
+            LEFT JOIN AnswerEntity a ON a.questionId = q.id AND a.correct = true
+            JOIN TestingDetailEntity td ON td.questionId = q.id
+        WHERE td.testingId = ?1
+    """)
+    List<ISearchQuestionResponse> getByTestingId(Long testingId);
 }

@@ -22,11 +22,6 @@
             </column>
             <column name="TESTING_ID" type="bigint" />
             <column name="QUESTION_ID" type="bigint" />
-            <column name="STATUS" type="number" />
-            <column name="CREATED_DATE" type="datetime" />
-            <column name="CREATED_BY" type="varchar(255)" />
-            <column name="UPDATED_DATE" type="datetime" />
-            <column name="UPDATED_BY" type="varchar(255)" />
         </createTable>
     </changeSet>
 </databaseChangeLog>

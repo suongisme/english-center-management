@@ -1,5 +1,6 @@
 package com.example.ecm.module.question.impl;
 
+import com.example.ecm.constant.AppConstant;
 import com.example.ecm.constant.ErrorCode;
 import com.example.ecm.exception.BusinessException;
 import com.example.ecm.model.ApiBody;
@@ -22,9 +23,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -77,5 +81,25 @@ public class QuestionServiceImpl implements IQuestionService {
         entity.setId(question.getId());
         this.questionRepository.save(entity);
         this.answerService.saveBatchAnswer(question.getId(), updateQuestionRequest.getAnswers());
+    }
+
+    @Override
+    public void checkActiveQuestion(List<Long> questionIds) {
+        final HashSet<Long> questionIdsSet = new HashSet<>(questionIds);
+        final List<QuestionEntity> questions = this.questionRepository.findAllById(questionIdsSet);
+        if (questionIdsSet.size() != questions.size()) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_RECORD);
+        }
+        final List<String> inactiveQuestions = questions.stream().filter(question -> question.getStatus().equals(AppConstant.INACTIVE))
+                .map(QuestionEntity::getTitle)
+                .toList();
+        if (CollectionUtils.isEmpty(inactiveQuestions)) return;
+        final String inactive = String.join(",", inactiveQuestions);
+        throw new BusinessException(ErrorCode.VALIDATE_FAIL, String.format("Câu hỏi %s không hoạt động", inactive));
+    }
+
+    @Override
+    public List<ISearchQuestionResponse> getByTestingId(long testingId) {
+        return this.questionRepository.getByTestingId(testingId);
     }
 }

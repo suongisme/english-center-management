@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { SpinnerService } from '../../service/sprinner.service';
 import { AsyncPipe, NgIf } from '@angular/common';
+import { take } from 'rxjs';
 
 @Component({
     selector: 'spinner',

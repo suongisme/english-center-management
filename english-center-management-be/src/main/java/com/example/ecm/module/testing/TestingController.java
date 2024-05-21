@@ -1,0 +1,43 @@
+package com.example.ecm.module.testing;
+
+import com.example.ecm.model.ApiBody;
+import com.example.ecm.model.ApiResponse;
+import com.example.ecm.model.SearchRequest;
+import com.example.ecm.module.testing.request.CreateTestingRequest;
+import com.example.ecm.module.testing.request.SearchTestingRequest;
+import com.example.ecm.module.testing.request.UpdateTestingRequest;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/testings")
+@RequiredArgsConstructor
+public class TestingController {
+
+    private final ITestingService testingService;
+
+    @GetMapping
+    public ApiResponse getById(@RequestParam Long testingId) {
+        final ApiBody apiBody = this.testingService.getById(testingId);
+        return ApiResponse.ok(apiBody);
+    }
+
+    @PostMapping("/search")
+    public ApiResponse searchTesting(@RequestBody @Valid SearchRequest<SearchTestingRequest> searchRequest) {
+        final ApiBody apiBody = this.testingService.searchTesting(searchRequest);
+        return ApiResponse.ok(apiBody);
+    }
+
+    @PostMapping
+    public ApiResponse createTesting(@RequestBody @Valid CreateTestingRequest createTestingRequest) {
+        this.testingService.createTesting(createTestingRequest);
+        return ApiResponse.ok();
+    }
+
+    @PutMapping
+    public ApiResponse updateTesting(@RequestBody @Valid UpdateTestingRequest updateTestingRequest) {
+        this.testingService.updateTesting(updateTestingRequest);
+        return ApiResponse.ok();
+    }
+}

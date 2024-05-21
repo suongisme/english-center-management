@@ -48,6 +48,9 @@
       "@ecm-module/question": [
         "src/app/module/question/index.ts"
       ],
+      "@ecm-module/testing": [
+        "src/app/module/testing/index.ts"
+      ],
       "@ecm-layout/main": [
         "src/app/layout/main/index.ts"
       ],

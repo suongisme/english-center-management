@@ -1,0 +1,32 @@
+<search-wrapper
+    [formGroup]="formGroup"
+    class="d-flex flex-column row-gap-3"
+    (search)="ngOnSearch($event)"
+>
+    <div class="row row-gap-3">
+        <div class="col-md-4">
+            <ecm-input
+                [label]="'Tên lớp'"
+                [placeholder]="'Nhập tên lớp'"
+                formControlName="name"
+            ></ecm-input>
+        </div>
+
+        <div class="col-md-4">
+            <ecm-select
+                [items]="status"
+                placeholder="Chọn trạng thái"
+                bindLabel="label"
+                bindValue="id"
+                label="Trạng thái"
+                formControlName="status"
+            ></ecm-select>
+        </div>
+
+        <div class="col-md-4">
+            <select-course
+                (change)="formGroup.controls.courseId.setValue($event)"
+            ></select-course>
+        </div>
+    </div>
+</search-wrapper>

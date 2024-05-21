@@ -1,4 +1,11 @@
-import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    inject,
+} from '@angular/core';
 import {
     FormBuilder,
     FormGroup,
@@ -14,12 +21,14 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchQuestionRequest } from '../../interface/question.interface';
 import { LEVEL } from '../../constant/question.const';
+import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'question-form-search',
     templateUrl: './form-search.component.html',
     standalone: true,
     imports: [
+        NgIf,
         FormsModule,
         ReactiveFormsModule,
         TranslateModule,
@@ -30,6 +39,8 @@ import { LEVEL } from '../../constant/question.const';
     ],
 })
 export class QuestionFormSearchComponent implements OnInit {
+    @Input() searchByStatus: boolean = true;
+
     @Output() search = new EventEmitter<SearchQuestionRequest>();
 
     private formBuilder: FormBuilder = inject(FormBuilder);

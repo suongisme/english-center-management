@@ -1,9 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import {
-    PagingRequest,
-    PagingResponse,
-} from '../../common/interface/paging.interface';
+import { PagingRequest, PagingResponse } from '@ecm-module/common';
 import {
     CreateQuestionRequest,
     GetQuestionResponse,
@@ -13,7 +10,7 @@ import {
 } from '../interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environment';
-import { ApiBody, ApiResponse } from '../../common/interface';
+import { ApiBody, ApiResponse } from '@ecm-module/common';
 
 @Injectable({
     providedIn: 'root',

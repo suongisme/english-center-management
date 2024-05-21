@@ -5,6 +5,9 @@ import com.example.ecm.model.SearchRequest;
 import com.example.ecm.module.question.request.CreateQuestionRequest;
 import com.example.ecm.module.question.request.SearchQuestionRequest;
 import com.example.ecm.module.question.request.UpdateQuestionRequest;
+import com.example.ecm.module.question.response.ISearchQuestionResponse;
+
+import java.util.List;
 
 public interface IQuestionService {
 
@@ -15,4 +18,8 @@ public interface IQuestionService {
     void createQuestion(CreateQuestionRequest createQuestionRequest);
 
     void updateQuestion(UpdateQuestionRequest updateQuestionRequest);
+
+    void checkActiveQuestion(List<Long> questionIds);
+
+    List<ISearchQuestionResponse> getByTestingId(long testingId);
 }

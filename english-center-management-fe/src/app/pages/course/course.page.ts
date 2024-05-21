@@ -10,13 +10,11 @@ import {
     CourseFormSearchComponent,
     CourseGridWrapperComponent,
     CourseService,
-    CreateCourseModal,
     SearchCourseRequest,
     SearchCourseResponse,
 } from '@ecm-module/course';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { takeUntil } from 'rxjs';
 
@@ -41,18 +39,10 @@ export class CoursePage implements OnInit {
     public courses: SearchCourseResponse[];
 
     private readonly destroyService = inject(DestroyService);
-    private readonly modalService = inject(NgbModal);
     private readonly courseService = inject(CourseService);
 
     public ngOnInit(): void {
         this.paginate(this.pagination);
-    }
-
-    public ngOnOpenCreateUser(): void {
-        this.modalService.open(CreateCourseModal, {
-            size: 'xl',
-            centered: true,
-        });
     }
 
     public ngOnSearch(searchRequest: SearchCourseRequest): void {

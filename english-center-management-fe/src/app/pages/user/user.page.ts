@@ -7,14 +7,12 @@ import {
 } from '@ecm-module/common';
 
 import {
-    CreateUserModal,
     UserFormSearchComponent,
     UserGridWrapperComponent,
     UserSearchRequest,
     UserSearchResponse,
 } from '@ecm-module/user';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { takeUntil } from 'rxjs';
 import { UserService } from 'src/app/module/user/services';
@@ -40,18 +38,10 @@ export class UserPage implements OnInit {
     public users: UserSearchResponse[];
 
     private readonly destroyService = inject(DestroyService);
-    private readonly modalService = inject(NgbModal);
     private readonly userService = inject(UserService);
 
     public ngOnInit(): void {
         this.paginate(this.pagination);
-    }
-
-    public ngOnOpenCreateUser(): void {
-        this.modalService.open(CreateUserModal, {
-            size: 'lg',
-            centered: true,
-        });
     }
 
     public ngOnSearch(searchRequest: UserSearchRequest): void {

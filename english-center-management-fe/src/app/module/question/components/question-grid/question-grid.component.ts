@@ -1,20 +1,25 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import {
     ActionColumnComponent,
+    ConfirmationComponent,
     GridCore,
     STATUS,
     formatDate,
 } from '@ecm-module/common';
 
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { AgGridAngular } from 'ag-grid-angular';
-import { ColDef, ICellRendererParams } from 'ag-grid-community';
-import { CreateQuestionModal } from '../create-question-modal/create-question-modal.component';
-import { SearchQuestionResponse } from '../../interface';
+import {
+    ColDef,
+    ICellRendererParams,
+    RowSelectedEvent,
+} from 'ag-grid-community';
 import { LEVEL } from '../../constant';
+import { SearchQuestionResponse } from '../../interface';
 import { QuestionService } from '../../service';
+import { CreateQuestionModal } from '../create-question-modal/create-question-modal.component';
 
 @Component({
     selector: 'question-grid',
@@ -25,15 +30,37 @@ import { QuestionService } from '../../service';
     imports: [AgGridAngular, TranslateModule],
 })
 export class QuestionGridComponent extends GridCore<SearchQuestionResponse> {
+    @Input() action: string[] = ['EDIT'];
+    @Input() showCheckbox: boolean = false;
+
     @Output() afterUpdate = new EventEmitter();
+    @Output() selectRow = new EventEmitter<RowSelectedEvent<any>>();
+    @Output() deleteRow = new EventEmitter<any>();
 
     private readonly modalService = inject(NgbModal);
     private readonly questionService = inject(QuestionService);
+
+    public actions = {
+        DELETE: {
+            icon: faTrash,
+            classes: 'text-danger',
+            onClick: this.onDeleteQuestion.bind(this),
+        },
+        EDIT: {
+            icon: faEdit,
+            classes: 'text-warning',
+            onClick: this.onEditQuestion.bind(this),
+        },
+    };
 
     constructor() {
         super();
         this.gridOptions = {
             rowHeight: 60,
+            suppressRowClickSelection: true,
+            onRowSelected: (event: RowSelectedEvent<any>) => {
+                this.selectRow.emit(event);
+            },
         };
     }
 
@@ -47,6 +74,7 @@ export class QuestionGridComponent extends GridCore<SearchQuestionResponse> {
                     return param.node.rowIndex + 1;
                 },
                 pinned: 'left',
+                checkboxSelection: this.showCheckbox,
             },
             {
                 headerValueGetter: (param) => 'Câu hỏi',
@@ -113,13 +141,7 @@ export class QuestionGridComponent extends GridCore<SearchQuestionResponse> {
                     this.translateService.instant('COMMON.ACTION'),
                 cellRenderer: ActionColumnComponent,
                 cellRendererParams: {
-                    actions: [
-                        {
-                            icon: faEdit,
-                            classes: 'text-warning',
-                            onClick: this.onEditQuestion.bind(this),
-                        },
-                    ],
+                    actions: this.action.map((a) => this.actions[a]),
                 },
                 minWidth: 50,
                 pinned: 'right',
@@ -151,5 +173,22 @@ export class QuestionGridComponent extends GridCore<SearchQuestionResponse> {
                     }
                 });
             });
+    }
+
+    public onDeleteQuestion(param: ICellRendererParams): void {
+        const modalRef = this.modalService.open(ConfirmationComponent, {
+            centered: true,
+            size: 'md',
+        });
+        modalRef.componentInstance.confirmation = {
+            title: 'Xác nhận',
+            content: 'Bạn có chắc chắn muốn xóa',
+            isHtml: false,
+        };
+        modalRef.closed.subscribe((res) => {
+            if (res) {
+                this.deleteRow.emit(param.data);
+            }
+        });
     }
 }

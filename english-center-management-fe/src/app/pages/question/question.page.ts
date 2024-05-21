@@ -7,7 +7,6 @@ import {
     PaginationComponent,
 } from '@ecm-module/common';
 import {
-    CreateQuestionModal,
     QuestionFormSearchComponent,
     QuestionGridWrapperComponent,
     QuestionService,
@@ -16,7 +15,6 @@ import {
 } from '@ecm-module/question';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { takeUntil } from 'rxjs';
 
@@ -41,18 +39,10 @@ export class QuestionPage implements OnInit {
     public questions: SearchQuestionResponse[];
 
     private readonly destroyService = inject(DestroyService);
-    private readonly modalService = inject(NgbModal);
     private readonly questionService = inject(QuestionService);
 
     public ngOnInit(): void {
         this.paginate(this.pagination);
-    }
-
-    public ngOnOpenCreateUser(): void {
-        this.modalService.open(CreateQuestionModal, {
-            size: 'md',
-            centered: true,
-        });
     }
 
     public ngOnSearch(searchRequest: SearchQuestionRequest): void {

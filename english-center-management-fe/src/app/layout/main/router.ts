@@ -6,6 +6,7 @@ import { router as classRoomRouter } from '../../pages/class-room/router';
 import { router as courseRouter } from '../../pages/course/router';
 import { router as timetableRouter } from '../../pages/timetable/router';
 import { router as questionRouter } from '../../pages/question/router';
+import { router as testingRouter } from '../../pages/testing/router';
 
 export const routes: Routes = [
     {
@@ -18,6 +19,7 @@ export const routes: Routes = [
             courseRouter,
             timetableRouter,
             questionRouter,
+            testingRouter,
         ],
     },
 ];

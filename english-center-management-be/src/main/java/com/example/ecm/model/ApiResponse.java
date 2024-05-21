@@ -2,7 +2,7 @@ package com.example.ecm.model;
 
 import com.example.ecm.constant.AppConstant;
 import com.example.ecm.constant.ErrorCode;
-import com.example.ecm.constant.Status;
+import com.example.ecm.constant.ApiStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,13 +16,13 @@ public class ApiResponse {
     private ApiBody apiBody;
     private ApiError apiError;
     private ErrorCode code;
-    private Status status;
+    private ApiStatus status;
     private String traceId;
     private long duration;
 
     public static ApiResponse ok(ApiBody apiBody) {
         ApiResponse apiResponse = new ApiResponse();
-        apiResponse.setStatus(Status.SUCCESS);
+        apiResponse.setStatus(ApiStatus.SUCCESS);
         apiResponse.setCode(ErrorCode.SUCCESS);
         apiResponse.setApiBody(apiBody);
         return apiResponse;
@@ -34,13 +34,14 @@ public class ApiResponse {
 
     public static ApiResponse fail(ErrorCode code, ApiError apiError) {
         ApiResponse apiResponse = new ApiResponse();
-        apiResponse.setStatus(Status.FAIL);
+        apiResponse.setStatus(ApiStatus.FAIL);
         apiResponse.setCode(code);
         apiResponse.setApiError(apiError);
         return apiResponse;
     }
-    public static ApiResponse fail(ErrorCode code) {
-        ApiError apiError = new ApiError(code.getMessage(), null);
+
+    public static ApiResponse fail(ErrorCode code, String message) {
+        ApiError apiError = new ApiError(message, null);
         return ApiResponse.fail(code, apiError);
     }
 

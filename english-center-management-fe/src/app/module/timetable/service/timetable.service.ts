@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { ApiBody, ApiResponse } from '../../common/interface';
+import { ApiBody, ApiResponse } from '@ecm-module/common';
 import {
     CreateTimetableRequest,
     GetTimetableResponse,

@@ -1,0 +1,14 @@
+<div class="d-flex flex-column gap-4 h-100">
+    <ecm-box>
+        <history-checkin-form-search
+            (search)="ngOnSearch($event)"
+        ></history-checkin-form-search>
+    </ecm-box>
+    <ecm-box>
+        <div class="d-flex flex-column row-gap-4 h-100">
+            <history-checkin-grid
+                [rowData]="$checkin | async"
+            ></history-checkin-grid>
+        </div>
+    </ecm-box>
+</div>

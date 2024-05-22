@@ -4,6 +4,7 @@ import com.example.ecm.exception.BusinessException;
 import com.example.ecm.model.ApiBody;
 import com.example.ecm.model.ApiResponse;
 import com.example.ecm.module.checkin.request.CreateCheckinRequest;
+import com.example.ecm.module.checkin.request.SearchCheckinRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,12 @@ import org.springframework.web.bind.annotation.*;
 public class CheckinController {
 
     private final ICheckinService checkinService;
+
+    @PostMapping("/search")
+    public ApiResponse searchCheckin(@RequestBody SearchCheckinRequest request) {
+        final ApiBody apiBody = this.checkinService.searchCheckin(request);
+        return ApiResponse.ok(apiBody);
+    }
 
     @PostMapping
     public ApiResponse createCheckin(@RequestBody @Valid CreateCheckinRequest createCheckinRequest) {

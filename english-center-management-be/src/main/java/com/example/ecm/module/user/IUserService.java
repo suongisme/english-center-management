@@ -19,4 +19,6 @@ public interface IUserService {
     UserEntity findByIdThrowIfNotPresent(Long id);
 
     ApiBody getByTimetableId(Long timetableId);
+
+    ApiBody getByCheckinId(Long checkinId);
 }

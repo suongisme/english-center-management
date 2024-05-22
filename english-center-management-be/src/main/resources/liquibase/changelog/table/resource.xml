@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <property name="tableName" value="${prefixTableName}RESOURCE" global="false" />
+
+    <changeSet id="${tableName}-1" author="anonymous">
+        <preConditions onFail="CONTINUE" onFailMessage="${tableName} existed">
+            <not>
+                <tableExists tableName="${tableName}" />
+            </not>
+        </preConditions>
+        <comment>
+            Create new ${tableName}
+        </comment>
+        <createTable tableName="${tableName}">
+            <column name="ID" type="${idType}" autoIncrement="true">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="URL" type="varchar(1000)" />
+            <column name="PROVIDER" type="varchar(255)" />
+            <column name="KEY_ID" type="${idType}" />
+            <column name="TYPE" type="varchar(255)" />
+            <column name="CREATED_DATE" type="datetime" />
+            <column name="CREATED_BY" type="varchar(255)" />
+            <column name="UPDATED_DATE" type="datetime" />
+            <column name="UPDATED_BY" type="varchar(255)" />
+        </createTable>
+    </changeSet>
+
+    <changeSet id="${tableName}-2" author="anonymous">
+        <comment>add column FILE_NAME</comment>
+        <addColumn tableName="${tableName}">
+            <column name="FILE_NAME" type="varchar(255)" />
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

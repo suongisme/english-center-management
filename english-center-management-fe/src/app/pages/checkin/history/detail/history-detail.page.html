@@ -1,0 +1,3 @@
+<div *ngIf="$users | async as users">
+    <user-checkin [readonly]="true" [users]="users"></user-checkin>
+</div>

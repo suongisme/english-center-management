@@ -76,4 +76,10 @@ public class UserServiceImpl implements IUserService {
         final List<IStudentTimetableResponse> response = this.studentRepository.getByTimetableId(timetableId);
         return ApiBody.of(response);
     }
+
+    @Override
+    public ApiBody getByCheckinId(Long checkinId) {
+        final List<IStudentTimetableResponse> response = this.studentRepository.getByCheckinId(checkinId);
+        return ApiBody.of(response);
+    }
 }

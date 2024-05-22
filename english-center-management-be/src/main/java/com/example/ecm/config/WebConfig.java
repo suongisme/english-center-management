@@ -17,6 +17,15 @@ public class WebConfig implements WebMvcConfigurer {
     @Value("${security.cors.url}")
     public String[] corsUrl;
 
+    @Value("${resource.local.path}")
+    public String localResourcePath;
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("asserts/**")
+                .addResourceLocations("file:" + this.localResourcePath + File.separator);
+    }
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")

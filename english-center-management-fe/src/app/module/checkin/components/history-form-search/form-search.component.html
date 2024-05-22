@@ -1,0 +1,38 @@
+<search-wrapper
+    [formGroup]="formGroup"
+    class="d-flex flex-column row-gap-3"
+    (search)="ngOnSearch($event)"
+>
+    <div class="row row-gap-3">
+        <div class="col-md-4">
+            <ecm-select
+                [items]="$course | async"
+                placeholder="Chọn khóa học"
+                bindLabel="name"
+                bindValue="id"
+                label="Khóa học"
+                formControlName="courseId"
+            ></ecm-select>
+        </div>
+
+        <div class="col-md-4">
+            <ecm-select
+                [items]="$classRoom | async"
+                placeholder="Chọn lớp học"
+                bindLabel="name"
+                bindValue="id"
+                label="Lớp học"
+                formControlName="classRoomId"
+            ></ecm-select>
+        </div>
+
+        <div class="col-md-4">
+            <ecm-input
+                label="Ngày điểm danh"
+                [variant]="'input'"
+                [type]="'date'"
+                formControlName="checkinDate"
+            ></ecm-input>
+        </div>
+    </div>
+</search-wrapper>

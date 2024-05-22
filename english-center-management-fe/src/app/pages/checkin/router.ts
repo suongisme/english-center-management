@@ -24,3 +24,29 @@ export const router: Route = {
         },
     ],
 };
+
+export const historyRouter: Route = {
+    path: 'checkin-history',
+    children: [
+        {
+            path: '',
+            loadComponent: () =>
+                import('./history/checkin-history.page').then(
+                    (p) => p.HistoryCheckinPage,
+                ),
+            data: {
+                title: 'Lịch sử điểm danh',
+            },
+        },
+        {
+            path: 'detail',
+            loadComponent: () =>
+                import('./history/detail/history-detail.page').then(
+                    (p) => p.HistoryDetailPage,
+                ),
+            data: {
+                title: 'Lịch sử điểm danh',
+            },
+        },
+    ],
+};

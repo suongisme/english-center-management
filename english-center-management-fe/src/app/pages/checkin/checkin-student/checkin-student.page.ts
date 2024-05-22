@@ -1,22 +1,15 @@
 import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormArray } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CheckinService } from '@ecm-module/checkin';
+import { DestroyService, NotifierService } from '@ecm-module/common';
 import {
     StudentTimetableResponse,
     UserCheckInComponent,
+    UserService,
 } from '@ecm-module/user';
-import {
-    EMPTY,
-    Observable,
-    catchError,
-    forkJoin,
-    takeUntil,
-    throwError,
-} from 'rxjs';
-import { CheckinService } from '@ecm-module/checkin';
-import { UserService } from '@ecm-module/user';
-import { Router } from '@angular/router';
-import { DestroyService, NotifierService } from '@ecm-module/common';
+import { forkJoin, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'checkin-student',

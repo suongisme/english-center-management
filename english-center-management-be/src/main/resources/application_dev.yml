@@ -34,3 +34,9 @@ schedule:
     change-status:
       enabled: false
       cron: '0 * * ? * *'
+
+resource:
+  provider: local
+  local:
+    path: 'D:\sp\english_center_management\english-center-management-be\asserts'
+    host: http://localhost:${server.port}${server.servlet.context-path}/asserts

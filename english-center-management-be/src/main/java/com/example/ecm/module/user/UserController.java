@@ -40,4 +40,10 @@ public class UserController {
         final ApiBody apiBody = this.userService.getByTimetableId(timetableId);
         return ApiResponse.ok(apiBody);
     }
+
+    @GetMapping("/checkin")
+    public ApiResponse getStudentInCheckin(@RequestParam Long checkinId) {
+        final ApiBody apiBody = this.userService.getByCheckinId(checkinId);
+        return ApiResponse.ok(apiBody);
+    }
 }

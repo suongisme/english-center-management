@@ -58,4 +58,18 @@ export class UserService {
         );
         return mappingDataResponse(response);
     }
+
+    public getByCheckinId(
+        checkinId: number,
+    ): Observable<StudentTimetableResponse[]> {
+        const response = this.httpClient.get<ApiResponse>(
+            `${environment.BE_URL}/users/checkin`,
+            {
+                params: {
+                    checkinId: checkinId,
+                },
+            },
+        );
+        return mappingDataResponse(response);
+    }
 }

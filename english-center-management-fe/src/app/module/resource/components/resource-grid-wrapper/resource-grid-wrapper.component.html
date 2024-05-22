@@ -1,0 +1,16 @@
+<div class="d-flex flex-column gap-2">
+    <div class="d-flex justify-content-between align-items-center">
+        <h4 class="text-capitalize">Danh sách tài nguyên</h4>
+        <input #uploader hidden type="file" (change)="onUploadFile($event)" />
+        <button class="btn btn-sm btn-success" (click)="uploader.click()">
+            <fa-icon [icon]="'plus'" class="me-2"></fa-icon>
+            <span class="text-capitalize"> Thêm tài nguyên</span>
+        </button>
+    </div>
+    <div style="height: 300px">
+        <resource-grid
+            [rowData]="resources"
+            (deleteResource)="deleteResource.emit($event)"
+        ></resource-grid>
+    </div>
+</div>

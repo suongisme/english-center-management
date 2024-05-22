@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ActionColumnComponent, GridCore, STATUS } from '@ecm-module/common';
 import { TimetableResponse } from './../../interface/index';
 
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTable } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
@@ -101,6 +101,22 @@ export class TimetableGridComponent extends GridCore<TimetableResponse> {
                                 this.router.navigate(['checkin', 'student'], {
                                     queryParams: {
                                         timetableId: param.data.id,
+                                    },
+                                });
+                            },
+                        },
+
+                        {
+                            icon: faTable,
+                            classes: 'text-warning',
+                            label: 'Tài nguyên học',
+                            onClick: (
+                                param: ICellRendererParams<TimetableResponse>,
+                            ) => {
+                                this.router.navigate(['resource'], {
+                                    queryParams: {
+                                        type: 'TIMETABLE',
+                                        keyId: param.data.id,
                                     },
                                 });
                             },

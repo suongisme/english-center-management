@@ -1,0 +1,18 @@
+<div class="d-flex flex-column gap-4 h-100">
+    <ecm-box>
+        <div class="d-flex flex-column row-gap-4 h-100">
+            <resource-grid-wrapper
+                [resources]="resources"
+                [type]="type"
+                [keyId]="keyId"
+                (createNew)="paginate(this.pagination)"
+                (deleteResource)="deleteResource($event)"
+            ></resource-grid-wrapper>
+            <pagination
+                [pagination]="pagination"
+                (pageSizeChange)="paginate($event)"
+                (paginate)="paginate($event)"
+            ></pagination>
+        </div>
+    </ecm-box>
+</div>

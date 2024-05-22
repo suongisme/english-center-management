@@ -2,10 +2,13 @@ package com.example.ecm.module.checkin.impl;
 
 import com.example.ecm.constant.ErrorCode;
 import com.example.ecm.exception.BusinessException;
+import com.example.ecm.model.ApiBody;
 import com.example.ecm.module.checkin.CheckinEntity;
 import com.example.ecm.module.checkin.ICheckinRepository;
 import com.example.ecm.module.checkin.ICheckinService;
 import com.example.ecm.module.checkin.request.CreateCheckinRequest;
+import com.example.ecm.module.checkin.request.SearchCheckinRequest;
+import com.example.ecm.module.checkin.response.ISearchCheckinResponse;
 import com.example.ecm.module.checkin.student.ICheckinStudentService;
 import com.example.ecm.module.timetable.ITimetableService;
 import com.example.ecm.module.timetable.TimetableEntity;
@@ -13,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -40,5 +44,11 @@ public class CheckinServiceImpl implements ICheckinService {
         if (checkinToday.isPresent()) {
             throw new BusinessException(ErrorCode.VALIDATE_FAIL, "Lịch dạy đã được điểm danh");
         }
+    }
+
+    @Override
+    public ApiBody searchCheckin(SearchCheckinRequest request) {
+        final List<ISearchCheckinResponse> response = this.checkinRepository.searchBy(request);
+        return ApiBody.of(response);
     }
 }

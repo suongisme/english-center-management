@@ -58,8 +58,13 @@ export const BASE_MENU: Menu[] = [
         link: 'testing',
     },
     {
-        label: 'Điểm danh',
+        label: 'Lịch dạy và Điểm danh',
         icon: faTable,
         link: 'checkin',
+    },
+    {
+        label: 'Lịch sử điểm danh',
+        icon: faTable,
+        link: 'checkin-history',
     },
 ];

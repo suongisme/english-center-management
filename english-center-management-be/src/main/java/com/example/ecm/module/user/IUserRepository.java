@@ -31,7 +31,7 @@ public interface IUserRepository extends JpaRepository<UserEntity, Long> {
         FROM TimetableEntity t
             JOIN TimetableStudentEntity ts ON t.id = ts.timetableId
             JOIN UserEntity u ON u.id = ts.studentId
-            LEFT JOIN CheckinEntity ck ON ck.timetableId = t.id
+            LEFT JOIN CheckinEntity ck ON ck.timetableId = t.id AND date(ck.createdDate) = current_date
             LEFT JOIN CheckinStudentEntity cks ON cks.checkinId = ck.id AND cks.studentId = u.id
         WHERE t.id = ?1
     """)

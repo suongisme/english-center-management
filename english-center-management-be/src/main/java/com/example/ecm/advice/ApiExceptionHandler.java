@@ -6,6 +6,7 @@ import com.example.ecm.exception.BusinessException;
 import com.example.ecm.model.ApiError;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -44,4 +45,9 @@ public class ApiExceptionHandler {
         return ApiResponse.fail(ex.getErrorCode(), ex.getMessage());
     }
 
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ApiResponse handleAccessDeniedException(AccessDeniedException ex) {
+        return ApiResponse.fail(ErrorCode.FORBIDDEN);
+    }
 }

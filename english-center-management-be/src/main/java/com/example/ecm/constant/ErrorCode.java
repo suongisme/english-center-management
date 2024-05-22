@@ -14,6 +14,7 @@ public enum ErrorCode {
     NOT_FOUND_TEACHER("03", "Giáo viên không tồn tại"),
     TIMETABLE_EXIST("04", "Lịch đã trùng lặp"),
     USERNAME_EXIST("05", "Tên đăng nhập đã tồn tại"),
+    FORBIDDEN("98","Bạn không có quyền thực hiện"),
     INTERNAL_ERROR("99","Lỗi hệ thống"),
     UNKNOWN("", "Không xác định");
 

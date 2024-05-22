@@ -7,6 +7,11 @@ spring:
   config:
     activate:
       on-profile: "dev"
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          public-key-location: classpath:public.key
   datasource:
     url: jdbc:mysql://localhost:3306/english_center_management?createDatabaseIfNotExist=true
     username: root
@@ -26,6 +31,8 @@ logging:
   ignores-path:
     - "/api/resources/**"
 security:
+  private-key-location: classpath:private.key
+  jwt-time: 15M
   cors:
     url: http://localhost:4200
 

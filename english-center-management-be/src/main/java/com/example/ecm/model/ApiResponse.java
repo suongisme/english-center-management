@@ -45,6 +45,11 @@ public class ApiResponse {
         return ApiResponse.fail(code, apiError);
     }
 
+    public static ApiResponse fail(ErrorCode code) {
+        ApiError apiError = new ApiError(code.getMessage(), null);
+        return ApiResponse.fail(code, apiError);
+    }
+
     public String getTraceId() {
         return MDC.get(AppConstant.TRACE_ID_KEY);
     }

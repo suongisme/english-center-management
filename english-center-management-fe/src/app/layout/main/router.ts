@@ -12,6 +12,7 @@ import {
     historyRouter,
 } from '../../pages/checkin/router';
 import { router as resourceRouter } from '../../pages/resource/router';
+import { router as gradeBookRouter } from '../../pages/grade-book/router';
 
 export const routes: Routes = [
     {
@@ -28,6 +29,7 @@ export const routes: Routes = [
             checkinRouter,
             historyRouter,
             resourceRouter,
+            gradeBookRouter,
         ],
     },
 ];

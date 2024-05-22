@@ -67,4 +67,9 @@ export const BASE_MENU: Menu[] = [
         icon: faTable,
         link: 'checkin-history',
     },
+    {
+        label: 'Chấm điểm',
+        icon: faTable,
+        link: 'grade-book',
+    },
 ];

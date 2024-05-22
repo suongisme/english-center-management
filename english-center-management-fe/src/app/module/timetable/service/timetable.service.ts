@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { ApiBody, ApiResponse } from '@ecm-module/common';
 import {
     CreateTimetableRequest,
+    GetByIdRequest,
     GetTimetableResponse,
     TimetableResponse,
 } from '../interface';
@@ -36,20 +37,38 @@ export class TimetableService {
     }
 
     public getByUserId(
-        userId: number,
-        day?: number,
+        request: GetByIdRequest,
     ): Observable<TimetableResponse[]> {
         const param: any = {
-            userId: userId,
+            userId: request.userId,
         };
-        if (day) {
-            param.day = day;
+        if (request.day) {
+            param.day = request.day;
+        }
+        if (request.status) {
+            param.status = request.status;
         }
         return this.httpClient
             .get<TimetableResponse>(
                 `${TimetableService.ENDPOINT}/get-by-user-id`,
                 {
                     params: param,
+                },
+            )
+            .pipe(
+                map<any, ApiBody>((x: ApiResponse) => x.apiBody),
+                map<ApiBody, TimetableResponse[]>((apiBody) => apiBody.data),
+            );
+    }
+
+    public getForGradebook(userId: number): Observable<TimetableResponse[]> {
+        return this.httpClient
+            .get<TimetableResponse>(
+                `${TimetableService.ENDPOINT}/get-for-grade-book`,
+                {
+                    params: {
+                        userId: userId,
+                    },
                 },
             )
             .pipe(

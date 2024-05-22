@@ -40,3 +40,9 @@ export interface GetTimetableResponse {
     startTime: string;
     status: number;
 }
+
+export interface GetByIdRequest {
+    userId: number;
+    day?: number;
+    status?: number;
+}

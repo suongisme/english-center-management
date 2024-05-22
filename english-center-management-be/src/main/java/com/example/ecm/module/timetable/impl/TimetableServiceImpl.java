@@ -47,14 +47,20 @@ public class TimetableServiceImpl implements ITimetableService {
     }
 
     @Override
-    public ApiBody getByUserIdAndDay(Long userId, Integer day) {
+    public ApiBody getByUserIdAndDay(Long userId, Integer day, Integer status) {
         final UserEntity user = this.userService.findByIdThrowIfNotPresent(userId);
         List<IUserTimetableResponse> response;
         if (RoleEnum.TEACHER.name().equalsIgnoreCase(user.getRole())) {
-            response = this.timetableRepository.findByTeacherIdAndDay(userId, day);
+            response = this.timetableRepository.findByTeacherIdAndDay(userId, day, status);
         } else {
             response = this.timetableRepository.findByStudentId(userId);
         }
+        return ApiBody.of(response);
+    }
+
+    @Override
+    public ApiBody getForgradebook(Long userId) {
+        final List<IUserTimetableResponse> response = this.timetableRepository.getForGradebook(userId);
         return ApiBody.of(response);
     }
 

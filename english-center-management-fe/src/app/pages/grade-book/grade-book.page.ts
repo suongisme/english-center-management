@@ -9,20 +9,17 @@ import {
 import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'checkin-page',
-    templateUrl: './checkin.page.html',
+    selector: 'grade-book-page',
+    templateUrl: './grade-book.page.html',
     standalone: true,
-    imports: [TimetableGridComponent, EcmBoxComponent, AsyncPipe],
+    imports: [EcmBoxComponent, TimetableGridComponent, AsyncPipe],
 })
-export class CheckInPage implements OnInit {
+export class GradeBookPage implements OnInit {
     private timetableService = inject(TimetableService);
 
     public $timetable: Observable<TimetableResponse[]>;
 
     public ngOnInit(): void {
-        this.$timetable = this.timetableService.getByUserId({
-            userId: 3,
-            day: new Date().getDay() + 1,
-        });
+        this.$timetable = this.timetableService.getForGradebook(3);
     }
 }

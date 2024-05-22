@@ -46,7 +46,7 @@ export class UserTimetableComponent implements OnInit {
     private loadTimetable(): void {
         this.timetableMap = new Map();
         this.timetableService
-            .getByUserId(this.userId)
+            .getByUserId({ userId: this.userId })
             .pipe(takeUntil(this.destroyService.$destroy))
             .subscribe((res) => {
                 res.forEach((x) => {

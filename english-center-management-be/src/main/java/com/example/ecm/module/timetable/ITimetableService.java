@@ -11,7 +11,9 @@ public interface ITimetableService {
 
     TimetableEntity findByIdThrowIfNotPresent(Long id);
 
-    ApiBody getByUserIdAndDay(Long userId, @Nullable Integer day);
+    ApiBody getByUserIdAndDay(Long userId, @Nullable Integer day, Integer status);
+
+    ApiBody getForgradebook(Long userId);
 
     ApiBody getById(Long id);
 

@@ -24,8 +24,14 @@ public class TimetableController {
     }
 
     @GetMapping("/get-by-user-id")
-    public ApiResponse getTimetableByUser(@RequestParam Long userId, @RequestParam(required = false) Integer day) {
-        final ApiBody apiBody = this.timetableService.getByUserIdAndDay(userId, day);
+    public ApiResponse getTimetableByUser(@RequestParam Long userId, @RequestParam(required = false) Integer day, @RequestParam(defaultValue = "1") Integer status) {
+        final ApiBody apiBody = this.timetableService.getByUserIdAndDay(userId, day, status);
+        return ApiResponse.ok(apiBody);
+    }
+
+    @GetMapping("/get-for-grade-book")
+    public ApiResponse getTimetableForGradebook(@RequestParam Long userId) {
+        final ApiBody apiBody = this.timetableService.getForgradebook(userId);
         return ApiResponse.ok(apiBody);
     }
 

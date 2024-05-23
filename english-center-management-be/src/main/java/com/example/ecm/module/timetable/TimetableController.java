@@ -6,6 +6,7 @@ import com.example.ecm.module.timetable.request.CreateTimetableRequest;
 import com.example.ecm.module.timetable.request.UpdateTimetableRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -36,12 +37,14 @@ public class TimetableController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN')")
     public ApiResponse createTimetable(@RequestBody @Valid CreateTimetableRequest createTimetableRequest) {
         this.timetableService.createTimetable(createTimetableRequest);
         return ApiResponse.ok();
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN')")
     public ApiResponse updateTimetable(@RequestBody @Valid UpdateTimetableRequest updateTimetableRequest) {
         this.timetableService.updateTimetable(updateTimetableRequest);
         return ApiResponse.ok();

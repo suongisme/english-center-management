@@ -7,6 +7,7 @@ import com.example.ecm.module.checkin.request.CreateCheckinRequest;
 import com.example.ecm.module.checkin.request.SearchCheckinRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,6 +24,7 @@ public class CheckinController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('SCOPE_TEACHER')")
     public ApiResponse createCheckin(@RequestBody @Valid CreateCheckinRequest createCheckinRequest) {
         this.checkinService.createCheckin(createCheckinRequest);
         return ApiResponse.ok();

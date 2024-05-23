@@ -8,6 +8,7 @@ import com.example.ecm.module.user.request.SearchUserRequest;
 import com.example.ecm.module.user.request.UpdateUserRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,12 +25,14 @@ public class UserController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN')")
     public ApiResponse createUser(@RequestBody @Valid CreateUserRequest createStudentRequest) {
         this.userService.createUser(createStudentRequest);
         return ApiResponse.ok();
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN')")
     public ApiResponse updateUser(@RequestBody @Valid UpdateUserRequest updateStudentRequest) {
         this.userService.updateUser(updateStudentRequest);
         return ApiResponse.ok();

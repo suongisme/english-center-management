@@ -12,6 +12,9 @@ import com.example.ecm.module.checkin.response.ISearchCheckinResponse;
 import com.example.ecm.module.checkin.student.ICheckinStudentService;
 import com.example.ecm.module.timetable.ITimetableService;
 import com.example.ecm.module.timetable.TimetableEntity;
+import com.example.ecm.module.user.IUserService;
+import com.example.ecm.module.user.UserEntity;
+import com.example.ecm.utils.AuthenticationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,11 +30,16 @@ public class CheckinServiceImpl implements ICheckinService {
 
     private final ITimetableService timetableService;
     private final ICheckinStudentService checkinStudentService;
+    private final IUserService userService;
 
     @Override
     @Transactional
     public void createCheckin(CreateCheckinRequest request) {
         final TimetableEntity timetable = this.timetableService.findByIdThrowIfNotPresent(request.getTimetableId());
+        final UserEntity teacher = this.userService.findByIdThrowIfNotPresent(timetable.getTeacherId());
+        if (!teacher.getUsername().equalsIgnoreCase(AuthenticationUtil.getUsername())) {
+            throw new BusinessException(ErrorCode.FORBIDDEN);
+        }
         this.validateCheckinToday(timetable.getId());
         final CheckinEntity entity = request.toEntity();
         this.checkinRepository.save(entity);

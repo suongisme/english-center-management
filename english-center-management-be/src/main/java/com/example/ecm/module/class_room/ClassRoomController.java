@@ -8,6 +8,7 @@ import com.example.ecm.module.class_room.request.SearchClassRoomRequest;
 import com.example.ecm.module.class_room.request.UpdateClassRoomRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,12 +25,14 @@ public class ClassRoomController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     public ApiResponse createClassRoom(@RequestBody @Valid CreateClassRoomRequest createClassRoomRequest) {
         this.classRoomService.createClassRoom(createClassRoomRequest);
         return ApiResponse.ok();
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     public ApiResponse updateClassRoom(@RequestBody @Valid UpdateClassRoomRequest updateClassRoomRequest) {
         this.classRoomService.updateClassRoom(updateClassRoomRequest);
         return ApiResponse.ok();

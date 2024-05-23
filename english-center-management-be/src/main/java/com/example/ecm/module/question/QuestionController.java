@@ -8,6 +8,7 @@ import com.example.ecm.module.question.request.SearchQuestionRequest;
 import com.example.ecm.module.question.request.UpdateQuestionRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,12 +31,14 @@ public class QuestionController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     public ApiResponse createQuestion(@RequestBody @Valid CreateQuestionRequest request) {
         this.questionService.createQuestion(request);
         return ApiResponse.ok();
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     public ApiResponse updateQuestion(@RequestBody @Valid UpdateQuestionRequest request) {
         this.questionService.updateQuestion(request);
         return ApiResponse.ok();

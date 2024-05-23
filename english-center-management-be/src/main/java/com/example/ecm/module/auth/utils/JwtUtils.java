@@ -1,4 +1,4 @@
-package com.example.ecm.utils;
+package com.example.ecm.module.auth.utils;
 
 import io.jsonwebtoken.Jwts;
 import lombok.Setter;

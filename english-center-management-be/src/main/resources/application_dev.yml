@@ -32,7 +32,7 @@ logging:
     - "/api/resources/**"
 security:
   private-key-location: classpath:private.key
-  jwt-time: 15M
+  jwt-time: 1D
   cors:
     url: http://localhost:4200
 

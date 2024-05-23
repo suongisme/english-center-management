@@ -8,6 +8,7 @@ import com.example.ecm.module.testing.request.SearchTestingRequest;
 import com.example.ecm.module.testing.request.UpdateTestingRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,12 +31,14 @@ public class TestingController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN')")
     public ApiResponse createTesting(@RequestBody @Valid CreateTestingRequest createTestingRequest) {
         this.testingService.createTesting(createTestingRequest);
         return ApiResponse.ok();
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN')")
     public ApiResponse updateTesting(@RequestBody @Valid UpdateTestingRequest updateTestingRequest) {
         this.testingService.updateTesting(updateTestingRequest);
         return ApiResponse.ok();

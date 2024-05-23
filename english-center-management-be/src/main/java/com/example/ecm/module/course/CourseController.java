@@ -8,6 +8,7 @@ import com.example.ecm.module.course.request.SearchCourserRequest;
 import com.example.ecm.module.course.request.UpdateCourseRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,12 +25,14 @@ public class CourseController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     public ApiResponse createCourse(@RequestBody @Valid CreateCourseRequest createCourseRequest) {
         this.courseService.createCourse(createCourseRequest);
         return ApiResponse.ok();
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     public ApiResponse updateCourse(@RequestBody @Valid UpdateCourseRequest updateCourseRequest) {
         this.courseService.updateCourse(updateCourseRequest);
         return ApiResponse.ok();

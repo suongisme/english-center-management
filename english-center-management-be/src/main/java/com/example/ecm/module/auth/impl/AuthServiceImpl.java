@@ -8,6 +8,7 @@ import com.example.ecm.module.auth.response.LoginResponse;
 import com.example.ecm.module.user.IUserRepository;
 import com.example.ecm.module.auth.utils.JwtUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,8 +22,10 @@ import org.springframework.stereotype.Service;
 public class AuthServiceImpl implements IAuthService {
 
     private final IUserRepository userRepository;
-    private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
+
+    @Setter
+    private AuthenticationManager authenticationManager;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

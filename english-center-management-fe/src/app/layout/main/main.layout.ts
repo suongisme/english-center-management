@@ -10,13 +10,10 @@ import { SidebarService } from './service/sidebar.service';
 })
 export class MainLayout implements OnInit {
     private sidebarService: SidebarService = inject(SidebarService);
-    private menuService: MenuService = inject(MenuService);
 
     public title$: Observable<string> = this.sidebarService
         .getValueTitle()
         .pipe(take(1));
 
-    public ngOnInit(): void {
-        this.menuService.setMenu(BASE_MENU);
-    }
+    public ngOnInit(): void {}
 }

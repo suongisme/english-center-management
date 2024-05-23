@@ -1,34 +1,33 @@
-<form class="user" [formGroup]="loginFormGroup">
+<form
+    class="user"
+    [formGroup]="loginFormGroup"
+    autocomplete="off"
+    (submit)="login()"
+>
     <div class="form-group">
-        <input
-            type="email"
-            class="form-control form-control-user"
-            [placeholder]="'AUTH.INPUT_EMAIL' | translate"
-            formControlName="email"
-        />
+        <ecm-input
+            type="text"
+            [required]="true"
+            [placeholder]="'Nhập tên đăng nhập'"
+            formControlName="username"
+            [errorsMessage]="{
+                required: 'Tên đăng nhập không được trống'
+            }"
+        ></ecm-input>
     </div>
     <div class="form-group">
-        <input
+        <ecm-input
             type="password"
-            class="form-control form-control-user"
-            [placeholder]="'AUTH.INPUT_PASSWORD' | translate"
+            [required]="true"
+            [placeholder]="'Nhập mật khẩu'"
             formControlName="password"
-        />
+            [errorsMessage]="{
+                required: 'Mật khẩu không được trống'
+            }"
+        ></ecm-input>
     </div>
     <button class="btn btn-primary btn-user w-100 text-capitalize">
-        {{ 'AUTH.LOGIN' | translate }}
+        Đăng nhập
     </button>
     <hr />
-
-    <div class="d-flex flex-column gap-3">
-        <ng-container
-            [ngTemplateOutlet]="ssoListTemplate"
-            [ngTemplateOutletContext]="{ items: ssoList }"
-        ></ng-container>
-    </div>
-    <hr />
 </form>
-
-<ng-template #ssoListTemplate let-items="items">
-    <sso-button *ngFor="let sso of items" [ssoProperty]="sso"></sso-button>
-</ng-template>

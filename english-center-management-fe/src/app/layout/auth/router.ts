@@ -13,13 +13,6 @@ export const routes: Routes = [
                         (p) => p.LoginPage,
                     ),
             },
-            {
-                path: 'forgot-password',
-                loadComponent: () =>
-                    import(
-                        '../../pages/forgot-password/forgot-password.page'
-                    ).then((p) => p.ForgotPasswordPage),
-            },
         ],
     },
 ];

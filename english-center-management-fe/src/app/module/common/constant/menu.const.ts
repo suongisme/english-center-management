@@ -1,3 +1,4 @@
+import { Authority } from '../../auth/constant';
 import { Menu } from '../interface/menu.interface';
 import {
     faTachometerAlt,
@@ -5,6 +6,68 @@ import {
     faTable,
     faBell,
 } from '@fortawesome/free-solid-svg-icons';
+
+export const MENU: { [name: string]: Menu[] } = {
+    [Authority.ADMIN]: [
+        {
+            label: 'Quản lý lớp học',
+            icon: faTable,
+            link: 'class-room',
+            role: [Authority.ADMIN],
+        },
+        {
+            label: 'Quản lý khóa học',
+            icon: faTable,
+            link: 'course',
+            role: [Authority.ADMIN],
+        },
+        {
+            label: 'Quản lý người dùng',
+            icon: faTable,
+            link: '/user',
+            role: [Authority.ADMIN],
+        },
+        {
+            label: 'Ngân hàng câu hỏi',
+            icon: faTable,
+            link: 'question',
+            role: [Authority.ADMIN],
+        },
+        {
+            label: 'Quản lý bài test',
+            icon: faTable,
+            link: 'testing',
+            role: [Authority.ADMIN],
+        },
+    ],
+    [Authority.TEACHER]: [
+        {
+            label: 'Quản lý điểm',
+            icon: faTable,
+            link: 'grade',
+            role: [Authority.TEACHER],
+        },
+
+        {
+            label: 'Lịch dạy và Điểm danh',
+            icon: faTable,
+            link: 'checkin',
+            role: [Authority.TEACHER],
+        },
+        {
+            label: 'Lịch sử điểm danh',
+            icon: faTable,
+            link: 'checkin-history',
+            role: [Authority.TEACHER],
+        },
+        {
+            label: 'Chấm điểm',
+            icon: faTable,
+            link: 'grade-book',
+            role: [Authority.TEACHER],
+        },
+    ],
+};
 
 export const BASE_MENU: Menu[] = [
     // {
@@ -27,49 +90,4 @@ export const BASE_MENU: Menu[] = [
     //         },
     //     ],
     // },
-    {
-        label: 'Quản lý lớp học',
-        icon: faTable,
-        link: 'class-room',
-    },
-    {
-        label: 'Quản lý khóa học',
-        icon: faTable,
-        link: 'course',
-    },
-    {
-        label: 'Quản lý người dùng',
-        icon: faTable,
-        link: '/user',
-    },
-    {
-        label: 'Quản lý điểm',
-        icon: faTable,
-        link: 'grade',
-    },
-    {
-        label: 'Ngân hàng câu hỏi',
-        icon: faTable,
-        link: 'question',
-    },
-    {
-        label: 'Quản lý bài test',
-        icon: faTable,
-        link: 'testing',
-    },
-    {
-        label: 'Lịch dạy và Điểm danh',
-        icon: faTable,
-        link: 'checkin',
-    },
-    {
-        label: 'Lịch sử điểm danh',
-        icon: faTable,
-        link: 'checkin-history',
-    },
-    {
-        label: 'Chấm điểm',
-        icon: faTable,
-        link: 'grade-book',
-    },
 ];

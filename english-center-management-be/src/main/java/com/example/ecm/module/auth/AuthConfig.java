@@ -1,5 +1,6 @@
 package com.example.ecm.module.auth;
 
+import com.example.ecm.module.auth.impl.AuthServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,7 +45,7 @@ import java.util.stream.Stream;
 public class AuthConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> {
@@ -68,12 +69,14 @@ public class AuthConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(DaoAuthenticationProvider daoAuthenticationProvider) {
-        return new ProviderManager(daoAuthenticationProvider);
+    public AuthenticationManager authenticationManager(PasswordEncoder passwordEncoder, AuthServiceImpl authService) {
+        final DaoAuthenticationProvider daoAuthenticationProvider = this.daoAuthenticationProvider(passwordEncoder, authService);
+        final ProviderManager providerManager = new ProviderManager(daoAuthenticationProvider);
+        authService.setAuthenticationManager(providerManager);
+        return providerManager;
     }
 
-    @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider(PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
+    public DaoAuthenticationProvider daoAuthenticationProvider(PasswordEncoder passwordEncoder, AuthServiceImpl userDetailsService) {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
         daoAuthenticationProvider.setUserDetailsService(userDetailsService);

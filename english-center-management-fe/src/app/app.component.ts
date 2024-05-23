@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, HostListener, OnInit, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import {
     ActivatedRoute,
@@ -8,9 +8,10 @@ import {
     Scroll,
 } from '@angular/router';
 import { DestroyService } from '@ecm-module/common';
-import { TranslateService } from '@ngx-translate/core';
 import { filter, map, takeUntil } from 'rxjs';
 import { SidebarService } from './layout/main/service/sidebar.service';
+import { AuthService } from './module/auth/service';
+import { LoginResponse } from './module/auth/interface';
 
 @Component({
     selector: 'app-root',
@@ -19,28 +20,22 @@ import { SidebarService } from './layout/main/service/sidebar.service';
     providers: [DestroyService],
 })
 export class AppComponent implements OnInit {
-    private translateService: TranslateService = inject(TranslateService);
     private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
     private router: Router = inject(Router);
     private sidebarService: SidebarService = inject(SidebarService);
     private titleService: Title = inject(Title);
     private destroyService = inject(DestroyService);
+    private authService = inject(AuthService);
 
     public title: string;
 
     public ngOnInit(): void {
         this.listenRouteChange();
-        this.listenLangChange();
-    }
-
-    private listenLangChange(): void {
-        this.translateService.onLangChange
-            .pipe(takeUntil(this.destroyService.$destroy))
-            .subscribe((lang) => {
-                this.titleService.setTitle(
-                    `${this.translateService.instant(this.title).toUpperCase()} | ECM`,
-                );
-            });
+        const loginResponse = JSON.parse(
+            localStorage.getItem('auth'),
+        ) as LoginResponse;
+        this.authService.loginResponse = loginResponse;
+        localStorage.removeItem('auth');
     }
 
     private listenRouteChange(): void {
@@ -63,9 +58,17 @@ export class AppComponent implements OnInit {
             .subscribe((data) => {
                 this.title = data.title;
                 this.sidebarService.changeTitle(this.title);
-                this.titleService.setTitle(
-                    `${this.translateService.instant(this.title).toUpperCase()} | ECM`,
-                );
+                this.titleService.setTitle(`${this.title.toUpperCase()} | ECM`);
             });
+    }
+
+    @HostListener('window:beforeunload')
+    public beforeReloadPage($event): void {
+        if (this.authService.isAuthenticated) {
+            localStorage.setItem(
+                'auth',
+                JSON.stringify(this.authService.loginResponse),
+            );
+        }
     }
 }

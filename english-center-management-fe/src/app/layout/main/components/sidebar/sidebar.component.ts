@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { SidebarService } from '@ecm-layout/main';
 import { Observable } from 'rxjs';
 import { MenuService, Menu } from '@ecm-module/common';

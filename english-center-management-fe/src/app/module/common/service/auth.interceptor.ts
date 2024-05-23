@@ -6,34 +6,46 @@ import {
     HttpRequest,
 } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { environment } from 'environment';
 import {
-    EMPTY,
     Observable,
     TimeoutError,
     catchError,
     throwError,
     timeout,
 } from 'rxjs';
+import { AuthService } from '../../auth/service';
 import { NotifierService } from './notifier.service';
-import { environment } from 'environment';
-import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthInterceptor implements HttpInterceptor {
     private readonly notifierService = inject(NotifierService);
+    private readonly router = inject(Router);
+    private readonly authService = inject(AuthService);
 
     intercept(
         req: HttpRequest<any>,
         next: HttpHandler,
     ): Observable<HttpEvent<any>> {
-        const requestWithToken = req.clone();
-        requestWithToken.headers.append('Authorization', 'Bearer <<TOKEN>>');
+        const jwt = this.authService.loginResponse?.jwt;
+        const headers = jwt
+            ? req.headers.set('Authorization', `Bearer ${jwt}`)
+            : req.headers;
+        const requestWithToken = req.clone({
+            headers: headers,
+        });
+
         return next.handle(requestWithToken).pipe(
             timeout(environment.REQUEST_TIMEOUT),
             catchError((err) => {
                 if (err instanceof HttpErrorResponse) {
+                    if (err.status === 401) {
+                        this.router.navigate(['auth', 'login']);
+                        return throwError(() => err);
+                    }
                     const traceId = err.error.traceId;
                     if (err.error.apiError.errors) {
                         const messages = Object.entries(

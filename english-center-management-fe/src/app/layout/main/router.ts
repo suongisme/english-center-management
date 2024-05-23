@@ -13,11 +13,13 @@ import {
 } from '../../pages/checkin/router';
 import { router as resourceRouter } from '../../pages/resource/router';
 import { router as gradeBookRouter } from '../../pages/grade-book/router';
+import { AuthenticationGuard, AuthorizationGuard } from '@ecm-module/auth';
 
 export const routes: Routes = [
     {
         path: '',
         component: MainLayout,
+        canActivate: [AuthenticationGuard, AuthorizationGuard],
         children: [
             homeRouter,
             userRouter,

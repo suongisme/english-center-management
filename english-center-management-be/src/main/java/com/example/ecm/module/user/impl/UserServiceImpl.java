@@ -20,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +31,7 @@ import java.util.Optional;
 public class UserServiceImpl implements IUserService {
 
     private final IUserRepository studentRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserEntity findByIdThrowIfNotPresent(Long id) {
@@ -53,6 +55,7 @@ public class UserServiceImpl implements IUserService {
     public void createUser(CreateUserRequest createStudentRequest) {
         try {
             final UserEntity student = createStudentRequest.toEntity();
+            student.setPassword(this.passwordEncoder.encode(student.getPassword()));
             this.studentRepository.save(student);
         } catch (DataIntegrityViolationException ex) {
             throw new BusinessException(ErrorCode.USERNAME_EXIST);
@@ -65,6 +68,8 @@ public class UserServiceImpl implements IUserService {
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RECORD));
         final UserEntity requestEntity = updateStudentRequest.toEntity();
         if (StringUtils.isBlank(updateStudentRequest.getPassword())) {
+            requestEntity.setPassword(this.passwordEncoder.encode(user.getPassword()));
+        } else {
             requestEntity.setPassword(user.getPassword());
         }
         requestEntity.setId(user.getId());

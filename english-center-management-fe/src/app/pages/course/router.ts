@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { Authority } from '@ecm-module/auth';
 
 export const router: Route = {
     path: 'course',
@@ -9,6 +10,7 @@ export const router: Route = {
                 import('./course.page').then((p) => p.CoursePage),
             data: {
                 title: 'Quản lý khóa học',
+                role: [Authority.ADMIN],
             },
         },
     ],

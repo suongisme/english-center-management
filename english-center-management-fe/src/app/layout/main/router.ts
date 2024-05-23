@@ -12,7 +12,10 @@ import {
     historyRouter,
 } from '../../pages/checkin/router';
 import { router as resourceRouter } from '../../pages/resource/router';
-import { router as gradeBookRouter } from '../../pages/grade-book/router';
+import {
+    router as gradeBookRouter,
+    gradebookHistoryRoute,
+} from '../../pages/grade-book/router';
 import { AuthenticationGuard, AuthorizationGuard } from '@ecm-module/auth';
 
 export const routes: Routes = [
@@ -32,6 +35,7 @@ export const routes: Routes = [
             historyRouter,
             resourceRouter,
             gradeBookRouter,
+            gradebookHistoryRoute,
         ],
     },
 ];

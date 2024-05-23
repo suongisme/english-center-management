@@ -1,0 +1,10 @@
+<div *ngIf="$students | async as students">
+    <list-score-student
+        [readonly]="false"
+        [students]="students"
+        (formInitialized)="formArray = $event"
+    ></list-score-student>
+    <button class="btn btn-success" (click)="createGradebook()">
+        Lưu điểm
+    </button>
+</div>

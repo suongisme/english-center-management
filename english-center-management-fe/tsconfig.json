@@ -57,6 +57,9 @@
       "@ecm-module/resource": [
         "src/app/module/resource/index.ts"
       ],
+      "@ecm-module/grade-book": [
+        "src/app/module/grade-book/index.ts"
+      ],
       "@ecm-layout/main": [
         "src/app/layout/main/index.ts"
       ],

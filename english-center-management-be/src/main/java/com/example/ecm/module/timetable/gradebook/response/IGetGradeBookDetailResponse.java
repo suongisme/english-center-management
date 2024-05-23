@@ -1,16 +1,12 @@
-package com.example.ecm.module.user.response;
+package com.example.ecm.module.timetable.gradebook.response;
 
 import org.springframework.beans.factory.annotation.Value;
 
-public interface IStudentTimetableResponse {
-
-    Long getId();
+public interface IGetGradeBookDetailResponse {
 
     @Value("#{target.lastName + ' ' + target.firstName}")
     String getName();
-
-    Boolean getAbsent();
-
+    Long getId();
+    Long getScore();
     String getNote();
-
 }

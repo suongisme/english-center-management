@@ -1,0 +1,43 @@
+<form [formGroup]="formGroup">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tên sinh viên</th>
+                <th>Điểm</th>
+                <th>Ghi chú</th>
+            </tr>
+        </thead>
+        <tbody formArrayName="students">
+            <tr
+                *ngFor="
+                    let studentForm of studentFormArray.controls;
+                    let i = index
+                "
+                [formArrayName]="i"
+            >
+                <td>
+                    {{ students[i].name }}
+                </td>
+                <td>
+                    <ecm-input
+                        formControlName="score"
+                        [type]="'number'"
+                        [variant]="'input'"
+                        [placeholder]="'Nhập điểm'"
+                        [errorsMessage]="{
+                            reqired: 'Điểm không được trống'
+                        }"
+                    ></ecm-input>
+                </td>
+                <td>
+                    <ecm-input
+                        formControlName="note"
+                        [type]="'text'"
+                        [variant]="'input'"
+                        [placeholder]="'Nhập ghi chú'"
+                    ></ecm-input>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>

@@ -42,9 +42,15 @@ export const MENU: { [name: string]: Menu[] } = {
     ],
     [Authority.TEACHER]: [
         {
-            label: 'Quản lý điểm',
+            label: 'Chấm điểm',
             icon: faTable,
-            link: 'grade',
+            link: 'grade-book',
+            role: [Authority.TEACHER],
+        },
+        {
+            label: 'lịch sử chấm điểm',
+            icon: faTable,
+            link: 'grade-book-history',
             role: [Authority.TEACHER],
         },
 
@@ -58,12 +64,6 @@ export const MENU: { [name: string]: Menu[] } = {
             label: 'Lịch sử điểm danh',
             icon: faTable,
             link: 'checkin-history',
-            role: [Authority.TEACHER],
-        },
-        {
-            label: 'Chấm điểm',
-            icon: faTable,
-            link: 'grade-book',
             role: [Authority.TEACHER],
         },
     ],

@@ -45,7 +45,9 @@ export abstract class GridCore<T> implements OnInit, OnDestroy {
 
     public onGridReady(param: GridReadyEvent): void {
         this.agGridApi = param.api;
-        this.agGridApi.sizeColumnsToFit();
+        setTimeout(() => {
+            this.agGridApi.sizeColumnsToFit();
+        });
     }
 
     public onGridSizeChanged(param: GridSizeChangedEvent): void {

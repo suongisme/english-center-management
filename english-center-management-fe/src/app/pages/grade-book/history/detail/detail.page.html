@@ -1,0 +1,6 @@
+<div *ngIf="$detail | async as detail">
+    <list-score-student
+        [students]="detail"
+        [readonly]="true"
+    ></list-score-student>
+</div>

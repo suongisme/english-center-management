@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { ActionColumnComponent, GridCore, STATUS } from '@ecm-module/common';
 import { TimetableResponse } from './../../interface/index';
 
@@ -16,7 +16,50 @@ import { Router } from '@angular/router';
     imports: [AgGridAngular, TranslateModule],
 })
 export class TimetableGridComponent extends GridCore<TimetableResponse> {
+    @Input() action: string[] = ['CHECKIN', 'RESOURCE'];
     private router = inject(Router);
+
+    public actionMap = {
+        CHECKIN: {
+            icon: faEdit,
+            classes: 'text-warning',
+            label: 'Điểm danh',
+            onClick: (param: ICellRendererParams<TimetableResponse>) => {
+                this.router.navigate(['checkin', 'student'], {
+                    queryParams: {
+                        timetableId: param.data.id,
+                    },
+                });
+            },
+        },
+
+        RESOURCE: {
+            icon: faTable,
+            classes: 'text-warning',
+            label: 'Tài nguyên học',
+            onClick: (param: ICellRendererParams<TimetableResponse>) => {
+                this.router.navigate(['resource'], {
+                    queryParams: {
+                        type: 'TIMETABLE',
+                        keyId: param.data.id,
+                    },
+                });
+            },
+        },
+
+        'MAKE-SCORE': {
+            icon: faTable,
+            classes: 'text-warning',
+            label: 'Chấm điểm',
+            onClick: (param: ICellRendererParams<TimetableResponse>) => {
+                this.router.navigate(['grade-book', 'make-score'], {
+                    queryParams: {
+                        timetableId: param.data.id,
+                    },
+                });
+            },
+        },
+    };
 
     constructor() {
         super();
@@ -90,40 +133,9 @@ export class TimetableGridComponent extends GridCore<TimetableResponse> {
                 headerValueGetter: (param) => 'Thao tác',
                 cellRenderer: ActionColumnComponent,
                 cellRendererParams: {
-                    actions: [
-                        {
-                            icon: faEdit,
-                            classes: 'text-warning',
-                            label: 'Điểm danh',
-                            onClick: (
-                                param: ICellRendererParams<TimetableResponse>,
-                            ) => {
-                                this.router.navigate(['checkin', 'student'], {
-                                    queryParams: {
-                                        timetableId: param.data.id,
-                                    },
-                                });
-                            },
-                        },
-
-                        {
-                            icon: faTable,
-                            classes: 'text-warning',
-                            label: 'Tài nguyên học',
-                            onClick: (
-                                param: ICellRendererParams<TimetableResponse>,
-                            ) => {
-                                this.router.navigate(['resource'], {
-                                    queryParams: {
-                                        type: 'TIMETABLE',
-                                        keyId: param.data.id,
-                                    },
-                                });
-                            },
-                        },
-                    ],
+                    actions: this.action.map((ac) => this.actionMap[ac]),
                 },
-                minWidth: 50,
+                minWidth: 100,
                 pinned: 'right',
             },
         ];

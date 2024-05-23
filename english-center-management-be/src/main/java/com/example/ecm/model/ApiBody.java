@@ -8,6 +8,10 @@ public class ApiBody extends HashMap<String, Object> {
         this.put("data", object);
     }
 
+    public <T> T getData(Class<T> type) {
+        return (T) this.get("data");
+    }
+
     public static ApiBody of(Object data) {
         ApiBody apiBody = new ApiBody();
         apiBody.setData(data);

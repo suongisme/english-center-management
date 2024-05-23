@@ -1,0 +1,10 @@
+<div
+    *ngIf="$gradebooks | async as gradebooks"
+    class="d-flex flex-column gap-4 h-100"
+>
+    <ecm-box>
+        <div class="d-flex flex-column row-gap-4 h-100">
+            <grade-book-grid [rowData]="gradebooks.items"></grade-book-grid>
+        </div>
+    </ecm-box>
+</div>

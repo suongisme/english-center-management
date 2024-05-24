@@ -6,7 +6,7 @@ import {
     formatDate,
 } from '@ecm-module/common';
 
-import { Router } from '@angular/router';
+import { TimetableGridModalComponent } from '@ecm-module/timetable';
 import { faEdit, faTable } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -27,7 +27,6 @@ export class UserGridComponent extends GridCore<any> {
     @Output() afterUpdate = new EventEmitter();
 
     private readonly modalService = inject(NgbModal);
-    private readonly router = inject(Router);
 
     constructor() {
         super();
@@ -109,8 +108,7 @@ export class UserGridComponent extends GridCore<any> {
             },
 
             {
-                headerValueGetter: (param) =>
-                    this.translateService.instant('COMMON.ACTION'),
+                headerValueGetter: (param) => 'Thao tác',
                 cellRenderer: ActionColumnComponent,
                 cellRendererParams: {
                     actions: [
@@ -158,11 +156,13 @@ export class UserGridComponent extends GridCore<any> {
     }
 
     public onShowTimetable(param: ICellRendererParams): void {
-        const { id } = param.data;
-        this.router.navigate(['timetable'], {
-            queryParams: {
-                userId: id,
-            },
+        const { id, role } = param.data;
+        if (role === 'ADMIN') return;
+        const modalRef = this.modalService.open(TimetableGridModalComponent, {
+            centered: true,
+            size: 'lg',
         });
+        modalRef.componentInstance.userId = id;
+        modalRef.componentInstance.role = role;
     }
 }

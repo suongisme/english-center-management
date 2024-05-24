@@ -16,12 +16,6 @@ public class TimetableGradeBookEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "CLASS_ROOM_ID")
-    private Long classRoomId;
-
-    @Column(name = "TEACHER_ID")
-    private Long teacherId;
-
-    @Column(name = "COURSE_ID")
-    private Long courseId;
+    @Column(name = "TIMETABLE_ID")
+    private Long timetableId;
 }

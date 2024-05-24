@@ -1,0 +1,10 @@
+<modal-wrapper [headerTitle]="'Thời khóa biểu'">
+    <ng-container *ngIf="$timetables | async as timetables">
+        <div style="height: 300px">
+            <timetable-grid
+                [rowData]="timetables.items"
+                [action]="['UPDATE']"
+            ></timetable-grid>
+        </div>
+    </ng-container>
+</modal-wrapper>

@@ -19,30 +19,36 @@
                             <button
                                 *ngIf="detail.day === day.id"
                                 class="border-0 bg-transparent d-flex flex-column row-gap-10px cursor-pointer"
-                                (click)="openUpdateTimetable(detail.id)"
                             >
-                                <span class="border-bottom pb-1">
+                                <span
+                                    class="border-bottom pb-1 w-100 text-start"
+                                >
                                     Tên lớp:
                                     <span>
                                         {{ detail.classRoomName }}
                                     </span>
                                 </span>
-                                <span class="border-bottom pb-1">
+                                <span
+                                    class="border-bottom pb-1 w-100 text-start"
+                                >
                                     Tên khóa học:
                                     <span>{{ detail.courseName }}</span>
                                 </span>
-                                <span class="border-bottom pb-1">
+                                <span
+                                    class="border-bottom pb-1 w-100 text-start"
+                                >
                                     Tên GV:
                                     <span>{{ detail.teacherName }}</span>
                                 </span>
-                                <span class="border-bottom pb-1"
+                                <span
+                                    class="border-bottom pb-1 w-100 text-start"
                                     >Trạng thái:
                                     <span>{{
                                         status[detail.status].label
                                     }}</span>
                                 </span>
-                                <span
-                                    >kết thúc:
+                                <span class="w-100 text-start">
+                                    kết thúc:
                                     <span>
                                         {{
                                             map.key

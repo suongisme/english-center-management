@@ -8,6 +8,7 @@ import {
     inject,
 } from '@angular/core';
 import {
+    FormArray,
     FormBuilder,
     FormGroup,
     FormsModule,
@@ -31,6 +32,7 @@ import { DATE_OF_WEEK } from '../../constant';
 import { UserService } from 'src/app/module/user/services';
 import { Role } from 'src/app/module/user/constant';
 import { GetTimetableResponse } from '../../interface';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
     selector: 'timetable-form',
@@ -43,6 +45,8 @@ import { GetTimetableResponse } from '../../interface';
         EcmSelectComponent,
         NgFor,
         AsyncPipe,
+
+        FontAwesomeModule,
     ],
 })
 export class TimetableFormComponent implements OnInit {
@@ -63,12 +67,19 @@ export class TimetableFormComponent implements OnInit {
     private readonly classRoomService = inject(ClassRoomService);
     private readonly userService = inject(UserService);
 
+    get detailsArrayForm(): FormArray {
+        return this.formGroup.controls.details as FormArray;
+    }
+
     public ngOnInit(): void {
         this.buildForm();
         this.loadCourse();
         this.loadTeacher();
         this.loadClassRoom();
         this.loadStudent();
+        if (this.timetable) {
+            this.formGroup.patchValue(this.timetable);
+        }
     }
 
     private buildForm(): void {
@@ -76,12 +87,19 @@ export class TimetableFormComponent implements OnInit {
             classRoomId: [null, [Validators.required]],
             teacherId: [null, [Validators.required]],
             courseId: [null, [Validators.required]],
-            day: [null, [Validators.required]],
-            startTime: [null, [Validators.required]],
-            status: [null, [Validators.required]],
             students: [null],
+            details: this.formBuilder.array([
+                this.formBuilder.group({
+                    day: [null, [Validators.required]],
+                    startTime: [null, [Validators.required]],
+                }),
+            ]),
         });
         if (this.timetable) {
+            this.timetable.details.forEach((x, index) => {
+                if (index === this.timetable.details.length - 1) return;
+                this.addRow();
+            });
             this.formGroup.patchValue(this.timetable);
         }
         this.formInitialized.emit(this.formGroup);
@@ -151,5 +169,19 @@ export class TimetableFormComponent implements OnInit {
                     },
                 ),
             );
+    }
+
+    public addRow(): void {
+        this.detailsArrayForm.push(
+            this.formBuilder.group({
+                day: [null, [Validators.required]],
+                startTime: [null, [Validators.required]],
+            }),
+        );
+    }
+
+    public removeRow(index: number): void {
+        if (this.detailsArrayForm.length == 1) return;
+        this.detailsArrayForm.removeAt(index);
     }
 }

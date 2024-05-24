@@ -5,6 +5,7 @@ import { ApiResponse } from '../../common/interface';
 import { environment } from 'environment';
 import {
     CreateCheckinRequest,
+    GetStudentAndCheckinResult,
     SearchCheckinRequest,
     SearchCheckinResponse,
 } from '../interface';
@@ -26,12 +27,14 @@ export class CheckinService {
         return mappingDataResponse(response);
     }
 
-    public validateCheckinToday(timetableId: number): Observable<ApiResponse> {
+    public validateCheckinToday(
+        timetableDetailId: number,
+    ): Observable<ApiResponse> {
         return this.httpClient.get<ApiResponse>(
             `${environment.BE_URL}/checkin/validate-checkin-today`,
             {
                 params: {
-                    timetableId: timetableId,
+                    timetableDetailId: timetableDetailId,
                 },
             },
         );
@@ -44,5 +47,19 @@ export class CheckinService {
             `${environment.BE_URL}/checkin`,
             request,
         );
+    }
+
+    public getStudentAndCheckinResult(
+        timetableDetailId: number,
+    ): Observable<GetStudentAndCheckinResult[]> {
+        const response = this.httpClient.get<ApiResponse>(
+            `${environment.BE_URL}/checkin/user`,
+            {
+                params: {
+                    timetableDetailId: timetableDetailId,
+                },
+            },
+        );
+        return mappingDataResponse(response);
     }
 }

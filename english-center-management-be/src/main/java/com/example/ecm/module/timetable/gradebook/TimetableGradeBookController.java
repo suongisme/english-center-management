@@ -21,6 +21,12 @@ public class TimetableGradeBookController {
         return ApiResponse.ok(apiBody);
     }
 
+    @GetMapping("/user")
+    public ApiResponse getStudentAndScore(@RequestParam Long timetableId) {
+        final ApiBody apiBody = this.timetableGradeBookService.getStudentAndScore(timetableId);
+        return ApiResponse.ok(apiBody);
+    }
+
     @GetMapping("/detail")
     public ApiResponse getDetail(@RequestParam Long id) {
         final ApiBody apiBody = this.timetableGradeBookService.getDetail(id);

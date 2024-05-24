@@ -4,13 +4,13 @@ import { Observable, map } from 'rxjs';
 import { ApiBody, ApiResponse, mappingDataResponse } from '@ecm-module/common';
 import {
     CreateUser,
-    StudentTimetableResponse,
     UpdateUser,
     UserSearchRequest,
     UserSearchResponse,
 } from '../interface';
 import { environment } from 'environment';
 import { PagingRequest, PagingResponse } from '@ecm-module/common';
+import { GetStudentAndCheckinResult } from '../../checkin/interface';
 
 @Injectable({
     providedIn: 'root',
@@ -45,23 +45,9 @@ export class UserService {
             );
     }
 
-    public getByTimetable(
-        timetableId: number,
-    ): Observable<StudentTimetableResponse[]> {
-        const response = this.httpClient.get<ApiResponse>(
-            `${environment.BE_URL}/users/timetable`,
-            {
-                params: {
-                    timetableId: timetableId,
-                },
-            },
-        );
-        return mappingDataResponse(response);
-    }
-
     public getByCheckinId(
         checkinId: number,
-    ): Observable<StudentTimetableResponse[]> {
+    ): Observable<GetStudentAndCheckinResult[]> {
         const response = this.httpClient.get<ApiResponse>(
             `${environment.BE_URL}/users/checkin`,
             {

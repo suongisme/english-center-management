@@ -4,10 +4,10 @@ import { FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DestroyService, NotifierService } from '@ecm-module/common';
 import {
+    DetailResponse,
     GradebookService,
     ListScoreStudentComponent,
 } from '@ecm-module/grade-book';
-import { StudentTimetableResponse, UserService } from '@ecm-module/user';
 import { Observable, takeUntil } from 'rxjs';
 
 @Component({
@@ -20,17 +20,18 @@ import { Observable, takeUntil } from 'rxjs';
 export class MakeScorePage implements OnInit {
     @Input() timetableId: number;
 
-    private userService = inject(UserService);
     private gradebookService = inject(GradebookService);
     private destroyService = inject(DestroyService);
     private notifierService = inject(NotifierService);
     private router = inject(Router);
 
-    public $students: Observable<StudentTimetableResponse[]>;
+    public $students: Observable<DetailResponse[]>;
     public formArray: FormArray;
 
     public ngOnInit(): void {
-        this.$students = this.userService.getByTimetable(this.timetableId);
+        this.$students = this.gradebookService.getStudentAndScore(
+            this.timetableId,
+        );
     }
 
     public createGradebook(): void {

@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { environment } from 'environment';
+import { Observable } from 'rxjs';
+import { ApiResponse, PagingResponse } from '../../common/interface';
+import { mappingDataResponse } from '../../common/utils';
 import {
     CreateGradeBookRequest,
     DetailResponse,
     SearchGradeBookResponse,
 } from '../interface';
-import { Observable } from 'rxjs';
-import { ApiResponse, PagingResponse } from '../../common/interface';
-import { environment } from 'environment';
-import { mappingDataResponse } from '../../common/utils';
 
 @Injectable({
     providedIn: 'root',
@@ -41,6 +41,20 @@ export class GradebookService {
             {
                 params: {
                     id: id,
+                },
+            },
+        );
+        return mappingDataResponse(apiResponse);
+    }
+
+    public getStudentAndScore(
+        timetableId: number,
+    ): Observable<DetailResponse[]> {
+        const apiResponse = this.httpClient.get<ApiResponse>(
+            `${environment.BE_URL}/grade-book/user`,
+            {
+                params: {
+                    timetableId: timetableId,
                 },
             },
         );

@@ -21,6 +21,6 @@ export interface SearchGradeBookResponse {
 export interface DetailResponse {
     name: string;
     id: number;
-    score: number;
-    note: string;
+    score?: number;
+    note?: string;
 }

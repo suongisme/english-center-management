@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LoginFormComponent } from '@ecm-module/auth';
+import { AuthService, LoginFormComponent } from '@ecm-module/auth';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -11,5 +11,9 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [RouterLink, LoginFormComponent, TranslateModule],
 })
 export class LoginPage implements OnInit {
-    public ngOnInit(): void {}
+    private authService = inject(AuthService);
+
+    public ngOnInit(): void {
+        this.authService.loginResponse = null;
+    }
 }

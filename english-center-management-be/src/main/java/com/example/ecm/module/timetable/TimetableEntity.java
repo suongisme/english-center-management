@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalTime;
-
 @Entity
 @Table(name = "TB_TIMETABLE")
 @Setter
@@ -27,12 +25,9 @@ public class TimetableEntity extends BaseEntity {
     @Column(name = "TEACHER_ID")
     private Long teacherId;
 
-    @Column(name = "DAY")
-    private Integer day;
-
-    @Column(name = "START_TIME")
-    private LocalTime startTime;
-
     @Column(name = "STATUS")
     private Integer status;
+
+    @Column(name = "CHECK_DUPLICATE")
+    private String checkDuplicate;
 }

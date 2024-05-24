@@ -3,3 +3,10 @@ export interface CreateCheckStudentRequest {
     absent: boolean;
     note: string;
 }
+
+export interface GetStudentAndCheckinResult {
+    id: number;
+    name: string;
+    absent: boolean;
+    note: string;
+}

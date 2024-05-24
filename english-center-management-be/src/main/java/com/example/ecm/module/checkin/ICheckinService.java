@@ -11,4 +11,7 @@ public interface ICheckinService {
     void validateCheckinToday(Long timetableId);
 
     ApiBody searchCheckin(SearchCheckinRequest request);
+
+    ApiBody getStudentAndCheckinResult(Long timetableDetailId);
+
 }

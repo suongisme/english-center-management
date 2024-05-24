@@ -23,6 +23,12 @@ public class CheckinController {
         return ApiResponse.ok(apiBody);
     }
 
+    @GetMapping("/user")
+    public ApiResponse getStudentAndCheckInResult(@RequestParam Long timetableDetailId) {
+        final ApiBody apiBody = this.checkinService.getStudentAndCheckinResult(timetableDetailId);
+        return ApiResponse.ok(apiBody);
+    }
+
     @PostMapping
     @PreAuthorize("hasAnyAuthority('SCOPE_TEACHER')")
     public ApiResponse createCheckin(@RequestBody @Valid CreateCheckinRequest createCheckinRequest) {
@@ -31,9 +37,9 @@ public class CheckinController {
     }
 
     @GetMapping("/validate-checkin-today")
-    public ApiResponse validateCheckinToday(@RequestParam Long timetableId) {
+    public ApiResponse validateCheckinToday(@RequestParam Long timetableDetailId) {
         try {
-            this.checkinService.validateCheckinToday(timetableId);
+            this.checkinService.validateCheckinToday(timetableDetailId);
             return ApiResponse.ok(ApiBody.of(false));
         } catch (BusinessException ex) {
             return ApiResponse.ok(ApiBody.of(true));

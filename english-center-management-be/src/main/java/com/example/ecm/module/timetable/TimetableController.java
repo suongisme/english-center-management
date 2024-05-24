@@ -2,7 +2,9 @@ package com.example.ecm.module.timetable;
 
 import com.example.ecm.model.ApiBody;
 import com.example.ecm.model.ApiResponse;
+import com.example.ecm.model.SearchRequest;
 import com.example.ecm.module.timetable.request.CreateTimetableRequest;
+import com.example.ecm.module.timetable.request.SearchTimetableRequest;
 import com.example.ecm.module.timetable.request.UpdateTimetableRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,9 +32,9 @@ public class TimetableController {
         return ApiResponse.ok(apiBody);
     }
 
-    @GetMapping("/get-for-grade-book")
-    public ApiResponse getTimetableForGradebook(@RequestParam Long userId) {
-        final ApiBody apiBody = this.timetableService.getForgradebook(userId);
+    @PostMapping("/search")
+    public ApiResponse searchTimetable(@RequestBody SearchRequest<SearchTimetableRequest> searchRequest) {
+        final ApiBody apiBody = this.timetableService.searchTimetable(searchRequest);
         return ApiResponse.ok(apiBody);
     }
 

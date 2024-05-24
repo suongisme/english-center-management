@@ -1,4 +1,4 @@
-package com.example.ecm.module.timetable.response;
+package com.example.ecm.module.timetable.detail.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,7 +7,7 @@ import org.springframework.data.web.ProjectedPayload;
 import java.time.LocalTime;
 
 @ProjectedPayload
-public interface IUserTimetableResponse {
+public interface IUserTimetableDetailResponse {
 
     Integer getId();
 
@@ -26,5 +26,7 @@ public interface IUserTimetableResponse {
 
     @Value("#{target.firstName + ' ' + target.lastName}")
     String getTeacherName();
+
+    Long getParentId();
 
 }

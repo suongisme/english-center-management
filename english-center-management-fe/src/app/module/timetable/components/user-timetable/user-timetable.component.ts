@@ -11,7 +11,6 @@ import { DATE_OF_WEEK } from '../../constant';
 import { TimetableResponse } from '../../interface';
 import { AddTimePipe } from '../../pipe';
 import { TimetableService } from '../../service';
-import { CreateTimetableModal } from '../create-timetable-modal/create-timetable-modal.component';
 
 @Component({
     selector: 'user-timetable',
@@ -56,22 +55,6 @@ export class UserTimetableComponent implements OnInit {
                 });
                 this.timetableMap.forEach((value, key) => {
                     value.sort((x1, x2) => (x1.day > x2.day ? 1 : -1));
-                });
-            });
-    }
-
-    public openUpdateTimetable(id: number): void {
-        this.timetableService
-            .getById(id)
-            .pipe(takeUntil(this.destroyService.$destroy))
-            .subscribe((res) => {
-                const modalRef = this.modalService.open(CreateTimetableModal, {
-                    centered: true,
-                    size: 'md',
-                });
-                modalRef.componentInstance.timetable = res;
-                modalRef.closed.subscribe((res) => {
-                    if (res) this.loadTimetable();
                 });
             });
     }

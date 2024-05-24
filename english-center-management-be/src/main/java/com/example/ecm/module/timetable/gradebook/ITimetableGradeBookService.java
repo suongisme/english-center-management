@@ -10,5 +10,7 @@ public interface ITimetableGradeBookService {
 
     ApiBody getDetail(long id);
 
+    ApiBody getStudentAndScore(long timetableID);
+
     void createGradeBook(CreateTimetableGradeBookRequest createTimetableGradeBookRequest);
 }

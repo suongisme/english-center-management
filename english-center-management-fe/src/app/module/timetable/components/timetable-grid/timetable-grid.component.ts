@@ -1,12 +1,15 @@
 import { Component, Input, inject } from '@angular/core';
 import { ActionColumnComponent, GridCore, STATUS } from '@ecm-module/common';
-import { TimetableResponse } from './../../interface/index';
+import { SearchTimetableResponse } from '../../interface/index';
 
+import { Router } from '@angular/router';
 import { faEdit, faTable } from '@fortawesome/free-solid-svg-icons';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
-import { Router } from '@angular/router';
+import { TimetableService } from '../../service';
+import { CreateTimetableModal } from '../create-timetable-modal/create-timetable-modal.component';
 
 @Component({
     selector: 'timetable-grid',
@@ -15,48 +18,44 @@ import { Router } from '@angular/router';
     standalone: true,
     imports: [AgGridAngular, TranslateModule],
 })
-export class TimetableGridComponent extends GridCore<TimetableResponse> {
-    @Input() action: string[] = ['CHECKIN', 'RESOURCE'];
+export class TimetableGridComponent extends GridCore<SearchTimetableResponse> {
+    @Input() action: string[] = [];
+
+    private ngbModal = inject(NgbModal);
     private router = inject(Router);
+    private timetableService = inject(TimetableService);
 
     public actionMap = {
-        CHECKIN: {
-            icon: faEdit,
-            classes: 'text-warning',
-            label: 'Điểm danh',
-            onClick: (param: ICellRendererParams<TimetableResponse>) => {
-                this.router.navigate(['checkin', 'student'], {
-                    queryParams: {
-                        timetableId: param.data.id,
-                    },
-                });
-            },
-        },
-
-        RESOURCE: {
-            icon: faTable,
-            classes: 'text-warning',
-            label: 'Tài nguyên học',
-            onClick: (param: ICellRendererParams<TimetableResponse>) => {
-                this.router.navigate(['resource'], {
-                    queryParams: {
-                        type: 'TIMETABLE',
-                        keyId: param.data.id,
-                    },
-                });
-            },
-        },
-
         'MAKE-SCORE': {
             icon: faTable,
             classes: 'text-warning',
             label: 'Chấm điểm',
-            onClick: (param: ICellRendererParams<TimetableResponse>) => {
+            onClick: (param: ICellRendererParams<SearchTimetableResponse>) => {
                 this.router.navigate(['grade-book', 'make-score'], {
                     queryParams: {
                         timetableId: param.data.id,
                     },
                 });
+            },
+        },
+
+        UPDATE: {
+            icon: faEdit,
+            classes: 'text-warning',
+            label: 'Cập nhật',
+            onClick: (param: ICellRendererParams<SearchTimetableResponse>) => {
+                this.timetableService
+                    .getById(param.data.id)
+                    .subscribe((res) => {
+                        const modalRef = this.ngbModal.open(
+                            CreateTimetableModal,
+                            {
+                                centered: true,
+                                size: 'md',
+                            },
+                        );
+                        modalRef.componentInstance.timetable = res;
+                    });
             },
         },
     };
@@ -106,26 +105,6 @@ export class TimetableGridComponent extends GridCore<TimetableResponse> {
                 },
                 tooltipValueGetter: ({ data }) => {
                     return STATUS[data.status].label;
-                },
-            },
-
-            {
-                headerValueGetter: (param) => 'Bắt đầu',
-                minWidth: 100,
-                field: 'startTime',
-                tooltipField: 'startTime',
-            },
-
-            {
-                headerValueGetter: (param) => 'Kết thúc',
-                minWidth: 100,
-                valueGetter: ({ data }) => {
-                    const [hours, minute] = data.startTime.split(':');
-                    return `${+hours + data.courseDuration}:${minute}`;
-                },
-                tooltipValueGetter: ({ data }) => {
-                    const [hours, minute] = data.startTime.split(':');
-                    return `${+hours + data.courseDuration}:${minute}`;
                 },
             },
 

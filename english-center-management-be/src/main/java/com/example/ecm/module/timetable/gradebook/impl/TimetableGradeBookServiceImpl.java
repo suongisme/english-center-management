@@ -13,7 +13,6 @@ import com.example.ecm.module.timetable.gradebook.response.IGetGradeBookDetailRe
 import com.example.ecm.module.timetable.gradebook.response.ISearchGradeBookResponse;
 import com.example.ecm.module.user.IUserService;
 import com.example.ecm.module.user.UserEntity;
-import com.example.ecm.module.user.response.IStudentTimetableResponse;
 import com.example.ecm.utils.AuthenticationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,8 +22,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -50,6 +47,12 @@ public class TimetableGradeBookServiceImpl implements ITimetableGradeBookService
     }
 
     @Override
+    public ApiBody getStudentAndScore(long timetableID) {
+        final List<IGetGradeBookDetailResponse> studentAndScore = this.timetableGradeBookRepository.getStudentAndScore(timetableID);
+        return ApiBody.of(studentAndScore);
+    }
+
+    @Override
     @Transactional
     public void createGradeBook(CreateTimetableGradeBookRequest createTimetableGradeBookRequest) {
         final TimetableEntity timetable = this.timetableService.findByIdThrowIfNotPresent(createTimetableGradeBookRequest.getTimetableId());
@@ -60,19 +63,11 @@ public class TimetableGradeBookServiceImpl implements ITimetableGradeBookService
         if (!teacher.getUsername().equals(AuthenticationUtil.getUsername())) {
             throw new BusinessException(ErrorCode.FORBIDDEN);
         }
-        final ApiBody apiBody = this.userService.getByTimetableId(timetable.getId());
-        final List<IStudentTimetableResponse> data = apiBody.getData(List.class);
-        final Set<Long> studentIdsSet = data.stream().map(IStudentTimetableResponse::getId).collect(Collectors.toSet());
         TimetableGradeBookEntity entity = new TimetableGradeBookEntity();
-        entity.setClassRoomId(timetable.getClassRoomId());
-        entity.setCourseId(timetable.getCourseId());
-        entity.setTeacherId(timetable.getTeacherId());
+        entity.setTimetableId(timetable.getId());
         this.timetableGradeBookRepository.save(entity);
         final List<TimetableGradeBookDetailEntity> entities = createTimetableGradeBookRequest.getDetails().stream()
                 .map(detail -> {
-                    if (!studentIdsSet.contains(detail.getStudentId())) {
-                        throw new BusinessException(ErrorCode.VALIDATE_FAIL);
-                    }
                     TimetableGradeBookDetailEntity timetableGradeBookDetailEntity = new TimetableGradeBookDetailEntity();
                     timetableGradeBookDetailEntity.setStudentId(detail.getStudentId());
                     timetableGradeBookDetailEntity.setScore(detail.getScore());

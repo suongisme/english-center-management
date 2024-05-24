@@ -16,7 +16,7 @@ import {
     Validators,
 } from '@angular/forms';
 import { EcmInputComponent } from '@ecm-module/common';
-import { StudentTimetableResponse } from '@ecm-module/user';
+import { DetailResponse } from '../../interface';
 
 @Component({
     selector: 'list-score-student',
@@ -32,7 +32,7 @@ import { StudentTimetableResponse } from '@ecm-module/user';
 })
 export class ListScoreStudentComponent implements OnInit {
     @Input() readonly: boolean = false;
-    @Input({ required: true }) students: any[];
+    @Input({ required: true }) students: DetailResponse[];
 
     @Output() formInitialized = new EventEmitter<FormArray>();
     private formBuilder = inject(FormBuilder);

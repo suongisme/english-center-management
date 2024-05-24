@@ -38,12 +38,6 @@ public class UserController {
         return ApiResponse.ok();
     }
 
-    @GetMapping("/timetable")
-    public ApiResponse getStudentInTimetable(@RequestParam Long timetableId) {
-        final ApiBody apiBody = this.userService.getByTimetableId(timetableId);
-        return ApiResponse.ok(apiBody);
-    }
-
     @GetMapping("/checkin")
     public ApiResponse getStudentInCheckin(@RequestParam Long checkinId) {
         final ApiBody apiBody = this.userService.getByCheckinId(checkinId);

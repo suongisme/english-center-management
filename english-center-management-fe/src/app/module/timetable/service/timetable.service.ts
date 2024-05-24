@@ -1,10 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { ApiBody, ApiResponse } from '@ecm-module/common';
+import {
+    ApiBody,
+    ApiResponse,
+    PagingRequest,
+    PagingResponse,
+    mappingDataResponse,
+} from '@ecm-module/common';
 import {
     CreateTimetableRequest,
     GetByIdRequest,
     GetTimetableResponse,
+    SearchTimetableRequest,
+    SearchTimetableResponse,
     TimetableResponse,
 } from '../interface';
 import { environment } from 'environment';
@@ -61,20 +69,14 @@ export class TimetableService {
             );
     }
 
-    public getForGradebook(userId: number): Observable<TimetableResponse[]> {
-        return this.httpClient
-            .get<TimetableResponse>(
-                `${TimetableService.ENDPOINT}/get-for-grade-book`,
-                {
-                    params: {
-                        userId: userId,
-                    },
-                },
-            )
-            .pipe(
-                map<any, ApiBody>((x: ApiResponse) => x.apiBody),
-                map<ApiBody, TimetableResponse[]>((apiBody) => apiBody.data),
-            );
+    public searchTimetable(
+        request: PagingRequest<SearchTimetableRequest>,
+    ): Observable<PagingResponse<SearchTimetableResponse>> {
+        const apiResponse = this.httpClient.post<ApiResponse>(
+            `${TimetableService.ENDPOINT}/search`,
+            request,
+        );
+        return mappingDataResponse(apiResponse);
     }
 
     public getById(id: number): Observable<GetTimetableResponse> {

@@ -7,6 +7,7 @@ import com.example.ecm.model.ApiError;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -49,5 +50,10 @@ public class ApiExceptionHandler {
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ApiResponse handleAccessDeniedException(AccessDeniedException ex) {
         return ApiResponse.fail(ErrorCode.FORBIDDEN);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ApiResponse handleBadCredentials(BadCredentialsException ex) {
+        return ApiResponse.fail(ErrorCode.USERNAME_PASSWORD_INCORRECT);
     }
 }

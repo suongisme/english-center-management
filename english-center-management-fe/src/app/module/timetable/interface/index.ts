@@ -2,9 +2,7 @@ export interface CreateTimetableRequest {
     courseId: number;
     classRoomId: number;
     teacherId: number;
-    day: number;
-    startTime: string;
-    status: number;
+    details: CreateTimetableDetailRequest[];
     students: CreateTimetableDetailRequest[];
 }
 
@@ -16,11 +14,12 @@ export interface TimetableResponse {
     id: number;
     courseName: string;
     teacherName: string;
-    startTime: string;
-    day: number;
+    startTime?: string;
+    day?: number;
     classRoomName: string;
     status: number;
     courseDuration: number;
+    parentId: number;
 }
 
 export interface UserTimetable {
@@ -33,16 +32,41 @@ export interface GetTimetableResponse {
     courseId: number;
     teacherId: number;
     classRoomId: number;
-    students: number[];
     createdDate: number;
     createdBy: string;
-    day: number;
-    startTime: string;
     status: number;
+    students: number[];
+    details: GetTimetableDetailResponse[];
 }
 
 export interface GetByIdRequest {
     userId: number;
     day?: number;
     status?: number;
+}
+
+export interface CreateTimetableDetailRequest {
+    day: number;
+    startTime: string;
+}
+
+export interface GetTimetableDetailResponse {
+    id: number;
+    day: number;
+    startTime: string;
+}
+
+export interface SearchTimetableRequest {
+    teacherId?: number;
+    studentId?: number;
+    status?: 0 | 1;
+    scored?: boolean;
+}
+
+export interface SearchTimetableResponse {
+    id: number;
+    status: number;
+    courseName: string;
+    classRoomName: string;
+    teacherName: string;
 }

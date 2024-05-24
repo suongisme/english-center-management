@@ -1,9 +1,10 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
-import { EcmBoxComponent } from '@ecm-module/common';
+import { AuthService } from '@ecm-module/auth';
+import { EcmBoxComponent, PagingResponse } from '@ecm-module/common';
 import {
+    SearchTimetableResponse,
     TimetableGridComponent,
-    TimetableResponse,
     TimetableService,
 } from '@ecm-module/timetable';
 import { Observable } from 'rxjs';
@@ -12,14 +13,21 @@ import { Observable } from 'rxjs';
     selector: 'grade-book-page',
     templateUrl: './grade-book.page.html',
     standalone: true,
-    imports: [EcmBoxComponent, TimetableGridComponent, AsyncPipe],
+    imports: [EcmBoxComponent, TimetableGridComponent, AsyncPipe, NgIf],
 })
 export class GradeBookPage implements OnInit {
     private timetableService = inject(TimetableService);
+    private authService = inject(AuthService);
 
-    public $timetable: Observable<TimetableResponse[]>;
+    public $timetable: Observable<PagingResponse<SearchTimetableResponse>>;
 
     public ngOnInit(): void {
-        this.$timetable = this.timetableService.getForGradebook(3);
+        this.$timetable = this.timetableService.searchTimetable({
+            data: {
+                teacherId: this.authService.loginResponse.id,
+                status: 0,
+                scored: false,
+            },
+        });
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 public class CreateCheckinRequest {
 
     @NotNull
-    private Long timetableId;
+    private Long timetableDetailId;
 
     @NotNull
     @Size(min = 1)
@@ -20,7 +20,7 @@ public class CreateCheckinRequest {
 
     public CheckinEntity toEntity() {
         CheckinEntity checkin = new CheckinEntity();
-        checkin.setTimetableId(this.getTimetableId());
+        checkin.setTimetableDetailId(this.getTimetableDetailId());
         return checkin;
     }
 }

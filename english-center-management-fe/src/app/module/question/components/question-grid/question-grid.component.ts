@@ -137,8 +137,7 @@ export class QuestionGridComponent extends GridCore<SearchQuestionResponse> {
             },
 
             {
-                headerValueGetter: (param) =>
-                    this.translateService.instant('COMMON.ACTION'),
+                headerValueGetter: (param) => 'Thao tác',
                 cellRenderer: ActionColumnComponent,
                 cellRendererParams: {
                     actions: this.action.map((a) => this.actions[a]),

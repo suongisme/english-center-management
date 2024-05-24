@@ -1,3 +1,4 @@
+import { NgFor } from '@angular/common';
 import {
     Component,
     EventEmitter,
@@ -6,9 +7,6 @@ import {
     Output,
     inject,
 } from '@angular/core';
-import { StudentTimetableResponse } from '../../interface';
-import { EcmInputComponent } from '@ecm-module/common';
-import { NgFor } from '@angular/common';
 import {
     FormArray,
     FormBuilder,
@@ -17,6 +15,8 @@ import {
     ReactiveFormsModule,
     Validators,
 } from '@angular/forms';
+import { GetStudentAndCheckinResult } from '@ecm-module/checkin';
+import { EcmInputComponent } from '@ecm-module/common';
 
 @Component({
     selector: 'user-checkin',
@@ -25,7 +25,7 @@ import {
     imports: [NgFor, EcmInputComponent, FormsModule, ReactiveFormsModule],
 })
 export class UserCheckInComponent implements OnInit {
-    @Input() users: StudentTimetableResponse[];
+    @Input() users: GetStudentAndCheckinResult[];
     @Input() readonly: boolean = false;
 
     @Output() formInitialized = new EventEmitter<FormArray>();

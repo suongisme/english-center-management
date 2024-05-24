@@ -11,6 +11,7 @@ import java.util.List;
 public interface ITestingDetailRepository extends JpaRepository<TestingDetailEntity, Long> {
 
     @Modifying
+    @Query("DELETE FROM TestingDetailEntity t WHERE t.testingId = ?1")
     void deleteByTestingId(long testingId);
 
     @Query("""

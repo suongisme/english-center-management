@@ -27,4 +27,9 @@
             <column name="UPDATED_BY" type="varchar(255)" />
         </createTable>
     </changeSet>
+
+    <changeSet id="${tableName}-2" author="anonymous">
+        <comment>rename column TIMETABLE_ID to TIMETABLE_DETAIL_ID</comment>
+        <renameColumn tableName="${tableName}" oldColumnName="TIMETABLE_ID" newColumnName="TIMETABLE_DETAIL_ID" columnDataType="${idType}"/>
+    </changeSet>
 </databaseChangeLog>

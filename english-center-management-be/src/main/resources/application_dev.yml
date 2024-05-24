@@ -39,8 +39,8 @@ security:
 schedule:
   timetable:
     change-status:
-      enabled: false
-      cron: '0 * * ? * *'
+      enabled: true
+      cron: '* * * ? * *'
 
 resource:
   provider: local

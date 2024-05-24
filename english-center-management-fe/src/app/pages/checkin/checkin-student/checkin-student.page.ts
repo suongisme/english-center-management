@@ -2,13 +2,12 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CheckinService } from '@ecm-module/checkin';
-import { DestroyService, NotifierService } from '@ecm-module/common';
 import {
-    StudentTimetableResponse,
-    UserCheckInComponent,
-    UserService,
-} from '@ecm-module/user';
+    CheckinService,
+    GetStudentAndCheckinResult,
+} from '@ecm-module/checkin';
+import { DestroyService, NotifierService } from '@ecm-module/common';
+import { UserCheckInComponent } from '@ecm-module/user';
 import { forkJoin, takeUntil } from 'rxjs';
 
 @Component({
@@ -19,22 +18,24 @@ import { forkJoin, takeUntil } from 'rxjs';
     providers: [DestroyService],
 })
 export class CheckinStudentPage implements OnInit {
+    @Input() timetableDetailId: number;
     @Input() timetableId: number;
 
-    private userService = inject(UserService);
     private checkinService = inject(CheckinService);
     private router = inject(Router);
     private destroyService = inject(DestroyService);
     private notifierService = inject(NotifierService);
 
-    public users: StudentTimetableResponse[];
+    public users: GetStudentAndCheckinResult[];
     public formArray: FormArray;
     public isExist: boolean = true;
 
     public ngOnInit(): void {
         forkJoin([
-            this.checkinService.validateCheckinToday(this.timetableId),
-            this.userService.getByTimetable(this.timetableId),
+            this.checkinService.validateCheckinToday(this.timetableDetailId),
+            this.checkinService.getStudentAndCheckinResult(
+                this.timetableDetailId,
+            ),
         ])
             .pipe(takeUntil(this.destroyService.$destroy))
             .subscribe(([res1, res2]) => {
@@ -47,7 +48,7 @@ export class CheckinStudentPage implements OnInit {
         const details = this.formArray.getRawValue();
         this.checkinService
             .createCheckin({
-                timetableId: this.timetableId,
+                timetableDetailId: this.timetableDetailId,
                 details: details,
             })
             .pipe(takeUntil(this.destroyService.$destroy))

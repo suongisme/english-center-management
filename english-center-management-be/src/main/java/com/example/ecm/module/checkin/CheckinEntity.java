@@ -16,6 +16,6 @@ public class CheckinEntity extends BaseEntity {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "TIMETABLE_ID")
-    private Long timetableId;
+    @Column(name = "TIMETABLE_DETAIL_ID")
+    private Long timetableDetailId;
 }

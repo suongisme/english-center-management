@@ -115,8 +115,7 @@ export class CourseGridComponent extends GridCore<any> {
             },
 
             {
-                headerValueGetter: (param) =>
-                    this.translateService.instant('COMMON.ACTION'),
+                headerValueGetter: (param) => 'Thao tác',
                 cellRenderer: ActionColumnComponent,
                 cellRendererParams: {
                     actions: [

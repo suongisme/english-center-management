@@ -50,43 +50,6 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
-            <ecm-select
-                label="Thứ"
-                [items]="day"
-                bindLabel="label"
-                bindValue="id"
-                [required]="true"
-                placeholder="Chọn thứ"
-                formControlName="day"
-            ></ecm-select>
-        </div>
-
-        <div class="col-md-6">
-            <ecm-input
-                label="Giờ bắt đầu"
-                [required]="true"
-                [type]="'time'"
-                formControlName="startTime"
-            ></ecm-input>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <ecm-select
-                label="Trạng thái"
-                [items]="status"
-                bindLabel="label"
-                bindValue="id"
-                [required]="true"
-                placeholder="Chọn trạng thái"
-                formControlName="status"
-            ></ecm-select>
-        </div>
-    </div>
-
-    <div class="row">
         <div class="col-md-12">
             <ecm-select
                 label="Học viên"
@@ -108,6 +71,61 @@
                     }
                 ]"
             ></ecm-select>
+        </div>
+    </div>
+
+    <div class="row row-gap-10px" formArrayName="details">
+        <div class="d-flex px-0">
+            <div class="col-md-11 px-0 d-flex">
+                <div class="col-md-6">
+                    <span class="fw-bold required">Thứ</span>
+                </div>
+                <div class="col-md-6">
+                    <span class="fw-bold required">Giờ Bắt Đầu</span>
+                </div>
+            </div>
+            <div class="col-md-1 px-0">
+                <button class="btn btn-sm btn-primary" (click)="addRow()">
+                    <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+                </button>
+            </div>
+        </div>
+        <div
+            class="d-flex flex-column row-gap-20px px-0"
+            *ngFor="let detailForm of detailsArrayForm.controls; let i = index"
+            [formArrayName]="i"
+        >
+            <div class="d-flex">
+                <div class="col-md-11 px-0 d-flex">
+                    <div class="col-md-6">
+                        <ecm-select
+                            [items]="day"
+                            bindLabel="label"
+                            bindValue="id"
+                            [required]="true"
+                            placeholder="Chọn thứ"
+                            formControlName="day"
+                        ></ecm-select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <ecm-input
+                            [required]="true"
+                            [type]="'time'"
+                            formControlName="startTime"
+                        ></ecm-input>
+                    </div>
+                </div>
+
+                <div class="col-md-1 px-0">
+                    <button
+                        class="btn btn-sm btn-danger"
+                        (click)="removeRow(i)"
+                    >
+                        <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </form>

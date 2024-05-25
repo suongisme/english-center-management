@@ -14,10 +14,10 @@ import {
 import { router as resourceRouter } from '../../pages/resource/router';
 import {
     router as gradeBookRouter,
-    gradebookHistoryRoute,
+    gradebookHistoryRouter,
 } from '../../pages/grade-book/router';
 import { AuthenticationGuard, AuthorizationGuard } from '@ecm-module/auth';
-
+import { route as changePasswordRouter } from '../../pages/change-password/router';
 export const routes: Routes = [
     {
         path: '',
@@ -35,7 +35,8 @@ export const routes: Routes = [
             historyRouter,
             resourceRouter,
             gradeBookRouter,
-            gradebookHistoryRoute,
+            gradebookHistoryRouter,
+            changePasswordRouter,
         ],
     },
 ];

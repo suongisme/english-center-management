@@ -1,0 +1,37 @@
+<button
+    type="button"
+    class="nav-link dropdown-toggle"
+    (click)="toggleDropdown(userDropdown)"
+>
+    <span class="mr-2 d-none d-lg-inline text-gray-600 small"
+        >Xin chào, {{ username }}</span
+    >
+</button>
+<!-- Dropdown - User Information -->
+<div
+    #userDropdown="ngbCollapse"
+    [ngbCollapse]="true"
+    [animation]="true"
+    class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+>
+    <button
+        class="bg-transparent dropdown-item"
+        (click)="routeChangePassword()"
+    >
+        <fa-icon
+            [icon]="['fas', 'user']"
+            size="sm"
+            class="mr-2 text-gray-400"
+        ></fa-icon>
+        Đổi mật khẩu
+    </button>
+    <div class="dropdown-divider"></div>
+    <button class="bg-transparent dropdown-item" (click)="logout()">
+        <fa-icon
+            [icon]="'sign-out-alt'"
+            size="sm"
+            class="mr-2 text-gray-400"
+        ></fa-icon>
+        Đăng xuất
+    </button>
+</div>

@@ -42,7 +42,7 @@ export class AuthInterceptor implements HttpInterceptor {
             timeout(environment.REQUEST_TIMEOUT),
             catchError((err) => {
                 if (err instanceof HttpErrorResponse) {
-                    if (err.status === 401) {
+                    if (err.status === 401 || err.status === 403) {
                         this.router.navigate(['auth', 'login']);
                         return throwError(() => err);
                     }

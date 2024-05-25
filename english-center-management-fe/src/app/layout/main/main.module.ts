@@ -11,6 +11,9 @@ import { MainHeaderComponent } from './components/header/header.component';
 import { MainSidebarComponent } from './components/sidebar/sidebar.component';
 import { MainLayout } from './main.layout';
 import { routes } from './router';
+import { UserDropdownComponent } from './components/header/user-dropdown/user-dropdown.component';
+import { MessageDropdownComponent } from './components/header/message-dropdown/message-dropdown.component';
+import { NotificationDropdownComponent } from './components/header/notification-dropdown/notification-dropdown.component';
 
 const imports = [
     CommonModule,
@@ -23,7 +26,14 @@ const imports = [
     FontAwesomeModule,
 ];
 
-const declarations = [MainLayout, MainHeaderComponent, MainSidebarComponent];
+const declarations = [
+    MainLayout,
+    MainHeaderComponent,
+    MainSidebarComponent,
+    UserDropdownComponent,
+    MessageDropdownComponent,
+    NotificationDropdownComponent,
+];
 
 @NgModule({
     imports,

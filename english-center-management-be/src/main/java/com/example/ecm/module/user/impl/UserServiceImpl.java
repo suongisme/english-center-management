@@ -1,6 +1,7 @@
 package com.example.ecm.module.user.impl;
 
 import com.example.ecm.model.SearchResponse;
+import com.example.ecm.module.user.request.ChangePasswordRequest;
 import com.example.ecm.module.user.request.CreateUserRequest;
 import com.example.ecm.constant.ErrorCode;
 import com.example.ecm.exception.BusinessException;
@@ -13,6 +14,7 @@ import com.example.ecm.module.user.request.SearchUserRequest;
 import com.example.ecm.module.user.request.UpdateUserRequest;
 import com.example.ecm.module.user.response.ISearchUserResponse;
 import com.example.ecm.module.user.response.IStudentTimetableResponse;
+import com.example.ecm.utils.AuthenticationUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -30,12 +32,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements IUserService {
 
-    private final IUserRepository studentRepository;
+    private final IUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserEntity findByIdThrowIfNotPresent(Long id) {
-        return this.studentRepository.findById(id)
+        return this.userRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RECORD));
     }
 
@@ -46,7 +48,7 @@ public class UserServiceImpl implements IUserService {
             pageable = PageRequest.of(searchStudentRequest.getPageNo() - 1, searchStudentRequest.getPageSize(), Sort.Direction.DESC, "createdDate");
         }
         final SearchUserRequest data = Optional.ofNullable(searchStudentRequest.getData()).orElseGet(SearchUserRequest::new);
-        final Page<ISearchUserResponse> page = this.studentRepository.searchBy(data, pageable);
+        final Page<ISearchUserResponse> page = this.userRepository.searchBy(data, pageable);
         final SearchResponse<ISearchUserResponse> response = SearchResponse.of(page);
         return ApiBody.of(response);
     }
@@ -56,7 +58,7 @@ public class UserServiceImpl implements IUserService {
         try {
             final UserEntity student = createStudentRequest.toEntity();
             student.setPassword(this.passwordEncoder.encode(student.getPassword()));
-            this.studentRepository.save(student);
+            this.userRepository.save(student);
         } catch (DataIntegrityViolationException ex) {
             throw new BusinessException(ErrorCode.USERNAME_EXIST);
         }
@@ -64,7 +66,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void updateUser(UpdateUserRequest updateStudentRequest) {
-        UserEntity user = this.studentRepository.findById(updateStudentRequest.getId())
+        UserEntity user = this.userRepository.findById(updateStudentRequest.getId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RECORD));
         final UserEntity requestEntity = updateStudentRequest.toEntity();
         if (StringUtils.isBlank(updateStudentRequest.getPassword())) {
@@ -73,12 +75,26 @@ public class UserServiceImpl implements IUserService {
             requestEntity.setPassword(user.getPassword());
         }
         requestEntity.setId(user.getId());
-        this.studentRepository.save(requestEntity);
+        this.userRepository.save(requestEntity);
     }
 
     @Override
     public ApiBody getByCheckinId(Long checkinId) {
-        final List<IStudentTimetableResponse> response = this.studentRepository.getByCheckinId(checkinId);
+        final List<IStudentTimetableResponse> response = this.userRepository.getByCheckinId(checkinId);
         return ApiBody.of(response);
+    }
+
+    @Override
+    public void changePassword(ChangePasswordRequest request) {
+        final String username = AuthenticationUtil.getUsername();
+        final UserEntity user = this.userRepository.findByUsername(username)
+                .orElseThrow();
+        final boolean isMatch = this.passwordEncoder.matches(request.getCurrentPassword(), user.getPassword());
+        if (!isMatch) {
+            throw new BusinessException(ErrorCode.VALIDATE_FAIL, "Mật khẩu không chính xác");
+        }
+        final String newPassword = this.passwordEncoder.encode(request.getNewPassword());
+        user.setPassword(newPassword);
+        this.userRepository.save(user);
     }
 }

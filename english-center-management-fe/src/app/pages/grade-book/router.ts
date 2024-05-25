@@ -25,7 +25,7 @@ export const router: Route = {
     ],
 };
 
-export const gradebookHistoryRoute: Route = {
+export const gradebookHistoryRouter: Route = {
     path: 'grade-book-history',
     children: [
         {

@@ -11,6 +11,7 @@ import {
 import { environment } from 'environment';
 import { PagingRequest, PagingResponse } from '@ecm-module/common';
 import { GetStudentAndCheckinResult } from '../../checkin/interface';
+import { ChangePasswordRequest } from '../../auth/interface';
 
 @Injectable({
     providedIn: 'root',
@@ -57,5 +58,14 @@ export class UserService {
             },
         );
         return mappingDataResponse(response);
+    }
+
+    public changePassword(
+        request: ChangePasswordRequest,
+    ): Observable<ApiResponse> {
+        return this.httpClient.post<ApiResponse>(
+            `${environment.BE_URL}/users/change-password`,
+            request,
+        );
     }
 }

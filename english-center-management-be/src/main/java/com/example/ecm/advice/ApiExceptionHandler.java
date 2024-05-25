@@ -53,6 +53,7 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(BadCredentialsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiResponse handleBadCredentials(BadCredentialsException ex) {
         return ApiResponse.fail(ErrorCode.USERNAME_PASSWORD_INCORRECT);
     }

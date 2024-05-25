@@ -8,3 +8,8 @@ export interface LoginResponse {
     username: string;
     jwt: string;
 }
+
+export interface ChangePasswordRequest {
+    currentPassword: string;
+    newPassword: string;
+}

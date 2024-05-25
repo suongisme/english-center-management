@@ -2,6 +2,7 @@ package com.example.ecm.module.user;
 
 import com.example.ecm.model.ApiBody;
 import com.example.ecm.model.ApiResponse;
+import com.example.ecm.module.user.request.ChangePasswordRequest;
 import com.example.ecm.module.user.request.CreateUserRequest;
 import com.example.ecm.model.SearchRequest;
 import com.example.ecm.module.user.request.SearchUserRequest;
@@ -42,5 +43,11 @@ public class UserController {
     public ApiResponse getStudentInCheckin(@RequestParam Long checkinId) {
         final ApiBody apiBody = this.userService.getByCheckinId(checkinId);
         return ApiResponse.ok(apiBody);
+    }
+
+    @PostMapping("/change-password")
+    public ApiResponse changePassword(@RequestBody @Valid ChangePasswordRequest request) {
+        this.userService.changePassword(request);
+        return ApiResponse.ok();
     }
 }

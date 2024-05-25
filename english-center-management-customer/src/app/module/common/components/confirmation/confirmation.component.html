@@ -1,0 +1,24 @@
+<div class="d-flex flex-column">
+    <div class="modal-header d-flex justify-content-between">
+        <span class="h4 text-capitalize">{{
+            confirmation?.title || ('COMMON.CONFIRM' | translate)
+        }}</span>
+    </div>
+
+    <div class="modal-body" *ngIf="confirmation">
+        <span *ngIf="!confirmation.isHtml">{{ confirmation.content }}</span>
+        <div
+            *ngIf="confirmation.isHtml"
+            [innerHTML]="confirmation.content | safe: 'HTML'"
+        ></div>
+    </div>
+
+    <div class="modal-footer d-flex justify-content-center gap-2">
+        <button class="btn btn-primary text-capitalize" (click)="onAccept()">
+            {{ 'COMMON.ACCEPT' | translate }}
+        </button>
+        <button class="btn btn-secondary text-capitalize" (click)="onCancel()">
+            {{ 'COMMON.CANCEL' | translate }}
+        </button>
+    </div>
+</div>

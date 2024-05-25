@@ -1,0 +1,25 @@
+<div class="d-flex flex-column">
+    <div class="modal-header d-flex justify-content-between">
+        <span class="h4 text-capitalize">{{ headerTitle }}</span>
+    </div>
+
+    <div class="modal-body">
+        <ng-content></ng-content>
+    </div>
+
+    <div class="modal-footer d-flex justify-content-center gap-2">
+        <button
+            *ngIf="!readonly"
+            class="btn btn-primary text-capitalize"
+            (click)="ngOnSave()"
+        >
+            {{ 'COMMON.SAVE' | translate }}
+        </button>
+        <button
+            class="btn btn-secondary text-capitalize"
+            (click)="ngOnCancel()"
+        >
+            {{ 'COMMON.CANCEL' | translate }}
+        </button>
+    </div>
+</div>

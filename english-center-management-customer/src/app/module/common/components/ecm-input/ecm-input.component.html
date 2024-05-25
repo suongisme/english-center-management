@@ -1,0 +1,42 @@
+<div>
+    <label
+        *ngIf="label"
+        class="fw-semibold text-capitalize"
+        [class.required]="required"
+        >{{ label }}</label
+    >
+    <ng-container [ngSwitch]="variant">
+        <input
+            *ngSwitchCase="'input'"
+            [type]="type"
+            [disabled]="isDisabled"
+            [placeholder]="placeholder"
+            class="form-control"
+            [(ngModel)]="value"
+            autocomplete="off webauthn"
+            (blur)="markAsTouched()"
+            (ngModelChange)="onChangeValue()"
+        />
+
+        <textarea
+            *ngSwitchCase="'textarea'"
+            style="min-height: 150px"
+            class="form-control"
+            [placeholder]="placeholder"
+            [disabled]="isDisabled"
+            [(ngModel)]="value"
+            (blur)="markAsTouched()"
+            (ngModelChange)="onChangeValue()"
+        ></textarea>
+    </ng-container>
+</div>
+<div *ngIf="control && control.touched && control.invalid">
+    <div *ngFor="let err of control.errors | keyvalue">
+        <div
+            *ngIf="err.value && errorsMessage[err.key]"
+            class="text-danger fw-semibold text-capitalize"
+        >
+            {{ errorsMessage[err.key] | translate }}
+        </div>
+    </div>
+</div>

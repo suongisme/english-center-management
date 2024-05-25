@@ -1,0 +1,23 @@
+<div class="row justify-content-between align-items-center">
+    <div class="col-md-6 d-none d-md-flex gap-2 align-items-center">
+        <span class="fw-semibold text-capitalize"
+            >{{ 'COMMON.RECORD_PER_PAGE' | translate }}:
+        </span>
+        <ng-select
+            [items]="pageList"
+            [(ngModel)]="pagination.pageSize"
+            [clearable]="false"
+            [searchable]="false"
+            (change)="pageSizeChange.emit(pagination)"
+        ></ng-select>
+    </div>
+    <ngb-pagination
+        class="col-sm-12 col-md-6 d-flex justify-content-end"
+        [collectionSize]="pagination.total"
+        [page]="pagination.page"
+        [pageSize]="pagination.pageSize"
+        [ellipses]="true"
+        [maxSize]="5"
+        (pageChange)="ngOnPageChange($event)"
+    />
+</div>

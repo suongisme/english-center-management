@@ -1,0 +1,78 @@
+<section class="slider-area slider-area2">
+    <div class="slider-active">
+        <!-- Single Slider -->
+        <div class="single-slider slider-height2">
+            <div class="container">
+                <div class="row p">
+                    <div class="col-xl-8 col-lg-11 col-md-12">
+                        <div class="hero__caption hero__caption2">
+                            <div class="d-flex flex-column row-gap-2 mb-4">
+                                <h1 class="mb-0">Tên khóa học</h1>
+                                <div class="d-flex gap-1 align-items-center">
+                                    <p class="mb-0"><i class="ti-money"></i></p>
+                                    <div class="d-flex gap-1">
+                                        <p class="mb-0">Giá tiền:</p>
+                                        <p class="mb-0">
+                                            {{ 100000 | money: 'VND' }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex gap-2 align-items-center">
+                                    <p class="mb-0">
+                                        <i class="ti-pencil"></i>
+                                    </p>
+                                    <div class="d-flex gap-1">
+                                        <p class="mb-0">Số buổi học:</p>
+                                        <p class="mb-0">20</p>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex gap-2 align-items-center">
+                                    <p class="mb-0">
+                                        <i class="ti-timer"></i>
+                                    </p>
+                                    <div class="d-flex gap-1">
+                                        <p class="mb-0">Thời lượng:</p>
+                                        <p class="mb-0">2 tiếng</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-1">
+                                    <p class="mb-0">Lần cập nhật gần nhất:</p>
+                                    <p class="mb-0">2/2024</p>
+                                </div>
+                                <div class="d-flex gap-1">
+                                    <p class="mb-0">
+                                        The automated process all your website
+                                        tasks. Discover tools and techniques to
+                                        engage effectively with vulnerable
+                                        children and young people.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row w-100 pb-2 justify-content-end">
+                <div class="col-md-2">
+                    <button
+                        class="border-btn border-btn2 p-2 text-white border-2"
+                    >
+                        <i class="ti-shopping-cart text-white"></i>
+                        Mua khóa học
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <a
+                        class="border-btn border-btn2 p-2 text-white border-2"
+                        [routerLink]="'/kiem-tra'"
+                    >
+                        <i class="ti-pencil-alt text-white"></i>
+                        Kiểm tra thử
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

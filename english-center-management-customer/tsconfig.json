@@ -1,0 +1,59 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strictPropertyInitialization": false,
+    "strict": false,
+    "noImplicitOverride": true,
+    "noImplicitAny": false,
+    "noPropertyAccessFromIndexSignature": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "useDefineForClassFields": false,
+    "resolveJsonModule": true,
+    "lib": [
+      "ES2022",
+      "dom"
+    ],
+    "paths": {
+      "@ecm-module/auth": [
+        "src/app/module/auth/index.ts"
+      ],
+      "@ecm-module/course": [
+        "src/app/module/course/index.ts"
+      ],
+      "@ecm-module/common": [
+        "src/app/module/common/index.ts"
+      ],
+      "@ecm-module/testing": [
+        "src/app/module/testing/index.ts"
+      ],
+      "@ecm-layout/main": [
+        "src/app/layout/main/index.ts"
+      ],
+      "@ecm-layout/auth": [
+        "src/app/layout/auth/index.ts"
+      ],
+      "environment": [
+        "src/environments/environment.ts"
+      ]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

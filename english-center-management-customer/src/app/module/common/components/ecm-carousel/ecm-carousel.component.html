@@ -1,0 +1,14 @@
+<div class="courses-actives">
+    <ngx-slick-carousel
+        class="carousel"
+        #slickModal="slick-carousel"
+        [config]="baseConfig"
+    >
+        <div ngxSlickItem *ngFor="let d of data; trackBy: trackByFn">
+            <ng-container
+                [ngTemplateOutlet]="itemTemplate"
+                [ngTemplateOutletContext]="{ item: d }"
+            ></ng-container>
+        </div>
+    </ngx-slick-carousel>
+</div>

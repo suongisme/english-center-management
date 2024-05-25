@@ -1,0 +1,14 @@
+<div
+    *ngIf="actions"
+    class="d-flex justify-content-center align-items-center gap-10px"
+>
+    <button
+        *ngFor="let action of actions"
+        (click)="action.onClick(this.params)"
+        [title]="action.label || (action.i18Key | translate) || ''"
+        class="bg-transparent border-0"
+        [class]="action.classes"
+    >
+        <fa-icon [icon]="action.icon"></fa-icon>
+    </button>
+</div>

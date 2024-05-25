@@ -1,0 +1,7 @@
+<div class="row row-gap-20px">
+    <course-item
+        class="col-md-4"
+        *ngFor="let d of data; trackBy: trackBy"
+        [item]="d"
+    ></course-item>
+</div>

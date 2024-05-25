@@ -1,0 +1,71 @@
+{
+    "ACCOUNT": {
+        "ACC": "account",
+        "ACC_NAME": "account name",
+        "SELECT_ACC": "choose an account"
+    },
+    "AUTH": {
+        "ALREADY_ACC": "already have an account?",
+        "CREATE_AN_ACC": "create an account",
+        "EMAIL": "email",
+        "FIRST_NAME": "first name",
+        "FORGOT_PASS": "forgot password?",
+        "INPUT_EMAIL": "enter your email",
+        "INPUT_PASSWORD": "enter your password",
+        "LAST_NAME": "last name",
+        "LOGIN": "login",
+        "LOGIN_WITH_FB": "login with facebook",
+        "LOGIN_WITH_GOOGLE": "login with google",
+        "PASSWORD": "password",
+        "REGISTER": "register",
+        "WELCOME": "welcome back!"
+    },
+    "COMMON": {
+        "ACTION": "action",
+        "AMT": "amount",
+        "NOT_FOUND": "not found",
+        "CANCEL": "cancel",
+        "CREATE": "create",
+        "CREATED_BY": "creator",
+        "CREATED_DATE": "created date",
+        "UPDATED_DATE": "updated date",
+        "UPDATED_BY": "updater",
+        "DESC": "description",
+        "EXPORT_EXCEL": "export excel",
+        "FC": "football club",
+        "FROM_DATE": "from date",
+        "INPUT_DESC": "enter description",
+        "LANGUAGE": {
+            "EN": "English",
+            "VN": "Vietnamese"
+        },
+        "NO": "no",
+        "POSITION": "position",
+        "RECORD_PER_PAGE": "record/page",
+        "SAVE": "save",
+        "ACCEPT": "accept",
+        "SEARCH": "search",
+        "SELECT_FC": "choose a football club",
+        "SELECT_POSITION": "choose a position",
+        "SELECT_STATUS": "choose a status",
+        "STATUS": "status",
+        "TO_DATE": "to date",
+        "TOTAL_RECORD": "total record: {{numberOfRecord}}",
+        "START_DATE": "start date",
+        "GO_BACK": "go back",
+        "NOTIFY": {
+            "SUCCESS": "Success",
+            "ERROR": "Oops..."
+        },
+        "CONFIRM": "confirmation",
+        "NO_ROWS": "no rows to show"
+    },
+    "FORGOT_PASSWORD": {
+        "RESET_PASSWORD": "reset password",
+        "SUB_TITLE": "we get it, stuff happens. just enter your email address below and we'll send you a link to reset your password",
+        "TITLE": "forgot your password"
+    },
+    "STUDENT": {
+        "TITLE": "quản lý sinh viên"
+    }
+}

@@ -1,0 +1,71 @@
+{
+    "ACCOUNT": {
+        "ACC": "tài khoản",
+        "ACC_NAME": "tên tài khoản",
+        "SELECT_ACC": "chọn tài khoản"
+    },
+    "AUTH": {
+        "ALREADY_ACC": "đã có tài khoản?",
+        "CREATE_AN_ACC": "tạo mới tài khoản",
+        "EMAIL": "email",
+        "FIRST_NAME": "tên",
+        "FORGOT_PASS": "quên mật khẩu?",
+        "INPUT_EMAIL": "nhập email của bản",
+        "INPUT_PASSWORD": "nhập mật khẩu của bạn",
+        "LAST_NAME": "họ",
+        "LOGIN": "đăng nhập",
+        "LOGIN_WITH_FB": "đăng nhập bằng facebook",
+        "LOGIN_WITH_GOOGLE": "đăng nhập bằng google",
+        "PASSWORD": "mật khẩu",
+        "REGISTER": "đăng ký",
+        "WELCOME": "Xin chào!"
+    },
+    "COMMON": {
+        "ACTION": "thao tác",
+        "AMT": "số tiền",
+        "NOT_FOUND": "không tìm thấy",
+        "CANCEL": "hủy bỏ",
+        "CREATE": "thêm mới",
+        "CREATED_BY": "người tạo",
+        "CREATED_DATE": "ngày tạo",
+        "UPDATED_DATE": "ngày cập nhật",
+        "UPDATED_BY": "người cập nhật",
+        "DESC": "mô tả",
+        "EXPORT_EXCEL": "xuất excel",
+        "FC": "đội bóng",
+        "FROM_DATE": "từ ngày",
+        "INPUT_DESC": "nhập mô tả",
+        "LANGUAGE": {
+            "EN": "Tiếng Anh",
+            "VN": "Tiếng Việt"
+        },
+        "NO": "stt",
+        "POSITION": "vị trí",
+        "RECORD_PER_PAGE": "số bản ghi trên trang",
+        "SAVE": "lưu lại",
+        "ACCEPT": "đồng ý",
+        "SEARCH": "tìm kiếm",
+        "SELECT_FC": "chọn đội bóng",
+        "SELECT_POSITION": "chọn vị trí",
+        "SELECT_STATUS": "chọn trạng thái",
+        "STATUS": "trạng thái",
+        "TO_DATE": "đến ngày",
+        "TOTAL_RECORD": "tổng số bản ghi: {{numberOfRecord}}",
+        "START_DATE": "ngày bắt đầu",
+        "GO_BACK": "quay lại",
+        "NOTIFY": {
+            "SUCCESS": "Thành công",
+            "ERROR": "Oops..."
+        },
+        "CONFIRM": "xác nhận",
+        "NO_ROWS": "không có bản ghi"
+    },
+    "FORGOT_PASSWORD": {
+        "RESET_PASSWORD": "đặt lại mật khẩu",
+        "SUB_TITLE": "chúng tôi hiểu rồi, mọi thứ sẽ xảy ra. chỉ cần nhập địa chỉ email của bạn bên dưới và chúng tôi sẽ gửi cho bạn một liên kết để đặt lại mật khẩu của bạn",
+        "TITLE": "quên mật khẩu"
+    },
+    "STUDENT": {
+        "TITLE": "quản lý sinh viên"
+    }
+}

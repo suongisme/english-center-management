@@ -1,0 +1,17 @@
+<ag-grid-angular
+    class="ag-theme-quartz w-100 h-100"
+    style="min-height: 300px"
+    [gridOptions]="gridOptions"
+    [columnDefs]="columnDefs"
+    [rowData]="rowData"
+    (gridReady)="onGridReady($event)"
+    [noRowsOverlayComponent]="noRowComponent"
+    [tooltipShowDelay]="0"
+    [tooltipShowMode]="'whenTruncated'"
+    [enableCellTextSelection]="true"
+    [copyHeadersToClipboard]="true"
+    [suppressMovableColumns]="true"
+    [copyGroupHeadersToClipboard]="true"
+    [rowSelection]="'multiple'"
+    (gridSizeChanged)="onGridSizeChanged($event)"
+></ag-grid-angular>

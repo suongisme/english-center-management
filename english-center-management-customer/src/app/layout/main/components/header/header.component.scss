@@ -1,0 +1,194 @@
+:host ::ng-deep {
+    .topbar {
+        height: 4.375rem;
+
+        #sidebar-toggle-top {
+            height: 2.5rem;
+            width: 2.5rem;
+
+            &:hover {
+                background-color: #eaecf4;
+            }
+
+            &:active {
+                background-color: #dddfeb;
+            }
+        }
+
+        .navbar-search {
+            width: 25rem;
+        }
+
+        .topbar-divider {
+            width: 0;
+            border-right: 1px solid #e3e6f0;
+            height: calc(4.375rem - 2rem);
+            margin: auto 1rem;
+        }
+
+        .nav-item.dropdown {
+            .dropdown-toggle::after {
+                width: 1rem;
+                text-align: center;
+                float: right;
+                vertical-align: 0;
+                border: 0;
+                font-weight: 900;
+                content: '\f105';
+                font-family: 'Font Awesome 5 Free';
+            }
+
+            &.show {
+                .dropdown-toggle {
+                    &::after {
+                        content: '\f107';
+                    }
+                }
+            }
+        }
+
+        .nav-item {
+            &:focus {
+                outline: none;
+            }
+
+            .nav-link {
+                position: relative;
+                height: 4.375rem;
+                display: flex;
+                align-items: center;
+                padding: 0 0.75rem;
+
+                .badge-counter {
+                    position: absolute;
+                    transform: scale(0.7);
+                    transform-origin: top right;
+                    right: 0.25rem;
+                    margin-top: -0.25rem;
+                }
+
+                .img-profile {
+                    height: 2rem;
+                    width: 2rem;
+                }
+
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+
+        .navbar-search input {
+            font-size: 0.85rem;
+            height: auto;
+        }
+
+        .dropdown {
+            position: static;
+
+            .dropdown-menu {
+                width: calc(100% - 1.5rem);
+                right: 0.75rem;
+            }
+        }
+
+        .dropdown-list {
+            padding: 0;
+            border: none;
+            overflow: hidden;
+
+            .dropdown-header {
+                background-color: #4e73df;
+                border: 1px solid #4e73df;
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+                color: #fff;
+            }
+
+            .dropdown-item {
+                white-space: normal;
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+                border-left: 1px solid #e3e6f0;
+                border-right: 1px solid #e3e6f0;
+                border-bottom: 1px solid #e3e6f0;
+                line-height: 1.3rem;
+
+                .dropdown-list-image {
+                    position: relative;
+                    height: 2.5rem;
+                    width: 2.5rem;
+
+                    img {
+                        height: 2.5rem;
+                        width: 2.5rem;
+                    }
+
+                    .status-indicator {
+                        background-color: #eaecf4;
+                        height: 0.75rem;
+                        width: 0.75rem;
+                        border-radius: 100%;
+                        position: absolute;
+                        bottom: 0;
+                        right: 0;
+                        border: 0.125rem solid #fff;
+                    }
+                }
+
+                .text-truncate {
+                    max-width: 10rem;
+                }
+
+                &:active {
+                    background-color: #eaecf4;
+                    color: #3a3b45;
+                }
+            }
+        }
+
+        &.navbar-dark .navbar-nav .nav-item .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+
+            &:hover {
+                color: #fff;
+            }
+
+            &:active {
+                color: #fff;
+            }
+
+            &.navbar-light .navbar-nav .nav-item .nav-link {
+                color: #d1d3e2;
+
+                &:hover {
+                    color: #b7b9cc;
+                }
+
+                &:active {
+                    color: #858796;
+                }
+            }
+        }
+    }
+
+    @media (min-width: 576px) {
+        .topbar {
+            .dropdown {
+                position: relative;
+
+                dropdown-menu {
+                    width: auto;
+                    right: 0;
+                }
+            }
+            .dropdown-list {
+                width: 20rem !important;
+
+                .dropdown-item .text-truncate {
+                    max-width: 13.375rem;
+                }
+            }
+        }
+    }
+}

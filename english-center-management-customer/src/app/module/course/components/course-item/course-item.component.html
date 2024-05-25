@@ -1,0 +1,55 @@
+<div class="properties pb-20">
+    <div class="properties__card">
+        <div class="properties__img overlay1">
+            <a href="#"><img [src]="item.avatar" [alt]="item.name" /></a>
+        </div>
+        <div class="properties__caption">
+            <h3>
+                <a href="#">{{ item.name }}</a>
+            </h3>
+            <p>
+                {{ item.shortDescription }}
+            </p>
+            <div
+                class="properties__footer d-flex justify-content-between align-items-center"
+            >
+                <div class="restaurant-name">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p><span>(5)</span> based on 1xx</p>
+                </div>
+                <div
+                    class="price"
+                    *ngIf="!item.discount || item.discount === 0"
+                >
+                    <span>{{ item.price | money: 'VND' }}</span>
+                </div>
+
+                <div class="d-flex flex-column" *ngIf="item.discount > 0">
+                    <div class="price">
+                        <span>{{
+                            item.price | discount: item.discount | money: 'VND'
+                        }}</span>
+                    </div>
+
+                    <div class="price old-price">
+                        <span>{{
+                            item.price | discount: item.discount | money: 'VND'
+                        }}</span>
+                    </div>
+                </div>
+            </div>
+            <a
+                [routerLink]="'/chi-tiet-khoa-hoc'"
+                [queryParams]="{ id: item.id }"
+                class="text-decoration-none border-btn border-btn2"
+                >Thông tin chi tiết</a
+            >
+        </div>
+    </div>
+</div>

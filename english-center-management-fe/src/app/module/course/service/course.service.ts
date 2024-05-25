@@ -35,16 +35,30 @@ export class CourseService {
     }
 
     public createCourse(request: CreateCourseRequest): Observable<ApiResponse> {
+        const formData = new FormData();
+        Object.keys(request).forEach((key) => {
+            const value = request[key];
+            if (value) {
+                formData.append(key, value);
+            }
+        });
         return this.httpClient.post<ApiResponse>(
             CourseService.ENDPOINT,
-            request,
+            formData,
         );
     }
 
     public updateCourse(request: UpdateCourseRequest): Observable<ApiResponse> {
+        const formData = new FormData();
+        Object.keys(request).forEach((key) => {
+            const value = request[key];
+            if (value) {
+                formData.append(key, value);
+            }
+        });
         return this.httpClient.put<ApiResponse>(
             CourseService.ENDPOINT,
-            request,
+            formData,
         );
     }
 }

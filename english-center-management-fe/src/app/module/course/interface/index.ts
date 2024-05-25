@@ -6,6 +6,7 @@ export interface CreateCourseRequest {
     price: number;
     discount: number;
     duration: number;
+    avatarFile: File;
 }
 
 export interface UpdateCourseRequest extends CreateCourseRequest {
@@ -22,4 +23,5 @@ export interface SearchCourseRequest {
 export interface SearchCourseResponse extends UpdateCourseRequest {
     createdDate: number;
     createdBy: string;
+    avatarUrl: string;
 }

@@ -3,6 +3,9 @@ import { Authority } from '@ecm-module/auth';
 
 export const router: Route = {
     path: 'timetable',
+    data: {
+        role: [Authority.ADMIN, Authority.TEACHER],
+    },
     children: [
         {
             path: '',
@@ -10,7 +13,6 @@ export const router: Route = {
                 import('./timetable.page').then((p) => p.TimetablePage),
             data: {
                 title: 'Thời khóa biểu',
-                role: [Authority.ADMIN, Authority.TEACHER],
             },
         },
     ],

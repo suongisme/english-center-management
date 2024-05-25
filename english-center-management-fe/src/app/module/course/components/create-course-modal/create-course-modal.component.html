@@ -5,5 +5,6 @@
     <create-course-form
         [course]="course"
         (formInitialized)="formGroup = $event"
+        (changeAvatar)="avatarFile = $event"
     ></create-course-form>
 </modal-wrapper>

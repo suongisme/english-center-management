@@ -46,4 +46,4 @@ resource:
   provider: local
   local:
     path: 'D:\sp\english_center_management\english-center-management-be\asserts'
-    host: http://localhost:${server.port}${server.servlet.context-path}/asserts
+    host: http://localhost:${server.port}${server.servlet.context-path}/assets

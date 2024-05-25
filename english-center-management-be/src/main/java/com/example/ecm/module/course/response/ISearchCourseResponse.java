@@ -19,4 +19,6 @@ public interface ISearchCourseResponse {
     BigDecimal getPrice();
     Integer getDiscount();
     Integer getDuration();
+
+    String getAvatarUrl();
 }

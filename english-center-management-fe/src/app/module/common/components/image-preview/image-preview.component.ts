@@ -12,8 +12,8 @@ export class ImagePreviewComponent {
     @Input() url: string;
     @Input() readonly: boolean = false;
     @Input() size: {
-        width?: number;
-        height?: number;
+        width?: string;
+        height?: string;
     };
 
     @Output() remove = new EventEmitter();

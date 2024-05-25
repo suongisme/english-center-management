@@ -63,6 +63,13 @@ export class TestingGridComponent extends GridCore<any> {
             },
 
             {
+                headerValueGetter: (param) => 'Điểm tối thiếu',
+                minWidth: 100,
+                field: 'minimumScore',
+                tooltipField: 'minimumScore',
+            },
+
+            {
                 headerValueGetter: (param) => 'Trạng thái',
                 minWidth: 100,
                 valueGetter: ({ data }) => {

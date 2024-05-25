@@ -33,4 +33,11 @@
         <addPrimaryKey tableName="${tableName}" columnNames="ID" />
         <addAutoIncrement tableName="${tableName}" columnName="ID" columnDataType="${idType}" />
     </changeSet>
+
+    <changeSet id="${tableName}-2" author="anonymous">
+        <comment>Add column store AVATAR_URL</comment>
+        <addColumn tableName="${tableName}">
+            <column name="AVATAR_URL" type="varchar(1000)"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

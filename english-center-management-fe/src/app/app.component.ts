@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
     public ngOnInit(): void {
         this.listenRouteChange();
         const loginResponse = JSON.parse(
-            localStorage.getItem('auth'),
+            localStorage.getItem('auth') ?? '{}',
         ) as LoginResponse;
         this.authService.loginResponse = loginResponse;
         localStorage.removeItem('auth');
@@ -67,7 +67,7 @@ export class AppComponent implements OnInit {
         if (this.authService.isAuthenticated) {
             localStorage.setItem(
                 'auth',
-                JSON.stringify(this.authService.loginResponse),
+                JSON.stringify(this.authService.loginResponse ?? {}),
             );
         }
     }

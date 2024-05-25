@@ -12,12 +12,18 @@ import com.example.ecm.module.course.request.CreateCourseRequest;
 import com.example.ecm.module.course.request.SearchCourserRequest;
 import com.example.ecm.module.course.request.UpdateCourseRequest;
 import com.example.ecm.module.course.response.ISearchCourseResponse;
+import com.example.ecm.module.resource.IResourceService;
+import com.example.ecm.module.resource.provider.IResourceProvider;
+import com.example.ecm.module.resource.request.CreateResourceRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -25,6 +31,7 @@ import java.util.Optional;
 public class CourseServiceImpl implements ICourseService {
 
     private final ICourseRepository courseRepository;
+    private final IResourceProvider resourceProvider;
 
     @Override
     public CourseEntity findByIdThrowIfNotPresent(Long id) {
@@ -45,17 +52,32 @@ public class CourseServiceImpl implements ICourseService {
     }
 
     @Override
+    @Transactional
+    @SneakyThrows(Exception.class)
     public void createCourse(CreateCourseRequest createCourseRequest) {
         final CourseEntity entity = createCourseRequest.toEntity();
         this.courseRepository.save(entity);
+        if (Objects.nonNull(createCourseRequest.getAvatarFile())) {
+            final String avatarUrl = this.resourceProvider.saveFile(createCourseRequest.getAvatarFile(), String.format("/COURSE/%s", entity.getId()));
+            entity.setAvatarUrl(avatarUrl);
+            this.courseRepository.save(entity);
+        }
     }
 
     @Override
+    @SneakyThrows(Exception.class)
+    @Transactional
     public void updateCourse(UpdateCourseRequest updateCourseRequest) {
         final CourseEntity course = this.courseRepository.findById(updateCourseRequest.getId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RECORD));
         final CourseEntity entity = updateCourseRequest.toEntity();
         entity.setId(course.getId());
+        if (Objects.isNull(updateCourseRequest.getAvatarFile())) {
+            entity.setAvatarUrl(course.getAvatarUrl());
+        } else {
+            final String avatarUrl = this.resourceProvider.saveFile(updateCourseRequest.getAvatarFile(), String.format("/COURSE/%s", entity.getId()));
+            entity.setAvatarUrl(avatarUrl);
+        }
         this.courseRepository.save(entity);
     }
 }

@@ -8,6 +8,7 @@ import com.example.ecm.module.course.request.SearchCourserRequest;
 import com.example.ecm.module.course.request.UpdateCourseRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,16 +25,16 @@ public class CourseController {
         return ApiResponse.ok(apiBody);
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
-    public ApiResponse createCourse(@RequestBody @Valid CreateCourseRequest createCourseRequest) {
+    public ApiResponse createCourse(@Valid CreateCourseRequest createCourseRequest) {
         this.courseService.createCourse(createCourseRequest);
         return ApiResponse.ok();
     }
 
-    @PutMapping
+    @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
-    public ApiResponse updateCourse(@RequestBody @Valid UpdateCourseRequest updateCourseRequest) {
+    public ApiResponse updateCourse(@Valid UpdateCourseRequest updateCourseRequest) {
         this.courseService.updateCourse(updateCourseRequest);
         return ApiResponse.ok();
     }

@@ -39,4 +39,7 @@ public class CourseEntity extends BaseEntity {
 
     @Column(name = "DISCOUNT")
     private Integer discount;
+
+    @Column(name = "AVATAR_URL")
+    private String avatarUrl;
 }

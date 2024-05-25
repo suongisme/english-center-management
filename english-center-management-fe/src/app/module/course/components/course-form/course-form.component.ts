@@ -1,11 +1,13 @@
 import { NgIf } from '@angular/common';
 import {
     Component,
+    ElementRef,
     EventEmitter,
     inject,
     Input,
     OnInit,
     Output,
+    ViewChild,
 } from '@angular/core';
 import {
     FormBuilder,
@@ -17,11 +19,11 @@ import {
 import {
     EcmInputComponent,
     EcmSelectComponent,
+    fileToImageUrl,
     ImagePreviewComponent,
     STATUS,
 } from '@ecm-module/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { CreateCourseRequest } from '../../interface';
+import { CreateCourseRequest, SearchCourseResponse } from '../../interface';
 import { EditorModule } from 'primeng/editor';
 
 @Component({
@@ -32,28 +34,32 @@ import { EditorModule } from 'primeng/editor';
         NgIf,
         FormsModule,
         ReactiveFormsModule,
-        TranslateModule,
         EcmInputComponent,
         EcmSelectComponent,
         ImagePreviewComponent,
         EditorModule,
+
+        ImagePreviewComponent,
     ],
 })
 export class CreateCourseFormComponent implements OnInit {
-    @Input() course: CreateCourseRequest;
+    @Input() course: SearchCourseResponse;
 
     @Output() formInitialized = new EventEmitter<FormGroup>();
 
     @Output() changeAvatar = new EventEmitter<File>();
+    @ViewChild('avatarUploader') avatarUploader: ElementRef;
 
     private formBuilder: FormBuilder = inject(FormBuilder);
 
     public formGroup: FormGroup;
     public status = STATUS;
+    public imageUrl: string;
 
     public ngOnInit(): void {
         this.buildFormGroup();
         if (this.course) {
+            this.imageUrl = this.course.avatarUrl;
             this.formGroup.patchValue(this.course);
         }
         this.formInitialized.emit(this.formGroup);
@@ -75,5 +81,18 @@ export class CreateCourseFormComponent implements OnInit {
             numberOfLesson: [null, [Validators.required]],
             status: [this.status[0].id, [Validators.required]],
         });
+    }
+
+    public onChangeAvatar(event): void {
+        const file = event.target.files[0];
+        if (!file) return;
+        this.imageUrl = fileToImageUrl(file);
+        this.avatarUploader.nativeElement.value = '';
+        this.changeAvatar.emit(file);
+    }
+
+    public onRemoveAvatar(): void {
+        this.imageUrl = null;
+        this.changeAvatar.emit(null);
     }
 }

@@ -9,7 +9,7 @@ import {
     NotifierService,
 } from '@ecm-module/common';
 import { takeUntil } from 'rxjs';
-import { UpdateCourseRequest } from '../../interface';
+import { SearchCourseResponse, UpdateCourseRequest } from '../../interface';
 import { CourseService } from '../../service';
 
 @Component({
@@ -25,7 +25,8 @@ import { CourseService } from '../../service';
 })
 export class CreateCourseModal {
     public formGroup: FormGroup;
-    public course: UpdateCourseRequest;
+    public course: SearchCourseResponse;
+    public avatarFile: File;
 
     private readonly activeModal = inject(NgbActiveModal);
     private readonly courseService = inject(CourseService);
@@ -37,7 +38,10 @@ export class CreateCourseModal {
         if (this.formGroup.invalid) {
             return;
         }
-        const course = this.formGroup.getRawValue();
+        const course = {
+            ...this.formGroup.getRawValue(),
+            avatarFile: this.avatarFile,
+        };
         if (this.course) {
             this.courseService
                 .updateCourse({

@@ -112,6 +112,7 @@ export class CreateTestingFormComponent implements OnChanges, OnInit {
             status: [this.status[0].id, [Validators.required]],
             courseId: [null, [Validators.required]],
             questionIds: [null, [Validators.required]],
+            minimumScore: [null, [Validators.required]],
         });
     }
 

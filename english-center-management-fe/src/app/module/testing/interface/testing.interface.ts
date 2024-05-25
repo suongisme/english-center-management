@@ -15,6 +15,7 @@ export interface SearchTestingResponse {
     createdBy: string;
     status: number;
     questionSize: number;
+    minimumScore: number;
 }
 
 export interface CreateTestingRequest {
@@ -22,6 +23,7 @@ export interface CreateTestingRequest {
     courseId: number;
     status: number;
     questionIds: number[];
+    minimumScore: number;
 }
 
 export interface UpdateTestingRequest extends CreateTestingRequest {
@@ -36,4 +38,5 @@ export interface GetTestingResponse {
     createdBy: string;
     status: number;
     questions: SearchQuestionResponse[];
+    minimumScore: number;
 }

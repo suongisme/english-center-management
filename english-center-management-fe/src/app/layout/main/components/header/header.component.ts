@@ -19,8 +19,13 @@ export class MainHeaderComponent {
     }
 
     public toggleDropdown(self: NgbCollapse): void {
-        this.openingNgbCollapse?.toggle();
-        self.toggle();
-        this.openingNgbCollapse = self;
+        if (self === this.openingNgbCollapse) {
+            self.toggle();
+            this.openingNgbCollapse = null;
+        } else {
+            this.openingNgbCollapse?.toggle();
+            self.toggle();
+            this.openingNgbCollapse = self;
+        }
     }
 }

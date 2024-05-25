@@ -29,4 +29,11 @@
             <column name="UPDATED_BY" type="varchar(255)" />
         </createTable>
     </changeSet>
+
+    <changeSet id="${tableName}-2" author="anonymous">
+        <comment>Add column MINIMUM_SCORE</comment>
+        <addColumn tableName="${tableName}">
+            <column name="MINIMUM_SCORE" type="number"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

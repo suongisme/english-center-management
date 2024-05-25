@@ -11,7 +11,7 @@ export const AuthorizationGuard: CanActivateFn = (
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
 ): boolean => {
-    const { role } = route.data;
+    const { role } = route.children[0].data;
     if (!role) return true;
 
     const authService = inject(AuthService);
@@ -19,6 +19,6 @@ export const AuthorizationGuard: CanActivateFn = (
     if (role.some((r) => authService.authority?.includes(r))) {
         return true;
     }
-    router.navigate(['auth','login'])
+    router.navigate(['auth', 'login']);
     return false;
 };

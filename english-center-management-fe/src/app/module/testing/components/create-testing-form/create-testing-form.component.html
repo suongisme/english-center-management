@@ -1,6 +1,6 @@
 <form [formGroup]="formGroup" class="d-flex flex-column row-gap-2">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-10">
             <ecm-input
                 [label]="'Tên bài test'"
                 [required]="true"
@@ -9,6 +9,20 @@
                 formControlName="name"
                 [errorsMessage]="{
                     required: 'Tên bài test không được trống'
+                }"
+            ></ecm-input>
+        </div>
+
+        <div class="col-md-2">
+            <ecm-input
+                [label]="'Điểm tối thiểu'"
+                [required]="true"
+                [type]="'number'"
+                [variant]="'input'"
+                [placeholder]="'Nhập điểm tối thiểu để đạt vượt qua test'"
+                formControlName="minimumScore"
+                [errorsMessage]="{
+                    required: 'Điểm tối thiểu không được trống'
                 }"
             ></ecm-input>
         </div>

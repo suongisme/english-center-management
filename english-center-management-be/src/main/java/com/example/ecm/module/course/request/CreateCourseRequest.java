@@ -3,6 +3,7 @@ package com.example.ecm.module.course.request;
 import com.example.ecm.module.course.CourseEntity;
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 
@@ -33,6 +34,8 @@ public class CreateCourseRequest {
     @Min(0)
     @Max((100))
     private Integer discount;
+
+    private MultipartFile avatarFile;
 
     public CourseEntity toEntity() {
         CourseEntity course = new CourseEntity();

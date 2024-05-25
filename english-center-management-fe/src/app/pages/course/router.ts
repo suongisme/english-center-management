@@ -3,6 +3,9 @@ import { Authority } from '@ecm-module/auth';
 
 export const router: Route = {
     path: 'course',
+    data: {
+        role: [Authority.ADMIN],
+    },
     children: [
         {
             path: '',
@@ -10,7 +13,6 @@ export const router: Route = {
                 import('./course.page').then((p) => p.CoursePage),
             data: {
                 title: 'Quản lý khóa học',
-                role: [Authority.ADMIN],
             },
         },
     ],

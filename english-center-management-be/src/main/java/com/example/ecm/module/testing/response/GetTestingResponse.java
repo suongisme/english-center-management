@@ -17,6 +17,7 @@ public class GetTestingResponse {
     private String createdBy;
     private Integer status;
     private Long courseId;
+    private Integer minimumScore;
     private List<ISearchQuestionResponse> questions;
 
     public GetTestingResponse(TestingEntity testing) {
@@ -26,5 +27,6 @@ public class GetTestingResponse {
         this.createdDate = testing.getCreatedDate();
         this.status = testing.getStatus();
         this.courseId = testing.getCourseId();
+        this.minimumScore = testing.getMinimumScore();
     }
 }

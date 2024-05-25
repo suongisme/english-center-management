@@ -27,4 +27,7 @@ public interface ISearchTestingResponse {
     Integer getStatus();
 
     Integer getQuestionSize();
+
+    @Value("#{target.testing.minimumScore}")
+    Integer getMinimumScore();
 }

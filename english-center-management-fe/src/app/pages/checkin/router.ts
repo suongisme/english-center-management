@@ -1,7 +1,11 @@
 import { Route } from '@angular/router';
+import { Authority } from '@ecm-module/auth';
 
 export const router: Route = {
     path: 'checkin',
+    data: {
+        role: [Authority.TEACHER],
+    },
     children: [
         {
             path: '',
@@ -27,6 +31,9 @@ export const router: Route = {
 
 export const historyRouter: Route = {
     path: 'checkin-history',
+    data: {
+        role: [Authority.TEACHER],
+    },
     children: [
         {
             path: '',

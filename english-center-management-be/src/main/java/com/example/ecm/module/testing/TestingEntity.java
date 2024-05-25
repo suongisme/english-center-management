@@ -24,4 +24,7 @@ public class TestingEntity extends BaseEntity {
 
     @Column(name = "COURSE_ID")
     private Long courseId;
+
+    @Column(name = "MINIMUM_SCORE")
+    private Integer minimumScore;
 }

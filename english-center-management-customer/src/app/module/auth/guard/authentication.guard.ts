@@ -14,7 +14,7 @@ export const AuthenticationGuard: CanActivateFn = (
     const authService = inject(AuthService);
     const router = inject(Router);
     if (!authService.isAuthenticated) {
-        router.navigate(['auth', 'login']);
+        router.navigate(['xac-thuc', 'dang-nhap']);
         return false;
     }
     return true;

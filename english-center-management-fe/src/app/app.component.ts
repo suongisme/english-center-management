@@ -31,12 +31,14 @@ export class AppComponent implements OnInit {
 
     public ngOnInit(): void {
         this.listenRouteChange();
-        const loginResponse = JSON.parse(
-            localStorage.getItem('auth') ?? '{}',
-        ) as LoginResponse;
-        this.authService.loginResponse = loginResponse;
-        localStorage.removeItem('auth');
+        const json = localStorage.getItem('auth');
+        if (json) {
+            const auth = JSON.parse(json);
+            this.authService.loginResponse = auth;
+            localStorage.removeItem('auth');
+        }
     }
+
 
     private listenRouteChange(): void {
         this.router.events

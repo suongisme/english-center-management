@@ -102,4 +102,17 @@ public class QuestionServiceImpl implements IQuestionService {
     public List<ISearchQuestionResponse> getByTestingId(long testingId) {
         return this.questionRepository.getByTestingId(testingId);
     }
+
+    @Override
+    public ApiBody getQuestionAndAnswerByTestingId(long testingId) {
+        final List<GetQuestionResponse> list = this.questionRepository.findByTestingId(testingId)
+                .stream()
+                .map(GetQuestionResponse::from)
+                .peek(dto -> {
+                    final List<AnswerResponse> answers = this.answerService.getByQuestionId(dto.getId(), false);
+                    dto.setAnswers(answers);
+                })
+                .toList();
+        return ApiBody.of(list);
+    }
 }

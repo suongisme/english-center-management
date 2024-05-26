@@ -1,5 +1,7 @@
 <div>
     <h3>Kết quả bài kiểm tra</h3>
-    <p>Câu trả lời đúng: 10</p>
-    <p>Câu trả lời sai: 10</p>
+    <p>Câu trả lời đúng: {{ checkAnswer.correctQuestion }}</p>
+    <p>Câu trả lời sai: {{ checkAnswer.incorrectQuestion }}</p>
+    <p>Điểm: {{ checkAnswer.score }}/{{ checkAnswer.totalScore }}</p>
+    <p>Điểm tối thiếu: {{ checkAnswer.minimumScore }}</p>
 </div>

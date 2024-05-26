@@ -15,6 +15,9 @@ import { HomeSliderComponent } from './components/slicer/home-slider/home-slider
 import { CourseSliderComponent } from './components/slicer/course-slider/course-slider.component';
 import { ContactSliderComponent } from './components/slicer/contact-slider/contact-slider.component';
 import { DetailSliderComponent } from './components/slicer/detail-slider/detail-slider.component';
+import { ProfileDropdownComponent } from './components/header/profile-dropdown/profile-dropdown.component';
+import { PaymentHistorySliderComponent } from './components/slicer/payment-history-slider/payment-history-slider.component';
+import { TimetableSliderComponent } from './components/slicer/timetable-slider/timetable-slider.component';
 
 const imports = [
     CommonModule,
@@ -26,6 +29,7 @@ const imports = [
     LanguageComponent,
     FontAwesomeModule,
     MoneyPipe,
+    ProfileDropdownComponent,
 ];
 
 const declarations = [
@@ -36,6 +40,8 @@ const declarations = [
     CourseSliderComponent,
     ContactSliderComponent,
     DetailSliderComponent,
+    PaymentHistorySliderComponent,
+    TimetableSliderComponent,
 ];
 
 @NgModule({

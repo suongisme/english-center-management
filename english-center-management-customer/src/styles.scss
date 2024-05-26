@@ -21,3 +21,8 @@ button {
         opacity: 0.7;
     }
 }
+
+.required::after {
+    content: ' *';
+    color: red;
+}

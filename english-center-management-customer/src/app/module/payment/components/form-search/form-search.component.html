@@ -1,0 +1,22 @@
+<search-wrapper
+    [formGroup]="formGroup"
+    (search)="search.emit($event.getRawValue())"
+>
+    <div class="row">
+        <div class="col-md-3">
+            <ecm-input
+                [type]="'date'"
+                [label]="'Từ ngày'"
+                formControlName="fromDate"
+            ></ecm-input>
+        </div>
+
+        <div class="col-md-3">
+            <ecm-input
+                [type]="'date'"
+                [label]="'Đến ngày'"
+                formControlName="toDate"
+            ></ecm-input>
+        </div>
+    </div>
+</search-wrapper>

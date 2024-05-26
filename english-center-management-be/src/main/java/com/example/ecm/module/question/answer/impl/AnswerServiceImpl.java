@@ -49,9 +49,14 @@ public class AnswerServiceImpl implements IAnswerService {
     }
 
     @Override
-    public List<AnswerResponse> getByQuestionId(Long questionId) {
+    public List<AnswerResponse> getByQuestionId(Long questionId, boolean showCorrectAnswer) {
         return this.answerRepository.findByQuestionId(questionId).stream()
                 .map(AnswerResponse::from)
+                .peek(x -> {
+                    if (!showCorrectAnswer) {
+                        x.setCorrect(null);
+                    }
+                })
                 .toList();
     }
 }

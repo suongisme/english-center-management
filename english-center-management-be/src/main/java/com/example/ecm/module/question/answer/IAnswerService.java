@@ -11,5 +11,9 @@ public interface IAnswerService {
 
     void deleteByQuestion(Long questionId);
 
-    List<AnswerResponse> getByQuestionId(Long questionId);
+    List<AnswerResponse> getByQuestionId(Long questionId, boolean showCorrectAnswer);
+
+    default List<AnswerResponse> getByQuestionId(Long questionId) {
+        return this.getByQuestionId(questionId, true);
+    }
 }

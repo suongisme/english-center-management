@@ -1,8 +1,7 @@
 package com.example.ecm.module.user.impl;
 
 import com.example.ecm.model.SearchResponse;
-import com.example.ecm.module.user.request.ChangePasswordRequest;
-import com.example.ecm.module.user.request.CreateUserRequest;
+import com.example.ecm.module.user.request.*;
 import com.example.ecm.constant.ErrorCode;
 import com.example.ecm.exception.BusinessException;
 import com.example.ecm.model.ApiBody;
@@ -10,8 +9,6 @@ import com.example.ecm.model.SearchRequest;
 import com.example.ecm.module.user.IUserRepository;
 import com.example.ecm.module.user.IUserService;
 import com.example.ecm.module.user.UserEntity;
-import com.example.ecm.module.user.request.SearchUserRequest;
-import com.example.ecm.module.user.request.UpdateUserRequest;
 import com.example.ecm.module.user.response.ISearchUserResponse;
 import com.example.ecm.module.user.response.IStudentTimetableResponse;
 import com.example.ecm.utils.AuthenticationUtil;
@@ -26,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -95,6 +93,38 @@ public class UserServiceImpl implements IUserService {
         }
         final String newPassword = this.passwordEncoder.encode(request.getNewPassword());
         user.setPassword(newPassword);
+        this.userRepository.save(user);
+    }
+
+    @Override
+    public void updateUserInfo(UpdateUserInfoRequest request) {
+        final String username = AuthenticationUtil.getUsername();
+        final UserEntity user = this.userRepository.findByUsername(username)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RECORD));
+        if (StringUtils.isNotBlank(request.getFirstName())) {
+            user.setFirstName(request.getFirstName());
+        }
+
+        if (StringUtils.isNotBlank(request.getLastName())) {
+            user.setLastName(request.getLastName());
+        }
+
+        if (StringUtils.isNotBlank(request.getPhone())) {
+            user.setPhone(request.getPhone());
+        }
+
+        if (StringUtils.isNotBlank(request.getEmail())) {
+            user.setEmail(request.getEmail());
+        }
+
+        if (StringUtils.isNotBlank(request.getAddress())) {
+            user.setAddress(request.getAddress());
+        }
+
+        if (Objects.nonNull(request.getDob())) {
+            user.setDob(request.getDob());
+        }
+
         this.userRepository.save(user);
     }
 }

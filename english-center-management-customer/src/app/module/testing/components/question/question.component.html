@@ -16,6 +16,9 @@
                         type="radio"
                         [name]="item.id"
                         [id]="a.title + '-' + i"
+                        [value]="a.id"
+                        [checked]="a.id === item.selectedAnswer"
+                        (change)="ngOnAnswer(a)"
                     />
                     <label [for]="a.title + '-' + i"></label>
                 </div>
@@ -23,4 +26,5 @@
             <label [for]="a.title + '-' + i">{{ a.title }}</label>
         </div>
     </div>
+    <p *ngIf="item.answerTitle" class="py-3">Đáp án: {{ item.answerTitle }}</p>
 </div>

@@ -1,0 +1,57 @@
+<div class="p-3">
+    <div class="d-flex flex-column gap-20px">
+        <div *ngIf="timetableMap">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th *ngFor="let day of days">{{ day.label }}</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let map of timetableMap | keyvalue">
+                        <td>{{ map.key }}</td>
+                        <td *ngFor="let day of days; let i = index">
+                            <ng-container *ngFor="let detail of map.value">
+                                <button
+                                    *ngIf="detail.day === day.id"
+                                    class="border-0 bg-transparent d-flex flex-column row-gap-10px cursor-pointer"
+                                >
+                                    <span
+                                        class="border-bottom pb-1 w-100 text-start"
+                                    >
+                                        Tên lớp:
+                                        <span>
+                                            {{ detail.classRoomName }}
+                                        </span>
+                                    </span>
+                                    <span
+                                        class="border-bottom pb-1 w-100 text-start"
+                                    >
+                                        Tên khóa học:
+                                        <span>{{ detail.courseName }}</span>
+                                    </span>
+                                    <span
+                                        class="border-bottom pb-1 w-100 text-start"
+                                    >
+                                        Tên GV:
+                                        <span>{{ detail.teacherName }}</span>
+                                    </span>
+
+                                    <span class="w-100 text-start">
+                                        kết thúc:
+                                        <span>
+                                            {{ map.key | addHour:
+                                            detail.courseDuration }}
+                                        </span>
+                                    </span>
+                                </button>
+                            </ng-container>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

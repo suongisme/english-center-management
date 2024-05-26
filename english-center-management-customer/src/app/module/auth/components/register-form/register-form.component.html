@@ -1,0 +1,41 @@
+<form
+    class="form-default"
+    [formGroup]="registerFormGroup"
+    (submit)="register()"
+>
+    <div class="login-form">
+        <h2>Đăng ký tài khoản</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-input">
+                    <label for="name">Họ</label>
+                    <input formControlName="lastName" />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-input">
+                    <label for="name">Tên</label>
+                    <input formControlName="firstName" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-input">
+            <label for="name">Tên đăng nhập</label>
+            <input formControlName="username" />
+        </div>
+        <div class="form-input">
+            <label for="name">Mật khẩu</label>
+            <input type="password" formControlName="password" />
+        </div>
+        <div class="form-input pt-30">
+            <input type="submit" name="submit" value="Đăng ký" />
+        </div>
+        <a
+            class="text-decoration-underline text-center d-block w-100"
+            [routerLink]="['/xac-thuc', 'dang-nhap']"
+            >Đã có tài khoản?</a
+        >
+    </div>
+</form>

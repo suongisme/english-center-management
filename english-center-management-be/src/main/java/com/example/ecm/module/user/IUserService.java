@@ -2,10 +2,7 @@ package com.example.ecm.module.user;
 
 import com.example.ecm.model.ApiBody;
 import com.example.ecm.model.SearchRequest;
-import com.example.ecm.module.user.request.ChangePasswordRequest;
-import com.example.ecm.module.user.request.CreateUserRequest;
-import com.example.ecm.module.user.request.SearchUserRequest;
-import com.example.ecm.module.user.request.UpdateUserRequest;
+import com.example.ecm.module.user.request.*;
 
 public interface IUserService {
 
@@ -20,4 +17,6 @@ public interface IUserService {
     ApiBody getByCheckinId(Long checkinId);
 
     void changePassword(ChangePasswordRequest request);
+
+    void updateUserInfo(UpdateUserInfoRequest request);
 }

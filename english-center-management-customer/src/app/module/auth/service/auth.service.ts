@@ -1,31 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { LoginRequest, LoginResponse } from '../interface';
-import { Observable, map } from 'rxjs';
-import { ApiResponse, Menu } from '../../common/interface';
 import { environment } from 'environment';
+import { Observable, map } from 'rxjs';
+import { ApiResponse } from '../../common/interface';
 import { mappingDataResponse } from '../../common/utils';
-import { MENU } from '../../common/constant';
-import { MenuService } from '../../common/service';
+import { LoginRequest, LoginResponse, RegisterRequest } from '../interface';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthService {
     private httpClient = inject(HttpClient);
-    private menuService = inject(MenuService);
     private _loginResponse: LoginResponse;
 
     public authority: string[];
 
     set loginResponse(loginResponse: LoginResponse) {
         this._loginResponse = loginResponse;
-        if (loginResponse) {
-            const { scope } = JSON.parse(atob(loginResponse.jwt.split('.')[1]));
-            this.authority = scope;
-            const menu: Menu[] = this.authority.flatMap((role) => MENU[role]);
-            this.menuService.setMenu(menu);
-        }
     }
 
     get loginResponse(): LoginResponse {
@@ -33,7 +24,7 @@ export class AuthService {
     }
 
     get isAuthenticated(): boolean {
-        return this.loginResponse !== null;
+        return !!this.loginResponse;
     }
 
     public logout(): void {
@@ -50,6 +41,13 @@ export class AuthService {
                 this.loginResponse = x;
                 return x;
             }),
+        );
+    }
+
+    public register(request: RegisterRequest): Observable<ApiResponse> {
+        return this.httpClient.post<ApiResponse>(
+            `${environment.BE_URL}/auth/register`,
+            request,
         );
     }
 }

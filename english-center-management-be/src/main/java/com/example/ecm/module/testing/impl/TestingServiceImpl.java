@@ -11,9 +11,11 @@ import com.example.ecm.module.testing.ITestingRepository;
 import com.example.ecm.module.testing.ITestingService;
 import com.example.ecm.module.testing.TestingEntity;
 import com.example.ecm.module.testing.detail.ITestingDetailService;
+import com.example.ecm.module.testing.request.CheckAnswerRequest;
 import com.example.ecm.module.testing.request.CreateTestingRequest;
 import com.example.ecm.module.testing.request.SearchTestingRequest;
 import com.example.ecm.module.testing.request.UpdateTestingRequest;
+import com.example.ecm.module.testing.response.CheckAnswerResponse;
 import com.example.ecm.module.testing.response.GetTestingResponse;
 import com.example.ecm.module.testing.response.ISearchTestingResponse;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +27,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -77,5 +82,29 @@ public class TestingServiceImpl implements ITestingService {
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RECORD));
         this.testingDetailService.deleteByTestingId(testing.getId());
         this.createTesting(updateTestingRequest);
+    }
+
+    @Override
+    public ApiBody checkAnswer(Long testingId, List<CheckAnswerRequest> request) {
+        final TestingEntity testing = this.testingRepository.findById(testingId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RECORD));
+        final List<ISearchQuestionResponse> questions = this.questionService.getByTestingId(testingId);
+        final Map<Long, ISearchQuestionResponse> questionMap = questions.stream()
+                .collect(Collectors.toMap(ISearchQuestionResponse::getId, Function.identity()));
+        CheckAnswerResponse checkAnswerResponse = new CheckAnswerResponse();
+        checkAnswerResponse.setQuestions(questions);
+        checkAnswerResponse.setMinimumScore(testing.getMinimumScore());
+        request.forEach(x -> {
+            final ISearchQuestionResponse question = questionMap.get(x.getQuestionId());
+            if (question.getAnswerId().equals(x.getAnswerId())) {
+                checkAnswerResponse.incrementCorrect();
+                checkAnswerResponse.plusScore(question.getScore());
+            } else {
+                checkAnswerResponse.incrementIncorrect();
+
+            }
+            checkAnswerResponse.plusTotalScore(question.getScore());
+        });
+        return ApiBody.of(checkAnswerResponse);
     }
 }

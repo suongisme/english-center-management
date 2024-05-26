@@ -42,4 +42,7 @@ public class CourseEntity extends BaseEntity {
 
     @Column(name = "AVATAR_URL")
     private String avatarUrl;
+
+    @Column(name = "SHORT_DESCRIPTION", length = 300)
+    private String shortDescription;
 }

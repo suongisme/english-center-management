@@ -33,7 +33,7 @@ export class AuthService {
     }
 
     get isAuthenticated(): boolean {
-        return this.loginResponse !== null;
+        return !!this.loginResponse;
     }
 
     public logout(): void {

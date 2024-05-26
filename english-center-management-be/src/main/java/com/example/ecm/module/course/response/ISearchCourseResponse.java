@@ -21,4 +21,10 @@ public interface ISearchCourseResponse {
     Integer getDuration();
 
     String getAvatarUrl();
+
+    String getShortDescription();
+
+    Date getUpdatedDate();
+
+    String getUpdatedBy();
 }

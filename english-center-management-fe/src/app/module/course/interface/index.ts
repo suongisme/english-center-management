@@ -7,6 +7,7 @@ export interface CreateCourseRequest {
     discount: number;
     duration: number;
     avatarFile: File;
+    shortDescription: string;
 }
 
 export interface UpdateCourseRequest extends CreateCourseRequest {

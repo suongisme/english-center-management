@@ -1,0 +1,6 @@
+<modal-wrapper
+    [headerTitle]="'Cập nhật thông tin cá nhận'"
+    (save)="onSaveUser()"
+>
+    <user-form [user]="user" (formInitialized)="formGroup = $event"></user-form>
+</modal-wrapper>

@@ -2,11 +2,8 @@ package com.example.ecm.module.user;
 
 import com.example.ecm.model.ApiBody;
 import com.example.ecm.model.ApiResponse;
-import com.example.ecm.module.user.request.ChangePasswordRequest;
-import com.example.ecm.module.user.request.CreateUserRequest;
+import com.example.ecm.module.user.request.*;
 import com.example.ecm.model.SearchRequest;
-import com.example.ecm.module.user.request.SearchUserRequest;
-import com.example.ecm.module.user.request.UpdateUserRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -48,6 +45,12 @@ public class UserController {
     @PostMapping("/change-password")
     public ApiResponse changePassword(@RequestBody @Valid ChangePasswordRequest request) {
         this.userService.changePassword(request);
+        return ApiResponse.ok();
+    }
+
+    @PutMapping("/update-info")
+    public ApiResponse updateInfo(@RequestBody @Valid UpdateUserInfoRequest request) {
+        this.userService.updateUserInfo(request);
         return ApiResponse.ok();
     }
 }

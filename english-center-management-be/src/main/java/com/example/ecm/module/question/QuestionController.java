@@ -6,10 +6,13 @@ import com.example.ecm.model.SearchRequest;
 import com.example.ecm.module.question.request.CreateQuestionRequest;
 import com.example.ecm.module.question.request.SearchQuestionRequest;
 import com.example.ecm.module.question.request.UpdateQuestionRequest;
+import com.example.ecm.module.question.response.ISearchQuestionResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/questions")
@@ -42,5 +45,11 @@ public class QuestionController {
     public ApiResponse updateQuestion(@RequestBody @Valid UpdateQuestionRequest request) {
         this.questionService.updateQuestion(request);
         return ApiResponse.ok();
+    }
+
+    @GetMapping("/testing")
+    public ApiResponse getQuestionByTestingId(@RequestParam Long testingId) {
+        final ApiBody apiBody = this.questionService.getQuestionAndAnswerByTestingId(testingId);
+        return ApiResponse.ok(apiBody);
     }
 }

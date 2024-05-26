@@ -2,8 +2,8 @@ Các tác nhân chính ảnh hưởng đến hệ thống là khách, học viê
 Khách : Là người bất kì chung đăng nhập vào hệ thống
 Khách có các chức năng chính là :
 - Đăng nhập vào hệ thống 
-- Xem thông tin khóa học, thông báo của trung tâm
-- Đăng kí test thử, xem lại kết quả test
+- Xem thông tin khóa học
+- Đăng kí test thử
 
 Học viên : Là người đã test thử đầu vào của trung tâm
 Học viên có các chức năng sau:

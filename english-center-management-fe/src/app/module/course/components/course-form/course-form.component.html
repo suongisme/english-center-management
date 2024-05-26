@@ -113,6 +113,22 @@
 
     <div class="row">
         <div class="col-md-12">
+            <ecm-input
+                [variant]="'textarea'"
+                formControlName="shortDescription"
+                [required]="true"
+                [label]="'Mô tả ngắn'"
+                [placeholder]="'Nhập mô tả ngắn ( tối đã 300 ký tự)'"
+                [errorsMessage]="{
+                    required: 'Mô tả ngắn không được trống',
+                    maxlength: 'Mô tả ngắn tối đa 300 ký tự'
+                }"
+            ></ecm-input>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
             <label class="fw-bold">Mô tả</label>
             <p-editor
                 formControlName="description"

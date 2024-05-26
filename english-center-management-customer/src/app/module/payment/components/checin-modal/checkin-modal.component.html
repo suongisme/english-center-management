@@ -1,0 +1,42 @@
+<modal-wrapper [readonly]="true" headerTitle="Điểm danh">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Thứ</th>
+                <th>Ngày điểm danh</th>
+                <th>Đi học</th>
+                <th>Lý do</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Thứ 2</td>
+                <td>20/01/2024</td>
+                <td>
+                    <div class="primary-checkbox">
+                        <input type="checkbox" id="default-checkbox" disabled />
+                        <label for="default-checkbox"></label>
+                    </div>
+                </td>
+                <td>Lý do không có</td>
+            </tr>
+
+            <tr>
+                <td>Thứ 2</td>
+                <td>20/01/2024</td>
+                <td>
+                    <div class="primary-checkbox">
+                        <input
+                            type="checkbox"
+                            id="default-checkbox"
+                            checked
+                            disabled
+                        />
+                        <label for="default-checkbox"></label>
+                    </div>
+                </td>
+                <td>Lý do không có</td>
+            </tr>
+        </tbody>
+    </table>
+</modal-wrapper>

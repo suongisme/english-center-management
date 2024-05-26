@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { TestingSliderComponent } from 'src/app/layout/main/components/slicer/testing-slider/tetsting-slider-slider.component';
+import { TestingSliderComponent } from 'src/app/layout/main/components/slicer/testing-slider/testing-slider.component';
 
 export const router: Route = {
     path: 'kiem-tra',

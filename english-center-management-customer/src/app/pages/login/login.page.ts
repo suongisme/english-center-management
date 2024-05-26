@@ -1,11 +1,18 @@
-import { Component } from '@angular/core';
-import { LoginFormComponent } from '@ecm-module/auth';
+import { Component, OnInit, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { AuthService, LoginFormComponent } from '@ecm-module/auth';
 
 @Component({
     selector: 'login-page',
     templateUrl: './login.page.html',
     styleUrls: ['./login.page.scss'],
     standalone: true,
-    imports: [LoginFormComponent],
+    imports: [LoginFormComponent, RouterLink],
 })
-export class LoginPage {}
+export class LoginPage implements OnInit {
+    private authService = inject(AuthService);
+
+    ngOnInit(): void {
+        this.authService.logout();
+    }
+}

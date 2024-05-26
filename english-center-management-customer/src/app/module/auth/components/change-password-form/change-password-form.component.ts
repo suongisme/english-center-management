@@ -17,7 +17,7 @@ import { repeatPasswordValidator } from './repeat-password.validation';
     imports: [FormsModule, ReactiveFormsModule, EcmInputComponent],
 })
 export class ChangePasswordFormComponent implements OnInit {
-    @Output() submit = new EventEmitter<ChangePasswordRequest>();
+    @Output() formInitialized = new EventEmitter<FormGroup>();
 
     public formGroup: FormGroup;
 
@@ -33,13 +33,6 @@ export class ChangePasswordFormComponent implements OnInit {
             repeatPasswordValidator(this.formGroup.controls.newPassword),
             Validators.minLength(8),
         ]);
-    }
-
-    public ngOnSubmit(): void {
-        if (this.formGroup.invalid) {
-            this.formGroup.markAllAsTouched();
-            return;
-        }
-        this.submit.emit(this.formGroup.getRawValue());
+        this.formInitialized.emit(this.formGroup);
     }
 }

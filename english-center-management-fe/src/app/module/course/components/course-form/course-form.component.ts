@@ -80,6 +80,10 @@ export class CreateCourseFormComponent implements OnInit {
             price: [null, [Validators.required]],
             numberOfLesson: [null, [Validators.required]],
             status: [this.status[0].id, [Validators.required]],
+            shortDescription: [
+                null,
+                [Validators.required, Validators.maxLength(300)],
+            ],
         });
     }
 

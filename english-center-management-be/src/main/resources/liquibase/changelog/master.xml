@@ -8,4 +8,13 @@
     <property name="clobType" value="longtext" dbms="mysql, mariadb" global="true" />
     <property name="idType" value="bigint" dbms="mysql, mariadb" global="true" />
     <includeAll path="./table" relativeToChangelogFile="true" />
+    
+    <changeSet id="load-data-user" author="anonymous" runOnChange="true">
+        <loadUpdateData
+                tableName="TB_USER"
+                file="../data/user.csv"
+                relativeToChangelogFile="true"
+                primaryKey="ID"
+        />
+    </changeSet>
 </databaseChangeLog>

@@ -5,9 +5,14 @@ import com.example.ecm.model.ApiBody;
 import com.example.ecm.module.auth.IAuthService;
 import com.example.ecm.module.auth.model.CustomUser;
 import com.example.ecm.module.auth.request.LoginRequest;
+import com.example.ecm.module.auth.request.RegisterRequest;
 import com.example.ecm.module.auth.response.LoginResponse;
 import com.example.ecm.module.user.IUserRepository;
 import com.example.ecm.module.auth.utils.JwtUtils;
+import com.example.ecm.module.user.IUserService;
+import com.example.ecm.module.user.UserEntity;
+import com.example.ecm.module.user.constant.RoleEnum;
+import com.example.ecm.module.user.request.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,17 +33,15 @@ public class AuthServiceImpl implements IAuthService {
     private final IUserRepository userRepository;
     private final JwtUtils jwtUtils;
 
+    private final IUserService userService;
+
     @Setter
     private AuthenticationManager authenticationManager;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return this.userRepository.findByUsername(username)
-                .map(u ->{
-                    CustomUser customUser = new CustomUser(u.getUsername(), u.getPassword(), u.getStatus() == AppConstant.ACTIVE, List.of(new SimpleGrantedAuthority(u.getRole())));
-                    customUser.setId(u.getId());
-                    return customUser;
-                })
+                .map(CustomUser::new)
                 .orElseThrow(() -> new UsernameNotFoundException("not found: " + username));
     }
 
@@ -52,6 +55,24 @@ public class AuthServiceImpl implements IAuthService {
         loginResponse.setUsername(loginRequest.getUsername());
         loginResponse.setJwt(jwt);
         loginResponse.setId(customUser.getId());
+        loginResponse.setFirstName(customUser.getFirstName());
+        loginResponse.setLastName(customUser.getLastName());
+        loginResponse.setAddress(customUser.getAddress());
+        loginResponse.setDob(customUser.getDob());
+        loginResponse.setPhone(customUser.getPhone());
+        loginResponse.setEmail(customUser.getEmail());
         return ApiBody.of(loginResponse);
+    }
+
+    @Override
+    public void register(RegisterRequest registerRequest) {
+        CreateUserRequest createUserRequest = new CreateUserRequest();
+        createUserRequest.setFirstName(registerRequest.getFirstName());
+        createUserRequest.setRole(RoleEnum.STUDENT);
+        createUserRequest.setLastName(registerRequest.getLastName());
+        createUserRequest.setUsername(registerRequest.getUsername());
+        createUserRequest.setPassword(registerRequest.getPassword());
+        createUserRequest.setStatus(AppConstant.ACTIVE);
+        this.userService.createUser(createUserRequest);
     }
 }

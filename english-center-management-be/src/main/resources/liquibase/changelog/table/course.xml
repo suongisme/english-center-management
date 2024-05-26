@@ -40,4 +40,11 @@
             <column name="AVATAR_URL" type="varchar(1000)"/>
         </addColumn>
     </changeSet>
+
+    <changeSet id="${tableName}-3" author="anonymous">
+        <comment>Add column SHORT_DESCRIPTION</comment>
+        <addColumn tableName="${tableName}">
+            <column name="SHORT_DESCRIPTION" type="varchar(300)"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

@@ -35,6 +35,9 @@ public class CreateCourseRequest {
     @Max((100))
     private Integer discount;
 
+    @NotBlank
+    @Size(max = 300)
+    private String shortDescription;
     private MultipartFile avatarFile;
 
     public CourseEntity toEntity() {
@@ -46,6 +49,7 @@ public class CreateCourseRequest {
         course.setPrice(this.getPrice());
         course.setDiscount(this.getDiscount());
         course.setDuration(this.getDuration());
+        course.setShortDescription(this.getShortDescription());
         return course;
     }
 }

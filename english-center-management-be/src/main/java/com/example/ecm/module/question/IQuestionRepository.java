@@ -13,7 +13,7 @@ import java.util.List;
 public interface IQuestionRepository extends JpaRepository<QuestionEntity, Long> {
 
     @Query("""
-        SELECT q as question, a.id as answerid, a.title as answerTitle FROM QuestionEntity q
+        SELECT q as question, a.id as answerId, a.title as answerTitle FROM QuestionEntity q
             LEFT JOIN AnswerEntity a ON a.questionId = q.id AND a.correct = true
         WHERE (:#{#data.status} IS NULL OR q.status = :#{#data.status})
             AND (:#{#data.level} IS NULL OR q.level = :#{#data.level})
@@ -25,10 +25,17 @@ public interface IQuestionRepository extends JpaRepository<QuestionEntity, Long>
     );
 
     @Query("""
-        SELECT q as question, a.id as answerid, a.title as answerTitle FROM QuestionEntity q
+        SELECT q as question, a.id as answerId, a.title as answerTitle FROM QuestionEntity q
             LEFT JOIN AnswerEntity a ON a.questionId = q.id AND a.correct = true
             JOIN TestingDetailEntity td ON td.questionId = q.id
         WHERE td.testingId = ?1
     """)
     List<ISearchQuestionResponse> getByTestingId(Long testingId);
+
+    @Query("""
+        SELECT q FROM QuestionEntity q
+            JOIN TestingDetailEntity td ON td.questionId = q.id
+        WHERE td.testingId = ?1
+    """)
+    List<QuestionEntity> findByTestingId(long testingId);
 }

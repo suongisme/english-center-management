@@ -9,6 +9,7 @@ import com.example.ecm.module.course.CourseEntity;
 import com.example.ecm.module.course.ICourseRepository;
 import com.example.ecm.module.course.ICourseService;
 import com.example.ecm.module.course.request.CreateCourseRequest;
+import com.example.ecm.module.course.request.GetDetailCourseRequest;
 import com.example.ecm.module.course.request.SearchCourserRequest;
 import com.example.ecm.module.course.request.UpdateCourseRequest;
 import com.example.ecm.module.course.response.ISearchCourseResponse;
@@ -79,5 +80,12 @@ public class CourseServiceImpl implements ICourseService {
             entity.setAvatarUrl(avatarUrl);
         }
         this.courseRepository.save(entity);
+    }
+
+    @Override
+    public ApiBody getDetailById(GetDetailCourseRequest request) {
+        return this.courseRepository.getDetailById(request)
+                .map(ApiBody::of)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RECORD));
     }
 }

@@ -1,23 +1,41 @@
-<div class="py-5">
+<div class="py-5" *ngIf="$question | async as questions">
     <div class="container">
-        <h1>Câu hỏi</h1>
+        <h1>Đề thi: {{ testing.name }}</h1>
         <div class="d-flex flex-column gap-3">
             <div
-                class="border p-3 border-success border-2"
+                class="border p-3 border-2"
+                [class.border-success]="q.answerId === q.selectedAnswer && q.answerId"
+                [class.border-danger]="q.answerId !== q.selectedAnswer && q.answerId"
                 *ngFor="let q of questions; let i = index"
             >
                 <question [index]="i" [item]="q"></question>
             </div>
         </div>
-        <div class="mt-3 d-flex gap-3">
-            <button class="genric-btn success radius">Kiểm tra kết quả</button>
-            <button class="genric-btn success-border radius">
-                Lưu kết quả
-            </button>
-        </div>
 
-        <div class="border p-3 mt-3">
-            <testing-result></testing-result>
+        <ng-container *ngIf="checkAnswer">
+            <div
+                class="border p-3 mt-3 border-2"
+                [class.border-success]="checkAnswer.score >= checkAnswer.minimumScore"
+                [class.border-danger]="checkAnswer.score < checkAnswer.minimumScore"
+            >
+                <testing-result [checkAnswer]="checkAnswer"></testing-result>
+            </div>
+        </ng-container>
+
+        <div class="mt-3 d-flex gap-3">
+            <button
+                class="genric-btn success radius"
+                (click)="ngOnCheckQuestion(questions)"
+            >
+                Kiểm tra kết quả
+            </button>
+
+            <button
+                *ngIf="checkAnswer && checkAnswer.score >= checkAnswer.minimumScore"
+                class="genric-btn success-border"
+            >
+                Mua khóa học
+            </button>
         </div>
     </div>
 </div>

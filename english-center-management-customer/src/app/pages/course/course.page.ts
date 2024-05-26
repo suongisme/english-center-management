@@ -1,72 +1,65 @@
-import { Component } from '@angular/core';
-import { CourseItem, CourseItemContainerComponent } from '@ecm-module/course';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
+import { DestroyService, PagingRequest } from '@ecm-module/common';
+import {
+    Course,
+    CourseItem,
+    CourseItemContainerComponent,
+    SearchCourseRequest,
+} from '@ecm-module/course';
+import {
+    BehaviorSubject,
+    Observable,
+    concat,
+    map,
+    merge,
+    mergeMap,
+    takeUntil,
+} from 'rxjs';
+import { CourseService } from 'src/app/module/course/service/course.service';
 
 @Component({
     selector: 'course-page',
     templateUrl: './course.page.html',
     standalone: true,
-    imports: [CourseItemContainerComponent],
+    imports: [CourseItemContainerComponent, AsyncPipe, NgIf],
+    providers: [DestroyService],
 })
-export class CoursePage {
-    courses: CourseItem[] = [
-        {
-            id: 1,
-            name: 'Fundamental of UX for Application design',
-            avatar: 'assets/img/gallery/featured1.png',
-            price: 13500000,
-            discount: 10,
-            shortDescription:
-                'The automated process all your website tasks. Discover tools and techniques to engage effectively with vulnerable children and young people.',
-        },
+export class CoursePage implements OnInit {
+    private courseService = inject(CourseService);
+    private destroyService = inject(DestroyService);
 
-        {
-            id: 2,
-            name: 'Fundamental of UX for Application design',
-            avatar: 'assets/img/gallery/featured2.png',
-            price: 135000,
-            discount: 10,
-            shortDescription:
-                'The automated process all your website tasks. Discover tools and techniques to engage effectively with vulnerable children and young people.',
+    private coursesSubject = new BehaviorSubject<CourseItem[]>([]);
+    public $course: Observable<CourseItem[]> =
+        this.coursesSubject.asObservable();
+    public totalPage: number = 10;
+    public baseSearchRequest: PagingRequest<SearchCourseRequest> = {
+        pageNo: 1,
+        pageSize: 12,
+        data: {
+            status: 1,
         },
+    };
+    public ngOnInit(): void {
+        this.loadCourse();
+    }
 
-        {
-            id: 3,
-            name: 'Fundamental of UX for Application design',
-            avatar: 'assets/img/gallery/featured3.png',
-            price: 135000,
-            discount: 10,
-            shortDescription:
-                'The automated process all your website tasks. Discover tools and techniques to engage effectively with vulnerable children and young people.',
-        },
+    private loadCourse(): void {
+        this.courseService
+            .searchCourse(this.baseSearchRequest)
+            .pipe(takeUntil(this.destroyService.$destroy))
+            .subscribe((response) => {
+                this.totalPage = response.totalPage;
+                const currentCourse = this.coursesSubject.value;
+                this.coursesSubject.next([...currentCourse, ...response.items]);
+            });
+    }
 
-        {
-            id: 4,
-            name: 'Fundamental of UX for Application design',
-            avatar: 'assets/img/gallery/featured4.png',
-            price: 135000,
-            discount: 10,
-            shortDescription:
-                'The automated process all your website tasks. Discover tools and techniques to engage effectively with vulnerable children and young people.',
-        },
-
-        {
-            id: 5,
-            name: 'Fundamental of UX for Application design',
-            avatar: 'assets/img/gallery/featured5.png',
-            price: 135000,
-            discount: 10,
-            shortDescription:
-                'The automated process all your website tasks. Discover tools and techniques to engage effectively with vulnerable children and young people.',
-        },
-
-        {
-            id: 4,
-            name: 'Fundamental of UX for Application design',
-            avatar: 'assets/img/gallery/featured6.png',
-            price: 135000,
-            discount: 10,
-            shortDescription:
-                'The automated process all your website tasks. Discover tools and techniques to engage effectively with vulnerable children and young people.',
-        },
-    ];
+    public loadMore(): void {
+        if (this.baseSearchRequest.pageNo === this.totalPage) {
+            return;
+        }
+        this.baseSearchRequest.pageNo++;
+        this.loadCourse();
+    }
 }

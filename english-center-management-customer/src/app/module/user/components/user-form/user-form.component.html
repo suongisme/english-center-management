@@ -1,0 +1,90 @@
+<form [formGroup]="formGroup" class="d-flex flex-column row-gap-2">
+    <div class="row">
+        <div class="col-md-6">
+            <ecm-input
+                [label]="'Họ'"
+                [required]="true"
+                [variant]="'input'"
+                [placeholder]="'Nhập họ'"
+                formControlName="lastName"
+                [errorsMessage]="{
+                    required: 'Họ không được trống',
+                    maxLength: 'Họ tối đa 255 ký tự'
+                }"
+            ></ecm-input>
+        </div>
+
+        <div class="col-md-6">
+            <ecm-input
+                [label]="'Tên'"
+                [required]="true"
+                [variant]="'input'"
+                [placeholder]="'Nhập tên'"
+                formControlName="firstName"
+                [errorsMessage]="{
+                    required: 'Tên không được trống',
+                    maxLength: 'Tên tối đa 255 ký tự'
+                }"
+            ></ecm-input>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <ecm-input
+                [label]="'Ngày sinh'"
+                [required]="true"
+                [variant]="'input'"
+                [type]="'date'"
+                formControlName="dob"
+                [errorsMessage]="{
+                    required: 'Ngày sinh không được trống'
+                }"
+            ></ecm-input>
+        </div>
+        <div class="col-md-6">
+            <ecm-input
+                [label]="'Số điện thoại'"
+                [required]="true"
+                [type]="'text'"
+                [variant]="'input'"
+                [placeholder]="'Nhập số điện thoại'"
+                formControlName="phone"
+                [errorsMessage]="{
+                    required: 'Số điện thoại không được trống',
+                    maxLength: 'Số điện thoại tối đa 20 ký tự',
+                    pattern: 'Số điện thoại không hợp lệ'
+                }"
+            ></ecm-input>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <ecm-input
+                [label]="'Email'"
+                [required]="true"
+                [type]="'text'"
+                [variant]="'input'"
+                formControlName="email"
+                [errorsMessage]="{
+                    required: 'Email không được trống',
+                    email: 'Email không đúng định dạng'
+                }"
+            ></ecm-input>
+        </div>
+        <div class="col-md-6">
+            <ecm-input
+                [label]="'Địa chỉ'"
+                [required]="true"
+                [type]="'text'"
+                [variant]="'input'"
+                formControlName="address"
+                [errorsMessage]="{
+                    required: 'Địa chỉ không được trống',
+                    maxLength: 'Địa chỉ tối đa 2000 ký tự'
+                }"
+            ></ecm-input>
+        </div>
+    </div>
+</form>

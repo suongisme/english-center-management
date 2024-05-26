@@ -22,4 +22,6 @@ public interface IQuestionService {
     void checkActiveQuestion(List<Long> questionIds);
 
     List<ISearchQuestionResponse> getByTestingId(long testingId);
+
+    ApiBody getQuestionAndAnswerByTestingId(long testingId);
 }

@@ -3,6 +3,7 @@ package com.example.ecm.module.testing;
 import com.example.ecm.model.ApiBody;
 import com.example.ecm.model.ApiResponse;
 import com.example.ecm.model.SearchRequest;
+import com.example.ecm.module.testing.request.CheckAnswerRequest;
 import com.example.ecm.module.testing.request.CreateTestingRequest;
 import com.example.ecm.module.testing.request.SearchTestingRequest;
 import com.example.ecm.module.testing.request.UpdateTestingRequest;
@@ -10,6 +11,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/testings")
@@ -42,5 +45,11 @@ public class TestingController {
     public ApiResponse updateTesting(@RequestBody @Valid UpdateTestingRequest updateTestingRequest) {
         this.testingService.updateTesting(updateTestingRequest);
         return ApiResponse.ok();
+    }
+
+    @PostMapping("/check")
+    public ApiResponse checkAnswer(@RequestParam Long testingId, @RequestBody @Valid List<CheckAnswerRequest> request) {
+        ApiBody apiBody = this.testingService.checkAnswer(testingId, request);
+        return ApiResponse.ok(apiBody);
     }
 }

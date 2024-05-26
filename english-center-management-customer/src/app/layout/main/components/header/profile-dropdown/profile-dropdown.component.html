@@ -1,0 +1,49 @@
+<a *ngIf="!isAuth" [routerLink]="['xac-thuc', 'dang-nhap']" class="btn btn3"
+    >Đăng nhập</a
+>
+<div>
+    <a
+        *ngIf="isAuth"
+        class="ms-0 btn btn3 border-0"
+        (click)="userDropdown.toggle()"
+        >Xin chào, {{ username }}</a
+    >
+    <div
+        #userDropdown="ngbCollapse"
+        [ngbCollapse]="true"
+        [animation]="true"
+        class="dropdown-menu dropdown-menu-right shadow animated--grow-in py-0"
+    >
+        <a
+            class="dropdown-item cursor-pointer px-3 py-2 text-dark"
+            (click)="ngOnProfile()"
+        >
+            <i class="ti-user me-2"></i> Hồ sơ
+        </a>
+        <a
+            class="dropdown-item cursor-pointer px-3 py-2 text-dark"
+            (click)="ngOnChangePassword()"
+        >
+            <i class="ti-lock me-2"></i> Đổi mật khẩu
+        </a>
+        <a
+            class="dropdown-item cursor-pointer px-3 py-2 text-dark"
+            [routerLink]="'/thoi-khoa-bieu'"
+        >
+            <i class="ti-calendar me-2"></i> Thời khóa biểu
+        </a>
+        <a
+            class="dropdown-item cursor-pointer px-3 py-2 text-dark"
+            [routerLink]="'/lich-su-thanh-toan'"
+        >
+            <i class="ti-shopping-cart-full me-2"></i> Lịch sử thanh toán
+        </a>
+        <div class="dropdown-divider m-0"></div>
+        <a
+            class="dropdown-item cursor-pointer px-3 py-2 text-dark"
+            (click)="ngOnLogout()"
+        >
+            <i class="ti-shift-left me-2"></i>Đăng xuất
+        </a>
+    </div>
+</div>

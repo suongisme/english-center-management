@@ -10,13 +10,13 @@
     <div class="modal-footer d-flex justify-content-center gap-2">
         <button
             *ngIf="!readonly"
-            class="btn btn-primary text-capitalize"
+            class="genric-btn success text-capitalize"
             (click)="ngOnSave()"
         >
             {{ 'COMMON.SAVE' | translate }}
         </button>
         <button
-            class="btn btn-secondary text-capitalize"
+            class="genric-btn primary-border radius text-capitalize"
             (click)="ngOnCancel()"
         >
             {{ 'COMMON.CANCEL' | translate }}

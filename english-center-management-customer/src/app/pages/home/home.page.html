@@ -11,15 +11,17 @@
                 </div>
             </div>
             <div class="courses-actives">
-                <ecm-carousel
-                    [itemTemplate]="courseTemplate"
-                    [data]="courses"
-                    [trackByFn]="courseTrack"
-                >
-                    <ng-template #courseTemplate let-item="item">
-                        <course-item [item]="item"></course-item>
-                    </ng-template>
-                </ecm-carousel>
+                <ng-container *ngIf="$course | async as courses">
+                    <ecm-carousel
+                        [itemTemplate]="courseTemplate"
+                        [data]="courses"
+                        [trackByFn]="courseTrack"
+                    >
+                        <ng-template #courseTemplate let-item="item">
+                            <course-item [item]="item"></course-item>
+                        </ng-template>
+                    </ecm-carousel>
+                </ng-container>
             </div>
         </div>
     </div>

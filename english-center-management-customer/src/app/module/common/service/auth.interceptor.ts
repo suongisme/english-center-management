@@ -43,7 +43,7 @@ export class AuthInterceptor implements HttpInterceptor {
             catchError((err) => {
                 if (err instanceof HttpErrorResponse) {
                     if (err.status === 401 || err.status === 403) {
-                        this.router.navigate(['auth', 'login']);
+                        this.router.navigate(['xac-thuc', 'dang-nhap']);
                         return throwError(() => err);
                     }
                     const traceId = err.error.traceId;

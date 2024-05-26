@@ -33,14 +33,23 @@ logging:
 security:
   private-key-location: classpath:private.key
   jwt-time: 1D
+  permit-all:
+    ALL:
+      - /courses/search
+      - /testings/search
+    GET:
+      - /courses
+      - /questions/testing
+    POST:
+      - /testings/check
   cors:
-    url: http://localhost:4200
+    url: http://localhost:4200, http://localhost:4201
 
 schedule:
   timetable:
     change-status:
-      enabled: true
-      cron: '* * * ? * *'
+      enabled: true # tự động thay đổi trạng thái của lịch dạy khi dạy đủ bài giảng
+      cron: '* * * ? * *' # chạy mỗi giây
 
 resource:
   provider: local

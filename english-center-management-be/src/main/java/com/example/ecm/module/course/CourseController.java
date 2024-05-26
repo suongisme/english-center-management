@@ -4,6 +4,7 @@ import com.example.ecm.model.ApiBody;
 import com.example.ecm.model.ApiResponse;
 import com.example.ecm.model.SearchRequest;
 import com.example.ecm.module.course.request.CreateCourseRequest;
+import com.example.ecm.module.course.request.GetDetailCourseRequest;
 import com.example.ecm.module.course.request.SearchCourserRequest;
 import com.example.ecm.module.course.request.UpdateCourseRequest;
 import jakarta.validation.Valid;
@@ -18,6 +19,12 @@ import org.springframework.web.bind.annotation.*;
 public class CourseController {
 
     private final ICourseService courseService;
+
+    @GetMapping
+    public ApiResponse getDetailById(GetDetailCourseRequest request) {
+        ApiBody apiBody = this.courseService.getDetailById(request);
+        return ApiResponse.ok(apiBody);
+    }
 
     @PostMapping("/search")
     public ApiResponse searchCourse(@RequestBody @Valid SearchRequest<SearchCourserRequest> searchRequest) {

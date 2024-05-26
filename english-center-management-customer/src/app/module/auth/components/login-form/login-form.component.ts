@@ -6,7 +6,7 @@ import {
     ReactiveFormsModule,
     Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { EcmInputComponent } from '@ecm-module/common';
 import { AuthService } from '../../service';
 
@@ -15,7 +15,7 @@ import { AuthService } from '../../service';
     templateUrl: './login-form.component.html',
     styleUrls: ['./login-form.component.scss'],
     standalone: true,
-    imports: [EcmInputComponent, FormsModule, ReactiveFormsModule],
+    imports: [EcmInputComponent, FormsModule, ReactiveFormsModule, RouterLink],
 })
 export class LoginFormComponent implements OnInit {
     private formBuilder: FormBuilder = inject(FormBuilder);

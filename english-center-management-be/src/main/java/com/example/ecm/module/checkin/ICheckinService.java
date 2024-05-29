@@ -14,4 +14,5 @@ public interface ICheckinService {
 
     ApiBody getStudentAndCheckinResult(Long timetableDetailId);
 
+    ApiBody getCheckedInByTimetableId(Long timetableId, Integer day);
 }

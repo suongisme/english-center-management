@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService, LoginFormComponent } from '@ecm-module/auth';
 
@@ -10,6 +10,8 @@ import { AuthService, LoginFormComponent } from '@ecm-module/auth';
     imports: [LoginFormComponent, RouterLink],
 })
 export class LoginPage implements OnInit {
+    @Input() returnUrl: string;
+
     private authService = inject(AuthService);
 
     ngOnInit(): void {

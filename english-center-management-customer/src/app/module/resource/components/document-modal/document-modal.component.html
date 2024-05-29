@@ -8,16 +8,16 @@
                 <th>Người tải lên</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
+        <tbody *ngIf="$resources | async as resources">
+            <tr *ngFor="let resource of resources">
                 <td>
-                    <p class="text-primary">tuvung.pdf</p>
+                    <p class="text-primary">{{ resource.fileName }}</p>
                 </td>
                 <td>
-                    <a class="text-primary" href="#">Tải xuống</a>
+                    <a class="text-primary" [href]="resource.url">Tải xuống</a>
                 </td>
-                <td>20/05/2024</td>
-                <td>giaovien1</td>
+                <td>{{ resource.createdDate | date: 'dd/MM/yyyy HH:mm' }}</td>
+                <td>{{ resource.createdBy }}</td>
             </tr>
         </tbody>
     </table>

@@ -45,4 +45,11 @@ public class CheckinController {
             return ApiResponse.ok(ApiBody.of(true));
         }
     }
+
+    @PreAuthorize("hasAnyAuthority('SCOPE_STUDENT')")
+    @GetMapping("/get-checked-in")
+    public ApiResponse getCheckedIn(@RequestParam Long timetableId, @RequestParam(required = false) Integer day) {
+        ApiBody apiBody = this.checkinService.getCheckedInByTimetableId(timetableId, day);
+        return ApiResponse.ok(apiBody);
+    }
 }

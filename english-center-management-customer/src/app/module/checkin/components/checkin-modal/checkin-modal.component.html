@@ -1,0 +1,34 @@
+<modal-wrapper [readonly]="true" headerTitle="Điểm danh">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Thứ</th>
+                <th>Ngày điểm danh</th>
+                <th>Tên học sinh</th>
+                <th>Đi học</th>
+                <th>Lý do</th>
+                <th>Người điểm danh</th>
+            </tr>
+        </thead>
+        <tbody *ngIf="$checkedIn | async as checkedIn">
+            <tr *ngFor="let ck of checkedIn">
+                <td>{{ dateOfWeek[ck.day - 2].label }}</td>
+                <td>{{ ck.checkedInDate | date: 'dd/MM/yyyy HH:mm' }}</td>
+                <td>{{ ck.studentName }}</td>
+                <td>
+                    <div class="primary-checkbox">
+                        <input
+                            type="checkbox"
+                            [id]="'checked-in' + ck.id"
+                            [checked]="ck.absent"
+                            disabled
+                        />
+                        <label [htmlFor]="'checked-in' + ck.id"></label>
+                    </div>
+                </td>
+                <td>{{ ck.note }}</td>
+                <td>{{ ck.checkedInBy }}</td>
+            </tr>
+        </tbody>
+    </table>
+</modal-wrapper>

@@ -1,0 +1,47 @@
+<button
+    class="border-0 bg-transparent d-flex flex-column row-gap-10px cursor-pointer"
+    [ngbPopover]="popContent"
+    [popoverTitle]="popTitle"
+    [positionTarget]="target"
+    [autoClose]="'outside'"
+>
+    <span class="border-bottom pb-1 w-100 text-start" #target>
+        Tên lớp:
+        <span>
+            {{ detail.classRoomName }}
+        </span>
+    </span>
+    <span class="border-bottom pb-1 w-100 text-start">
+        Tên khóa học:
+        <span>{{ detail.courseName }}</span>
+    </span>
+    <span class="border-bottom pb-1 w-100 text-start">
+        Tên GV:
+        <span>{{ detail.teacherName }}</span>
+    </span>
+
+    <span class="w-100 text-start">
+        kết thúc:
+        <span>
+            {{ time | addHour: detail.courseDuration }}
+        </span>
+    </span>
+</button>
+
+<ng-template #popContent>
+    <div>
+        <a
+            class="dropdown-item cursor-pointer px-3 py-2 text-dark"
+            (click)="openCheckInModal()"
+        >
+            <i class="ti-alarm-clock me-2"></i> Xem điểm danh
+        </a>
+        <a
+            class="dropdown-item cursor-pointer px-3 py-2 text-dark"
+            (click)="openDocumentModal()"
+        >
+            <i class="ti-folder me-2"></i> Tài liệu học tập
+        </a>
+    </div>
+</ng-template>
+<ng-template #popTitle>Thao tác: {{ detail.courseName }}</ng-template>

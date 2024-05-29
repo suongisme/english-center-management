@@ -38,7 +38,7 @@ public class CourseEntity extends BaseEntity {
     private BigDecimal price;
 
     @Column(name = "DISCOUNT")
-    private Integer discount;
+    private BigDecimal discount;
 
     @Column(name = "AVATAR_URL")
     private String avatarUrl;

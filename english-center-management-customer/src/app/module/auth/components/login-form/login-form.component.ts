@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import {
     FormBuilder,
     FormGroup,
@@ -18,6 +18,8 @@ import { AuthService } from '../../service';
     imports: [EcmInputComponent, FormsModule, ReactiveFormsModule, RouterLink],
 })
 export class LoginFormComponent implements OnInit {
+    @Input() returnUrl: string;
+
     private formBuilder: FormBuilder = inject(FormBuilder);
     private authService = inject(AuthService);
     private router = inject(Router);
@@ -42,7 +44,8 @@ export class LoginFormComponent implements OnInit {
         }
         const loginRequest = this.loginFormGroup.getRawValue();
         this.authService.login(loginRequest).subscribe((res) => {
-            this.router.navigate(['']);
+            console.log(this.returnUrl);
+            this.router.navigate([this.returnUrl ?? '']);
         });
     }
 }

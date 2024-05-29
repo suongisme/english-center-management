@@ -8,6 +8,7 @@ import com.example.ecm.module.checkin.ICheckinRepository;
 import com.example.ecm.module.checkin.ICheckinService;
 import com.example.ecm.module.checkin.request.CreateCheckinRequest;
 import com.example.ecm.module.checkin.request.SearchCheckinRequest;
+import com.example.ecm.module.checkin.response.IGetCheckedInResponse;
 import com.example.ecm.module.checkin.response.ISearchCheckinResponse;
 import com.example.ecm.module.checkin.student.ICheckinStudentService;
 import com.example.ecm.module.timetable.ITimetableService;
@@ -67,5 +68,12 @@ public class CheckinServiceImpl implements ICheckinService {
     @Override
     public ApiBody getStudentAndCheckinResult(Long timetableDetailId) {
         return ApiBody.of(this.checkinRepository.getByTimetableDetailId(timetableDetailId));
+    }
+
+    @Override
+    public ApiBody getCheckedInByTimetableId(Long timetableId, Integer day) {
+        final String username = AuthenticationUtil.getUsername();
+        final List<IGetCheckedInResponse> response = this.checkinRepository.getCheckedInByTimetableAndUserId(timetableId, username, day);
+        return ApiBody.of(response);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.ecm.module.checkin;
 
 import com.example.ecm.module.checkin.request.SearchCheckinRequest;
+import com.example.ecm.module.checkin.response.IGetCheckedInResponse;
 import com.example.ecm.module.checkin.response.IGetStudentAndCheckinResultResponse;
 import com.example.ecm.module.checkin.response.ISearchCheckinResponse;
 import com.example.ecm.module.user.response.IStudentTimetableResponse;
@@ -70,4 +71,22 @@ public interface ICheckinRepository extends JpaRepository<CheckinEntity, Long> {
         WHERE td.id = ?1
     """)
     List<IGetStudentAndCheckinResultResponse> getByTimetableDetailId(Long timetableDetailId);
+
+    @Query("""
+        SELECT
+            cks.id as id, ck.createdDate as checkedInDate,
+            u.firstName as firstName, u.lastName as lastName,
+            cks.absent as absent, cks.note as note,
+            td.day as day, ck.createdBy as checkedInBy
+            FROM CheckinStudentEntity cks
+            JOIN CheckinEntity ck ON ck.id = cks.checkinId
+            JOIN TimetableDetailEntity td ON td.id = ck.timetableDetailId
+            JOIN TimetableEntity t ON t.id = td.timetableId
+            JOIN UserEntity u ON u.id = cks.studentId
+        WHERE td.timetableId = ?1
+            AND u.username = ?2
+            AND (?3 IS NULL OR td.day = ?3)
+        ORDER BY ck.createdDate DESC
+    """)
+    List<IGetCheckedInResponse> getCheckedInByTimetableAndUserId(long timetableId, String username, Integer day);
 }

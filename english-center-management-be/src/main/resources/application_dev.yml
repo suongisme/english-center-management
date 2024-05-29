@@ -48,7 +48,7 @@ security:
 schedule:
   timetable:
     change-status:
-      enabled: true # tự động thay đổi trạng thái của lịch dạy khi dạy đủ bài giảng
+      enabled: false # tự động thay đổi trạng thái của lịch dạy khi dạy đủ bài giảng
       cron: '* * * ? * *' # chạy mỗi giây
 
 resource:

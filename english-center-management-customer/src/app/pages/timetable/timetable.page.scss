@@ -1,8 +1,10 @@
-span {
-    color: var(--primary-color);
+:host ::ng-deep {
+    span {
+        color: var(--primary-color);
+    }
 }
-
 th,
 td {
     border-width: 3px;
+    width: 178px;
 }

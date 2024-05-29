@@ -48,6 +48,12 @@
       "@ecm-module/timetable": [
         "src/app/module/timetable/index.ts"
       ],
+      "@ecm-module/checkin": [
+        "src/app/module/checkin/index.ts"
+      ],
+      "@ecm-module/resource": [
+        "src/app/module/resource/index.ts"
+      ],
       "@ecm-layout/main": [
         "src/app/layout/main/index.ts"
       ],

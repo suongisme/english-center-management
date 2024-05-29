@@ -33,7 +33,7 @@ public class CreateCourseRequest {
     @NotNull
     @Min(0)
     @Max((100))
-    private Integer discount;
+    private BigDecimal discount;
 
     @NotBlank
     @Size(max = 300)

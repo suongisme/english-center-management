@@ -2,6 +2,7 @@ package com.example.ecm.module.bill.detail;
 
 import com.example.ecm.module.bill.response.IGetDetailBillResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -31,4 +32,24 @@ public interface IBIllDetailRepository extends JpaRepository<BillDetailEntity, L
         WHERE b.id = ?1
     """)
     List<IGetDetailBillResponse> getByBillId(long billId);
+
+    @Modifying
+    @Query("update BillDetailEntity b set b.timetableId = null where b.timetableId = ?1")
+    void updateTimetableIdToNull(long timetableId);
+
+    @Modifying
+    @Query(value = """
+        UPDATE TB_BILL_DETAIL
+        SET TIMETABLE_ID = ?1
+        WHERE COURSE_ID = ?2 AND id IN (
+            SELECT * FROM (
+                select bd.id from TB_BILL bill
+                    JOIN TB_BILL_DETAIL bd ON bill.id = bd.BILL_ID
+                    JOIN TB_USER u ON u.username = bill.CREATED_BY
+                WHERE bd.TIMETABLE_ID IS NULL AND bill.status = 2 AND u.id IN (?3) 
+                GROUP BY bd.COURSE_ID, bill.CREATED_BY
+            ) as t
+        )
+    """, nativeQuery = true)
+    void updateTimetableId(long timetableId, long courseId, List<Long> studentIds);
 }

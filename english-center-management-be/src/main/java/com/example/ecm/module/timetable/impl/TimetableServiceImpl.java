@@ -6,6 +6,7 @@ import com.example.ecm.exception.BusinessException;
 import com.example.ecm.model.ApiBody;
 import com.example.ecm.model.SearchRequest;
 import com.example.ecm.model.SearchResponse;
+import com.example.ecm.module.bill.detail.IBillDetailService;
 import com.example.ecm.module.checkin.CheckinEntity;
 import com.example.ecm.module.checkin.ICheckinRepository;
 import com.example.ecm.module.class_room.IClassRoomService;
@@ -56,6 +57,7 @@ public class TimetableServiceImpl implements ITimetableService {
     private final IClassRoomService classRoomService;
     private final ITimetableStudentService timetableStudentService;
     private final ITimetableDetailService timetableDetailService;
+    private final IBillDetailService billDetailService;
 
     @Override
     public TimetableEntity findByIdThrowIfNotPresent(Long id) {
@@ -109,6 +111,7 @@ public class TimetableServiceImpl implements ITimetableService {
         if (!CollectionUtils.isEmpty(checkedIn)) {
             throw new BusinessException(ErrorCode.TIMETABLE_CHECKED_IN);
         }
+        this.billDetailService.unasignTimetableId(timetable.getId());
         this.timetableStudentService.deleteByTimetableId(timetable.getId());
         this.timetableDetailService.deleteByTimetableId(timetable.getId());
         this.saveTimetable(updateTimetableRequest, timetable);
@@ -137,6 +140,7 @@ public class TimetableServiceImpl implements ITimetableService {
                 .map(CreateTimetableStudentRequest::getStudentId)
                 .toList();
         if (!CollectionUtils.isEmpty(studentsIds)) {
+            this.billDetailService.assignTimetableId(entity.getId(), course.getId(), studentsIds);
             this.timetableStudentService.saveBatchTimetableStudent(entity.getId(), studentsIds);
         }
         if (!CollectionUtils.isEmpty(createTimetableRequest.getDetails())) {

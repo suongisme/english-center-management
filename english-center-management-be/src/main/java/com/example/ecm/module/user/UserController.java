@@ -53,4 +53,10 @@ public class UserController {
         this.userService.updateUserInfo(request);
         return ApiResponse.ok();
     }
+
+    @GetMapping("/paid-student")
+    public ApiResponse getPaidStudent(@RequestParam Long courseId) {
+        ApiBody apiBody = this.userService.getPaidStudent(courseId);
+        return ApiResponse.ok(apiBody);
+    }
 }

@@ -5,7 +5,6 @@ import {
     DestroyService,
     STATUS,
 } from '@ecm-module/common';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { takeUntil } from 'rxjs';
 import { DATE_OF_WEEK } from '../../constant';
 import { TimetableResponse } from '../../interface';
@@ -36,7 +35,6 @@ export class UserTimetableComponent implements OnInit {
 
     private readonly timetableService = inject(TimetableService);
     private readonly destroyService = inject(DestroyService);
-    private readonly modalService = inject(NgbModal);
 
     public ngOnInit(): void {
         this.loadTimetable();

@@ -26,7 +26,7 @@ import {
 } from '@ecm-module/common';
 import { CourseService, SearchCourseResponse } from '@ecm-module/course';
 import { UserSearchResponse } from '@ecm-module/user';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { PagingResponse } from 'src/app/module/common/interface/paging.interface';
 import { DATE_OF_WEEK } from '../../constant';
 import { UserService } from 'src/app/module/user/services';
@@ -76,7 +76,6 @@ export class TimetableFormComponent implements OnInit {
         this.loadCourse();
         this.loadTeacher();
         this.loadClassRoom();
-        this.loadStudent();
         if (this.timetable) {
             this.formGroup.patchValue(this.timetable);
         }
@@ -102,6 +101,13 @@ export class TimetableFormComponent implements OnInit {
             });
             this.formGroup.patchValue(this.timetable);
         }
+        this.formGroup.controls.courseId.valueChanges.subscribe((value) => {
+            if (!value) {
+                this.$students = of();
+            } else {
+                this.$students = this.userService.getPaidStudent(value);
+            }
+        });
         this.formInitialized.emit(this.formGroup);
     }
 
@@ -151,23 +157,6 @@ export class TimetableFormComponent implements OnInit {
                     PagingResponse<SearchClassRoomResponse>,
                     SearchClassRoomResponse[]
                 >((x) => x.items),
-            );
-    }
-
-    private loadStudent(): void {
-        this.$students = this.userService
-            .searchUser({
-                data: {
-                    status: 1,
-                    role: Role.STUDENT,
-                },
-            })
-            .pipe(
-                map<PagingResponse<UserSearchResponse>, UserSearchResponse[]>(
-                    (x) => {
-                        return x.items;
-                    },
-                ),
             );
     }
 

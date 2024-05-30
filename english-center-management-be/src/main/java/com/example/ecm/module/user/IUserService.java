@@ -19,4 +19,6 @@ public interface IUserService {
     void changePassword(ChangePasswordRequest request);
 
     void updateUserInfo(UpdateUserInfoRequest request);
+
+    ApiBody getPaidStudent(Long courseId);
 }

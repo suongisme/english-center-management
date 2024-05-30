@@ -127,4 +127,10 @@ public class UserServiceImpl implements IUserService {
 
         this.userRepository.save(user);
     }
+
+
+    @Override
+    public ApiBody getPaidStudent(Long courseId) {
+        return ApiBody.of(this.userRepository.getPaidStudent(courseId));
+    }
 }

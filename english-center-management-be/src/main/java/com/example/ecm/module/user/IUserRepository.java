@@ -37,4 +37,13 @@ public interface IUserRepository extends JpaRepository<UserEntity, Long> {
         WHERE ck.id = ?1
     """)
     List<IStudentTimetableResponse> getByCheckinId(Long checkin);
+
+    @Query("""
+        SELECT u.firstName as firstName, u.lastName as lastName, u.id as id
+        FROM UserEntity u
+            JOIN BillEntity b ON u.username = b.createdBy AND b.status = 2
+            JOIN BillDetailEntity bd ON bd.billId = b.id
+        WHERE bd.courseId = ?1 AND bd.timetableId is null
+    """)
+    List<ISearchUserResponse> getPaidStudent(long courseId);
 }

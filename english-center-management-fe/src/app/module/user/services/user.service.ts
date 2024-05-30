@@ -46,6 +46,14 @@ export class UserService {
             );
     }
 
+    public getPaidStudent(courseId: number): Observable<UserSearchResponse[]> {
+        const apiResponse = this.httpClient.get<ApiResponse>(
+            `${environment.BE_URL}/users/paid-student`,
+            { params: { courseId: courseId } },
+        );
+        return mappingDataResponse(apiResponse);
+    }
+
     public getByCheckinId(
         checkinId: number,
     ): Observable<GetStudentAndCheckinResult[]> {

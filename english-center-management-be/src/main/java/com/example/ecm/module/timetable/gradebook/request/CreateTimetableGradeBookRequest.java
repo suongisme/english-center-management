@@ -22,6 +22,6 @@ public class CreateTimetableGradeBookRequest {
         private String note;
 
         @NotNull
-        private Long score;
+        private Double score;
     }
 }

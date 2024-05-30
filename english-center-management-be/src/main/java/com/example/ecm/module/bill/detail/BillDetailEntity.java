@@ -23,9 +23,12 @@ public class BillDetailEntity {
     @Column(name = "COURSE_ID")
     private Long courseId;
 
-    @Column(name = "PRICEC")
+    @Column(name = "PRICE")
     private BigDecimal price;
 
     @Column(name = "DISCOUNT")
     private BigDecimal discount;
+
+    @Column(name = "TIMETABLE_ID")
+    private Long timetableId;
 }

@@ -8,7 +8,7 @@ import {
 import { EcmInputComponent, SearchWrapperComponent } from '@ecm-module/common';
 
 @Component({
-    selector: 'payment-form-search',
+    selector: 'bill-form-search',
     templateUrl: './form-search.component.html',
     standalone: true,
     imports: [
@@ -18,7 +18,7 @@ import { EcmInputComponent, SearchWrapperComponent } from '@ecm-module/common';
         SearchWrapperComponent,
     ],
 })
-export class PaymentFormSearchComponent implements OnInit {
+export class BillFormSearchComponent implements OnInit {
     @Output() search = new EventEmitter<any>();
 
     private formBuilder = inject(FormBuilder);
@@ -27,7 +27,7 @@ export class PaymentFormSearchComponent implements OnInit {
     public ngOnInit(): void {
         this.formGroup = this.formBuilder.group({
             fromDate: [null],
-            toDate: [],
+            toDate: [null],
         });
     }
 }

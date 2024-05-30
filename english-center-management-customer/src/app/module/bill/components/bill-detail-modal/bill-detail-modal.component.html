@@ -1,0 +1,7 @@
+<modal-wrapper headerTitle="Chi tiết hóa đơn" [readonly]="true">
+    <bill-detail-grid
+        [rowData]="rowData"
+        (openDocument)="ngOnOpenResource($event)"
+        (openCheckIn)="ngOnOpenCheckin($event)"
+    ></bill-detail-grid>
+</modal-wrapper>

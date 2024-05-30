@@ -103,6 +103,7 @@ public class TimetableServiceImpl implements ITimetableService {
     @Transactional
     public void updateTimetable(UpdateTimetableRequest updateTimetableRequest) {
         final TimetableEntity timetable = this.timetableRepository.findById(updateTimetableRequest.getId())
+                .filter(x -> AppConstant.ACTIVE == x.getStatus())
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RECORD));
         final List<CheckinEntity> checkedIn = this.checkinRepository.getCheckedInByTimetableId(updateTimetableRequest.getId());
         if (!CollectionUtils.isEmpty(checkedIn)) {

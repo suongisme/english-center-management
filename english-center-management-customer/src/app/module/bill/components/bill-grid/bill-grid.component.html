@@ -1,0 +1,46 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Ngày mua</th>
+            <th>Tổng tiền</th>
+            <th>Trạng thái</th>
+            <th>Hình thức thanh toán</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container
+            *ngFor="let bill of rowData; let i = index"
+            [ngTemplateOutlet]="row"
+            [ngTemplateOutletContext]="{ item: bill, index: i }"
+        ></ng-container>
+    </tbody>
+</table>
+<ng-template #row let-item="item" let-index="index">
+    <tr>
+        <td>
+            {{ index + 1 }}
+        </td>
+        <td>{{ item.createdDate | date: 'dd/MM/yyyy HH:mm' }}</td>
+        <td>{{ item.totalPrice | money: 'VND' }}</td>
+        <td *ngIf="status[item.status - 1] as status">
+            <span [class]="status.cssClass">{{ status.label }}</span>
+        </td>
+        <td>
+            <img
+                [src]="'assets/img/icon/' + item.methodPayment + '.svg'"
+                [alt]="item.methodPayment"
+                width="80px"
+            />
+        </td>
+        <td>
+            <button
+                class="text-primary border-0 bg-transparent"
+                (click)="openDetailBillModal(item.id)"
+            >
+                Chi tiết
+            </button>
+        </td>
+    </tr>
+</ng-template>

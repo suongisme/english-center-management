@@ -1,78 +1,9 @@
 <div class="container my-3 d-flex flex-column gap-3">
     <ecm-box>
-        <payment-form-search></payment-form-search>
+        <bill-form-search (search)="ngOnSearch($event)"></bill-form-search>
     </ecm-box>
 
-    <ecm-box>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Khóa học</th>
-                    <th>Giá tiền</th>
-                    <th>Giảm giá (%)</th>
-                    <th>Điểm số</th>
-                    <th>Kênh thanh toán</th>
-                    <th>Ngày thanh toán</th>
-                </tr>
-            </thead>
-            <tbody>
-                <ng-container
-                    [ngTemplateOutlet]="row"
-                    [ngTemplateOutletContext]="{id : 1}"
-                ></ng-container>
-                <ng-container
-                    [ngTemplateOutlet]="row"
-                    [ngTemplateOutletContext]="{id: 2}"
-                ></ng-container>
-            </tbody>
-        </table>
+    <ecm-box *ngIf="$bills | async as bills">
+        <bill-grid [rowData]="bills"></bill-grid>
     </ecm-box>
 </div>
-
-<ng-template #row let-id="id">
-    <tr>
-        <td #target>
-            <p>Khóa học tiếng Anh cơ bản</p>
-            <a
-                class="text-primary cursor-pointer"
-                [ngbPopover]="popContent"
-                [popoverTitle]="popTitle"
-                [positionTarget]="target"
-                [autoClose]="'outside'"
-                >Thao tác</a
-            >
-        </td>
-        <td>1.000.000đ</td>
-        <td>10%</td>
-        <td>
-            <div>
-                <p class="mb-0 border-bottom">Điểm: 10đ</p>
-                <p class="mb-0" style="max-width: 150px">
-                    Đánh giá: học tập tốt
-                </p>
-            </div>
-        </td>
-        <td>
-            <img src="assets/img/icon/vnpay.svg" width="80px" />
-        </td>
-        <td>26/05/2024</td>
-    </tr>
-
-    <ng-template #popContent>
-        <div>
-            <a
-                class="dropdown-item cursor-pointer px-3 py-2 text-dark"
-                (click)="ngOnOpenCheckin()"
-            >
-                <i class="ti-alarm-clock me-2"></i> Xem điểm danh
-            </a>
-            <a
-                class="dropdown-item cursor-pointer px-3 py-2 text-dark"
-                (click)="ngOnOpenResource()"
-            >
-                <i class="ti-folder me-2"></i> Tài liệu học tập
-            </a>
-        </div>
-    </ng-template>
-    <ng-template #popTitle>Thao tác: Khóa học tiếng Anh cơ bản</ng-template>
-</ng-template>

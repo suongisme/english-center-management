@@ -19,7 +19,7 @@ public class TimetableGradeBookDetailEntity {
     private Long studentId;
 
     @Column(name = "SCORE")
-    private Long score;
+    private Double score;
 
     @Column(name = "NOTE")
     private String note;

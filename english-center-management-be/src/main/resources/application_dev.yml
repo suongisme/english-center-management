@@ -29,7 +29,7 @@ spring:
     password: NguyenVanSuong@2001
 logging:
   ignores-path:
-    - "/api/resources/**"
+    - "/api/assets/**"
 security:
   private-key-location: classpath:private.key
   jwt-time: 1D

@@ -17,10 +17,17 @@ export class CheckinService {
         timetableId: number,
         day?: number,
     ): Observable<GetCheckedIn[]> {
+        const params = {
+            timetableId: timetableId,
+        } as any;
+
+        if (day) {
+            params.day = day;
+        }
         const apiResponse = this.httpClient.get<ApiResponse>(
             this.endpoint + '/get-checked-in',
             {
-                params: { timetableId, day },
+                params: params,
             },
         );
         return mappingDataResponse(apiResponse);

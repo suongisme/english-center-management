@@ -26,4 +26,11 @@
             <column name="BILL_ID" type="${idType}" />
         </createTable>
     </changeSet>
+
+    <changeSet id="${tableName}-2" author="anonymous">
+        <comment>Add column TIMETABLE_ID</comment>
+        <addColumn tableName="${tableName}">
+            <column name="TIMETABLE_ID" type="${idType}"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

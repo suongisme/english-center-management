@@ -1,10 +1,14 @@
-import { NgTemplateOutlet } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
+import {
+    BillFormSearchComponent,
+    BillGridComponent,
+    BillResponse,
+    BillService,
+    SearchBillRequest,
+} from '@ecm-module/bill';
 import { EcmBoxComponent } from '@ecm-module/common';
-import { PaymentFormSearchComponent } from '@ecm-module/payment';
-import { NgbModal, NgbPopover } from '@ng-bootstrap/ng-bootstrap';
-import { CheckinModal } from '@ecm-module/checkin';
-import { DocumentModal } from '@ecm-module/resource';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'payment-history-page',
@@ -13,25 +17,23 @@ import { DocumentModal } from '@ecm-module/resource';
     standalone: true,
     imports: [
         EcmBoxComponent,
-        PaymentFormSearchComponent,
-        NgbPopover,
-        NgTemplateOutlet,
+        BillFormSearchComponent,
+        BillGridComponent,
+        BillGridComponent,
+        NgIf,
+        AsyncPipe,
     ],
 })
-export class PaymentHistoryPage {
-    private modalService = inject(NgbModal);
+export class PaymentHistoryPage implements OnInit {
+    private billService = inject(BillService);
 
-    public ngOnOpenCheckin(): void {
-        this.modalService.open(CheckinModal, {
-            centered: true,
-            size: 'lg',
-        });
+    public $bills: Observable<BillResponse[]>;
+
+    public ngOnInit(): void {
+        this.$bills = this.billService.getUserBill();
     }
 
-    public ngOnOpenResource(): void {
-        this.modalService.open(DocumentModal, {
-            centered: true,
-            size: 'lg',
-        });
+    public ngOnSearch(searchRequest: SearchBillRequest) {
+        this.$bills = this.billService.getUserBill(searchRequest);
     }
 }

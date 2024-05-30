@@ -1,0 +1,64 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Khóa học</th>
+            <th>Giá tiền</th>
+            <th>Giảm giá (%)</th>
+            <th>Điểm số</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container
+            *ngFor="let bill of rowData"
+            [ngTemplateOutlet]="row"
+            [ngTemplateOutletContext]="{ item: bill }"
+        ></ng-container>
+    </tbody>
+</table>
+<ng-template #row let-item="item">
+    <tr>
+        <td>
+            <p>{{ item.courseName }}</p>
+        </td>
+        <td>{{ item.price | money: 'VND' }}</td>
+        <td>{{ item.discount }}%</td>
+        <td>
+            <div>
+                <p class="mb-0 border-bottom">Điểm: {{ item.score }}đ</p>
+                <p class="mb-0" style="max-width: 150px">
+                    {{ item.note }}
+                </p>
+            </div>
+        </td>
+        <td>
+            <a
+                class="text-primary cursor-pointer"
+                [ngbPopover]="popContent"
+                [popoverTitle]="popTitle"
+                [positionTarget]="target"
+                [autoClose]="'outside'"
+                #target
+                >Thao tác
+            </a>
+        </td>
+    </tr>
+
+    <ng-template #popContent>
+        <div>
+            <a
+                class="dropdown-item cursor-pointer px-3 py-2 text-dark"
+                (click)="ngOnOpenCheckin(item.timetableId)"
+            >
+                <i class="ti-alarm-clock me-2"></i> Xem điểm danh
+            </a>
+            <a
+                class="dropdown-item cursor-pointer px-3 py-2 text-dark"
+                (click)="ngOnOpenResource(item.timetableId)"
+            >
+                <i class="ti-folder me-2"></i> Tài liệu học tập
+            </a>
+        </div>
+    </ng-template>
+    <ng-template #popTitle>Thao tác: {{ item.courseName }}</ng-template>
+</ng-template>

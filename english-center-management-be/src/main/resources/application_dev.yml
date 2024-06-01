@@ -48,11 +48,28 @@ security:
 schedule:
   timetable:
     change-status:
-      enabled: false # tự động thay đổi trạng thái của lịch dạy khi dạy đủ bài giảng
+      enabled: true # tự động thay đổi trạng thái của lịch dạy khi dạy đủ bài giảng
       cron: '* * * ? * *' # chạy mỗi giây
-
+  bill:
+    change-status:
+      enabled: true # tự động thay đổi trạng thái của don hang
+#      cron: '* * * ? * *' # chạy mỗi giây
+      cron: '* 0/5 0 ? * *' # 5 phut cap nhat 1 lan
 resource:
   provider: local
   local:
     path: 'D:\sp\english_center_management\english-center-management-be\asserts'
     host: http://localhost:${server.port}${server.servlet.context-path}/assets
+
+payment:
+  vnpay:
+    pay-url: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+    return-url: http://localhost:4201/lich-su-thanh-toan
+    tmn-code: VRCFOQFH
+    secret-code: RTBABQTPJPILRDOYZUYZHMIEBJYOSZCY
+    api-url: https://sandbox.vnpayment.vn/merchant_webapi/api
+    version: 2.1.0
+    timeout: 1M
+    ccy: VND
+    exp-order: 15M
+    order-info-template: 'THANH TOAN %s'

@@ -18,16 +18,10 @@
                                     / 100 | money: 'VND' }}
                                 </h4>
                                 <h5
-                                    *ngIf="
-                                            course.discount > 0 &&
-                                            course.price *
-                                                (course.discount /
-                                                    100) >
-                                                0 as amtDiscount
-                                        "
                                     class="mb-0 text-decoration-line-through text-secondary"
+                                    *ngIf="course.price | discount: course.discount as oldPrice"
                                 >
-                                    {{ amtDiscount | money: 'VND' }}
+                                    {{ oldPrice | money: 'VND' }}
                                 </h5>
                             </div>
                         </div>
@@ -61,8 +55,9 @@
                         <hr />
                         <div class="pt-1">
                             <method-payment-list
-                                [defaultMethod]="'vnpay'"
+                                [defaultMethod]="paymentMethod"
                                 [courseId]="course.id"
+                                (change)="paymentMethod = $event"
                             ></method-payment-list>
                         </div>
                     </div>
@@ -93,8 +88,8 @@
                             <div class="p-2 d-flex">
                                 <div class="col-8">Giảm giá</div>
                                 <div class="ms-auto">
-                                    {{ course.price * (course.discount / 100) |
-                                    money:'VND'}}
+                                    {{ course.price | discount: course.discount
+                                    | money:'VND'}}
                                 </div>
                             </div>
 
@@ -105,34 +100,20 @@
                                 <div class="col-8"><b>Tổng tiền</b></div>
                                 <div class="ms-auto">
                                     <b class="text-success">
-                                        <ng-container
-                                            *ngIf="course.discount <= 0"
-                                        >
+                                        <ng-container>
                                             {{ (course.price * (100 -
                                             course.discount)) / 100 | money:
                                             'VND' }}
                                         </ng-container>
-                                        <ng-container
-                                            *ngIf="
-                                                    course.discount > 0 &&
-                                                    course.price *
-                                                        (course.discount /
-                                                            100) >
-                                                        0 as amtDiscount
-                                                "
-                                            class="mb-0 text-decoration-line-through text-secondary"
-                                        >
-                                            {{ amtDiscount | money: 'VND' }}
-                                        </ng-container>
                                     </b>
                                 </div>
                             </div>
-                            <input
-                                type="button"
-                                value="Thanh toán"
-                                data-mdb-ripple-init
+                            <button
                                 class="btn btn-primary btn-block btn-lg mt-3 w-100"
-                            />
+                                (click)="payment(course)"
+                            >
+                                Thanh toán
+                            </button>
                         </div>
                     </div>
                 </div>

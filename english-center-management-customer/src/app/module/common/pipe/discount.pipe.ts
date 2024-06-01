@@ -6,6 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DiscountPipe implements PipeTransform {
     transform(value: number, discount: number) {
-        return ((100 - discount) / 100) * value;
+        if (discount === 0) return null;
+        return (discount / 100) * value;
     }
 }

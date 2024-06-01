@@ -11,24 +11,19 @@ import { LoginRequest, LoginResponse, RegisterRequest } from '../interface';
 })
 export class AuthService {
     private httpClient = inject(HttpClient);
-    private _loginResponse: LoginResponse;
 
     public authority: string[];
 
-    set loginResponse(loginResponse: LoginResponse) {
-        this._loginResponse = loginResponse;
-    }
-
     get loginResponse(): LoginResponse {
-        return this._loginResponse;
+        return JSON.parse(localStorage.getItem('AUTHENTICATION'));
     }
 
     get isAuthenticated(): boolean {
-        return !!this.loginResponse;
+        return !!localStorage.getItem('AUTHENTICATION');
     }
 
     public logout(): void {
-        this.loginResponse = null;
+        localStorage.removeItem('AUTHENTICATION');
     }
 
     public login(request: LoginRequest): Observable<LoginResponse> {
@@ -38,7 +33,7 @@ export class AuthService {
         );
         return mappingDataResponse(apiResponse).pipe(
             map((x: LoginResponse) => {
-                this.loginResponse = x;
+                localStorage.setItem('AUTHENTICATION', JSON.stringify(x));
                 return x;
             }),
         );

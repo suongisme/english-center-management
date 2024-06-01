@@ -2,7 +2,7 @@ export const BILL_STATUS = [
     {
         id: 1,
         cssClass: 'text-info',
-        label: 'Đợi thanh toán',
+        label: 'Đợi xác thực',
     },
     {
         id: 2,

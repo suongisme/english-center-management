@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import {
     BillDetailResponse,
     BillResponse,
+    PaymentRequest,
+    PaymentResponse,
     SearchBillRequest,
 } from '../interface';
 import { ApiResponse } from '../../common/interface';
@@ -35,6 +37,14 @@ export class BillService {
                     billId: billId,
                 },
             },
+        );
+        return mappingDataResponse(apiResponse);
+    }
+
+    public payment(request: PaymentRequest): Observable<PaymentResponse> {
+        const apiResponse = this.httpClient.post<ApiResponse>(
+            this.endpoint + '/payment',
+            request,
         );
         return mappingDataResponse(apiResponse);
     }

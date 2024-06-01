@@ -2,7 +2,9 @@ package com.example.ecm.module.bill;
 
 import com.example.ecm.model.ApiBody;
 import com.example.ecm.model.ApiResponse;
+import com.example.ecm.module.payment.request.PaymentRequest;
 import com.example.ecm.module.bill.request.SearchBillRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,13 @@ public class BillController {
     @GetMapping("/get-detail")
     public ApiResponse getDetailBill(@RequestParam Long billId) {
         ApiBody apiBody = this.billService.getDetailBill(billId);
+        return ApiResponse.ok(apiBody);
+    }
+
+    @PostMapping("/payment")
+    @PreAuthorize("hasAnyAuthority('SCOPE_STUDENT')")
+    public ApiResponse payment(@RequestBody @Valid PaymentRequest paymentRequest) {
+        ApiBody apiBody = this.billService.payment(paymentRequest);
         return ApiResponse.ok(apiBody);
     }
 }

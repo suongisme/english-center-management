@@ -1,0 +1,46 @@
+{
+  "_link": "https://sandbox.vnpayment.vn/apis/vnpay-demo/",
+  "_linkDashboard": "https://sandbox.vnpayment.vn/merchantv2/Home/Dashboard.htm",
+  "data": [
+    {
+      "bankCode": "NCB",
+      "cardNumber": "9704198526191432198",
+      "cardName": "NGUYEN VAN A",
+      "expire": "07/15",
+      "otp": "123456",
+      "note": "Thành công"
+    },
+    {
+      "bankCode": "NCB",
+      "cardNumber": "9704195798459170488",
+      "cardName": "NGUYEN VAN A",
+      "expire": "07/15",
+      "otp": "123456",
+      "note": "Thẻ không đủ số dư"
+    },
+    {
+      "bankCode": "NCB",
+      "cardNumber": "9704192181368742",
+      "cardName": "NGUYEN VAN A",
+      "expire": "07/15",
+      "otp": "123456",
+      "note": "Thẻ chưa kích hoạt"
+    },
+    {
+      "bankCode": "NCB",
+      "cardNumber": "9704193370791314",
+      "cardName": "NGUYEN VAN A",
+      "expire": "07/15",
+      "otp": "123456",
+      "note": "Thẻ bị khóa"
+    },
+    {
+      "bankCode": "NCB",
+      "cardNumber": "9704194841945513",
+      "cardName": "NGUYEN VAN A",
+      "expire": "07/15",
+      "otp": "123456",
+      "note": "Thẻ bị hết hạn"
+    }
+  ]
+}

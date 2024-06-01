@@ -22,3 +22,16 @@ export interface BillDetailResponse {
     note: string;
     timetableId: number;
 }
+
+export interface PaymentRequest {
+    methodPayment: string;
+    courseIds: number[];
+}
+
+export interface PaymentResponse {
+    methodPayment: string;
+}
+
+export interface VnPayPaymentResponse extends PaymentResponse {
+    paymentUrl: string;
+}

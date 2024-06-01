@@ -1,0 +1,142 @@
+<section class="bg-white" *ngIf="$course | async as course">
+    <div class="container py-5">
+        <div class="card">
+            <div class="card-body">
+                <div class="row d-flex justify-content-center pb-5">
+                    <div class="col-md-7 col-xl-5 mb-4 mb-md-0">
+                        <div class="py-4 d-flex flex-row">
+                            <h5>
+                                <span class="far fa-check-square pe-2"></span>
+                                <b>THANH TOÁN</b>
+                            </h5>
+                        </div>
+                        <h4>{{ course.name }}</h4>
+                        <div>
+                            <div class="d-flex gap-2">
+                                <h4 class="text-success mb-0">
+                                    {{ (course.price * (100 - course.discount))
+                                    / 100 | money: 'VND' }}
+                                </h4>
+                                <h5
+                                    *ngIf="
+                                            course.discount > 0 &&
+                                            course.price *
+                                                (course.discount /
+                                                    100) >
+                                                0 as amtDiscount
+                                        "
+                                    class="mb-0 text-decoration-line-through text-secondary"
+                                >
+                                    {{ amtDiscount | money: 'VND' }}
+                                </h5>
+                            </div>
+                        </div>
+
+                        <p>{{ course.shortDescription}}</p>
+                        <div class="d-flex gap-2 align-items-center">
+                            <p class="mb-0">
+                                <i class="ti-pencil"></i>
+                            </p>
+                            <div class="d-flex gap-1">
+                                <p class="mb-0">Số buổi học:</p>
+                                <p class="mb-0">{{ course.numberOfLesson }}</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2 align-items-center">
+                            <p class="mb-0">
+                                <i class="ti-timer"></i>
+                            </p>
+                            <div class="d-flex gap-1">
+                                <p class="mb-0">Thời lượng:</p>
+                                <p class="mb-0">{{ course.duration }} tiếng</p>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-1">
+                            <p class="mb-0">Lần cập nhật gần nhất:</p>
+                            <p class="mb-0">
+                                {{ course.updatedDate | date: 'dd/MM/yyyy' }}
+                            </p>
+                        </div>
+                        <hr />
+                        <div class="pt-1">
+                            <method-payment-list
+                                [defaultMethod]="'vnpay'"
+                                [courseId]="course.id"
+                            ></method-payment-list>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 col-xl-4 offset-xl-1">
+                        <div class="py-4 d-flex justify-content-end">
+                            <h6>
+                                <button
+                                    class="border-0 bg-transparent text-primary"
+                                    (click)="back()"
+                                >
+                                    Quay lại
+                                </button>
+                            </h6>
+                        </div>
+                        <div
+                            class="rounded d-flex flex-column p-2 bg-body-tertiary"
+                        >
+                            <div class="p-2 me-3">
+                                <h4>Hóa đơn</h4>
+                            </div>
+                            <div class="p-2 d-flex">
+                                <div class="col-8">Giá gốc</div>
+                                <div class="ms-auto">
+                                    {{ course.price | money:'VND' }}
+                                </div>
+                            </div>
+                            <div class="p-2 d-flex">
+                                <div class="col-8">Giảm giá</div>
+                                <div class="ms-auto">
+                                    {{ course.price * (course.discount / 100) |
+                                    money:'VND'}}
+                                </div>
+                            </div>
+
+                            <div class="border-top px-2 mx-2"></div>
+
+                            <div class="border-top px-2 mx-2"></div>
+                            <div class="p-2 d-flex pt-3">
+                                <div class="col-8"><b>Tổng tiền</b></div>
+                                <div class="ms-auto">
+                                    <b class="text-success">
+                                        <ng-container
+                                            *ngIf="course.discount <= 0"
+                                        >
+                                            {{ (course.price * (100 -
+                                            course.discount)) / 100 | money:
+                                            'VND' }}
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="
+                                                    course.discount > 0 &&
+                                                    course.price *
+                                                        (course.discount /
+                                                            100) >
+                                                        0 as amtDiscount
+                                                "
+                                            class="mb-0 text-decoration-line-through text-secondary"
+                                        >
+                                            {{ amtDiscount | money: 'VND' }}
+                                        </ng-container>
+                                    </b>
+                                </div>
+                            </div>
+                            <input
+                                type="button"
+                                value="Thanh toán"
+                                data-mdb-ripple-init
+                                class="btn btn-primary btn-block btn-lg mt-3 w-100"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

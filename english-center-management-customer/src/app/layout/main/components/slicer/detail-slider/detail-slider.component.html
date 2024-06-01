@@ -81,12 +81,14 @@
             </div>
             <div class="row w-100 pb-2 justify-content-end">
                 <div class="col-md-2">
-                    <button
+                    <a
+                        [routerLink]="['/thanh-toan', course.name]"
+                        [queryParams]="{ id: course.id }"
                         class="border-btn border-btn2 p-2 text-white border-2"
                     >
                         <i class="ti-shopping-cart text-white"></i>
                         Mua khóa học
-                    </button>
+                    </a>
                 </div>
                 <div class="col-md-2">
                     <a

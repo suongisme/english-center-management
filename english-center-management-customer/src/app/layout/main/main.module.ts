@@ -18,6 +18,7 @@ import { DetailSliderComponent } from './components/slicer/detail-slider/detail-
 import { ProfileDropdownComponent } from './components/header/profile-dropdown/profile-dropdown.component';
 import { PaymentHistorySliderComponent } from './components/slicer/payment-history-slider/payment-history-slider.component';
 import { TimetableSliderComponent } from './components/slicer/timetable-slider/timetable-slider.component';
+import { PaymentSliderComponent } from './components/slicer/payment-slider/payment-slider.component';
 
 const imports = [
     CommonModule,
@@ -42,6 +43,7 @@ const declarations = [
     DetailSliderComponent,
     PaymentHistorySliderComponent,
     TimetableSliderComponent,
+    PaymentSliderComponent
 ];
 
 @NgModule({

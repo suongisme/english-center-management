@@ -14,8 +14,4 @@ export class DetailSliderComponent implements OnInit {
     public ngOnInit(): void {
         this.$course = this.courseService.courseDetail.asObservable();
     }
-
-    public ngOnTest(course: Course): void {}
-
-    public ngOnBuy(course: Course): void {}
 }

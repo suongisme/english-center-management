@@ -2,10 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { LanguageComponent, MoneyPipe } from '@ecm-module/common';
+import { MoneyPipe } from '@ecm-module/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { TranslateModule } from '@ngx-translate/core';
 import { MainHeaderComponent } from './components/header/header.component';
 import { MainLayout } from './main.layout';
@@ -26,8 +25,6 @@ const imports = [
     NgbCollapse,
     FormsModule,
     TranslateModule,
-    NgSelectModule,
-    LanguageComponent,
     FontAwesomeModule,
     MoneyPipe,
     ProfileDropdownComponent,
@@ -43,7 +40,7 @@ const declarations = [
     DetailSliderComponent,
     PaymentHistorySliderComponent,
     TimetableSliderComponent,
-    PaymentSliderComponent
+    PaymentSliderComponent,
 ];
 
 @NgModule({

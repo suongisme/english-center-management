@@ -54,7 +54,7 @@ schedule:
     change-status:
       enabled: true # tự động thay đổi trạng thái của don hang
 #      cron: '* * * ? * *' # chạy mỗi giây
-      cron: '* 0/5 0 ? * *' # 5 phut cap nhat 1 lan
+      cron: '0 */5 * ? * *' # 5 phut cap nhat 1 lan
 resource:
   provider: local
   local:

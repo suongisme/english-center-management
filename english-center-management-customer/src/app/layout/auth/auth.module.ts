@@ -2,9 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { routes } from './router';
 import { AuthLayout } from './auth.layout';
-import { LanguageComponent } from '@ecm-module/common';
 
-const imports = [RouterModule.forChild(routes), LanguageComponent];
+const imports = [RouterModule.forChild(routes)];
 
 const declarations = [AuthLayout];
 

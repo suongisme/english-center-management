@@ -14,13 +14,7 @@ import {
     ReactiveFormsModule,
     Validators,
 } from '@angular/forms';
-import {
-    EcmInputComponent,
-    EcmSelectComponent,
-    formatDate,
-    ImagePreviewComponent,
-    STATUS,
-} from '@ecm-module/common';
+import { EcmInputComponent, formatDate, STATUS } from '@ecm-module/common';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -33,8 +27,6 @@ import { TranslateModule } from '@ngx-translate/core';
         ReactiveFormsModule,
         TranslateModule,
         EcmInputComponent,
-        EcmSelectComponent,
-        ImagePreviewComponent,
     ],
 })
 export class UserFormComponent implements OnInit {

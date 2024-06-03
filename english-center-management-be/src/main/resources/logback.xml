@@ -43,7 +43,7 @@ and open the template in the editor.
         <!--        <appender-ref ref="RollingFileAppender" />-->
     </root>
 
-    <logger name="com.luke" level="debug" additivity="false">
+    <logger name="com.example.ecm" level="debug" additivity="false">
         <appender-ref ref="Console" />
         <appender-ref ref="FileAppender" />
         <!--        <appender-ref ref="RollingFileAppender" />-->

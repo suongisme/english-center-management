@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SidebarService } from '@ecm-layout/main';
 import { Observable } from 'rxjs';
 import { MenuService, Menu } from '@ecm-module/common';
@@ -16,5 +16,7 @@ export class MainSidebarComponent {
         this.sidebarService.getSidebarStatus();
     public menu$: Observable<Menu[]> = this.menuService.getMenu();
 
-    public routeLink(link: string, li: HTMLElement): void {}
+    public routeLink(itemMenu): void {
+        itemMenu.collapse = !itemMenu.collapse;
+    }
 }

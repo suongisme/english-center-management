@@ -23,6 +23,7 @@ export class AuthService {
         if (loginResponse) {
             const { scope } = JSON.parse(atob(loginResponse.jwt.split('.')[1]));
             this.authority = scope;
+
             const menu: Menu[] = this.authority.flatMap((role) => MENU[role]);
             this.menuService.setMenu(menu);
         }

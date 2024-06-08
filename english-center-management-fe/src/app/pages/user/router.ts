@@ -8,10 +8,27 @@ export const router: Route = {
     },
     children: [
         {
-            path: '',
+            path: 'student',
             loadComponent: () => import('./user.page').then((p) => p.UserPage),
             data: {
-                title: 'Quản lý người dùng',
+                title: 'Quản lý học viên',
+                role: 'STUDENT',
+            },
+        },
+        {
+            path: 'teacher',
+            loadComponent: () => import('./user.page').then((p) => p.UserPage),
+            data: {
+                title: 'Quản lý giáo viên',
+                role: 'TEACHER',
+            },
+        },
+        {
+            path: 'admin',
+            loadComponent: () => import('./user.page').then((p) => p.UserPage),
+            data: {
+                title: 'Quản lý nhân viên',
+                role: 'ADMIN',
             },
         },
     ],

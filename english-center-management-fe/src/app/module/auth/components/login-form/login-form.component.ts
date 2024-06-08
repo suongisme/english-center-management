@@ -7,7 +7,7 @@ import {
     Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { EcmInputComponent } from '@ecm-module/common';
+import { EcmInputComponent, NotifierService } from '@ecm-module/common';
 import { AuthService } from '../../service';
 
 @Component({
@@ -21,6 +21,7 @@ export class LoginFormComponent implements OnInit {
     private formBuilder: FormBuilder = inject(FormBuilder);
     private authService = inject(AuthService);
     private router = inject(Router);
+    private notifierService = inject(NotifierService);
 
     public loginFormGroup: FormGroup;
 
@@ -42,6 +43,13 @@ export class LoginFormComponent implements OnInit {
         }
         const loginRequest = this.loginFormGroup.getRawValue();
         this.authService.login(loginRequest).subscribe((res) => {
+            if (
+                !this.authService.authority.includes('TEACHER') &&
+                !this.authService.authority.includes('ADMIN')
+            ) {
+                this.notifierService.error('Bạn không có quyền truy cập');
+                return;
+            }
             this.router.navigate(['']);
         });
     }

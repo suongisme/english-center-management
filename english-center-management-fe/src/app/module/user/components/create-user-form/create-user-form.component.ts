@@ -22,7 +22,6 @@ import {
 } from '@ecm-module/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { CreateUser } from '../../interface';
-import { ROLE } from '../../constant';
 
 @Component({
     selector: 'create-user-form',
@@ -50,7 +49,6 @@ export class CreateUserFormComponent implements OnInit {
     public formGroup: FormGroup;
     public previewAvatarUrl: string;
     public status = STATUS;
-    public roles = ROLE;
 
     public ngOnInit(): void {
         this.buildFormGroup();
@@ -76,7 +74,6 @@ export class CreateUserFormComponent implements OnInit {
             dob: [null, [Validators.required]],
             address: [null, [Validators.required, Validators.maxLength(2000)]],
             status: [this.status[0].id, [Validators.required]],
-            role: [this.roles[0].id, [Validators.required]],
             username: [null, [Validators.required]],
             password: [null, [Validators.required]],
         });

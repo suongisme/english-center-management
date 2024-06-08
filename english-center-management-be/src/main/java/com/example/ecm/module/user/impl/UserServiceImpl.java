@@ -1,6 +1,7 @@
 package com.example.ecm.module.user.impl;
 
 import com.example.ecm.model.SearchResponse;
+import com.example.ecm.module.user.constant.RoleEnum;
 import com.example.ecm.module.user.request.*;
 import com.example.ecm.constant.ErrorCode;
 import com.example.ecm.exception.BusinessException;
@@ -54,6 +55,9 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void createUser(CreateUserRequest createStudentRequest) {
         try {
+            if (RoleEnum.STUDENT.equals(createStudentRequest.getRole())) {
+                throw new BusinessException(ErrorCode.VALIDATE_FAIL);
+            }
             final UserEntity student = createStudentRequest.toEntity();
             student.setPassword(this.passwordEncoder.encode(student.getPassword()));
             this.userRepository.save(student);

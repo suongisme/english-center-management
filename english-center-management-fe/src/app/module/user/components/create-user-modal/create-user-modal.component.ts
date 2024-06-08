@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -11,6 +11,7 @@ import {
 import { UpdateUser } from '../../interface';
 import { UserService } from '../../services';
 import { takeUntil } from 'rxjs';
+import { Role } from '../../constant';
 
 @Component({
     selector: 'create-user-modal',
@@ -20,6 +21,8 @@ import { takeUntil } from 'rxjs';
     providers: [DestroyService],
 })
 export class CreateUserModal {
+    @Input() role: Role;
+
     public formGroup: FormGroup;
     public user: UpdateUser;
 
@@ -33,7 +36,10 @@ export class CreateUserModal {
         if (this.formGroup.invalid) {
             return;
         }
-        const user = this.formGroup.getRawValue();
+        const user = {
+            ...this.formGroup.getRawValue(),
+            role: this.role,
+        };
         if (this.user) {
             this.userService
                 .updateUser({

@@ -6,5 +6,6 @@ export interface Menu {
     label: string;
     role?: string[];
     link?: string;
+    collapse?: boolean;
     children?: Menu[];
 }

@@ -6,6 +6,7 @@
         <div class="d-flex flex-column row-gap-4 h-100">
             <user-grid-wrapper
                 [users]="users"
+                [role]="role"
                 (createNew)="paginate(this.pagination)"
             ></user-grid-wrapper>
             <pagination

@@ -1,11 +1,6 @@
+import { faTable } from '@fortawesome/free-solid-svg-icons';
 import { Authority } from '../../auth/constant';
 import { Menu } from '../interface/menu.interface';
-import {
-    faTachometerAlt,
-    faCog,
-    faTable,
-    faBell,
-} from '@fortawesome/free-solid-svg-icons';
 
 export const MENU: { [name: string]: Menu[] } = {
     [Authority.ADMIN]: [
@@ -24,8 +19,24 @@ export const MENU: { [name: string]: Menu[] } = {
         {
             label: 'Quản lý người dùng',
             icon: faTable,
-            link: '/user',
             role: [Authority.ADMIN],
+            children: [
+                {
+                    label: 'Học viên',
+                    icon: faTable,
+                    link: '/user/student',
+                },
+                {
+                    label: 'Giáo viên',
+                    icon: faTable,
+                    link: '/user/teacher',
+                },
+                {
+                    label: 'Quản lý',
+                    icon: faTable,
+                    link: '/user/admin',
+                },
+            ],
         },
         {
             label: 'Ngân hàng câu hỏi',

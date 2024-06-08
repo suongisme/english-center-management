@@ -90,32 +90,6 @@
 
     <div class="row">
         <div class="col-md-6">
-            <ecm-select
-                [label]="'Trạng thái'"
-                [required]="true"
-                [items]="status"
-                bindLabel="label"
-                bindValue="id"
-                placeholder="Chọn trạng thái"
-                formControlName="status"
-            ></ecm-select>
-        </div>
-
-        <div class="col-md-6">
-            <ecm-select
-                [label]="'Chức vụ'"
-                [required]="true"
-                [items]="roles"
-                bindLabel="label"
-                bindValue="id"
-                placeholder="Chọn chức vụ"
-                formControlName="role"
-            ></ecm-select>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">
             <ecm-input
                 [label]="'username'"
                 [required]="true"
@@ -138,6 +112,20 @@
                     required: 'Mật khẩu không được trống'
                 }"
             ></ecm-input>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <ecm-select
+                [label]="'Trạng thái'"
+                [required]="true"
+                [items]="status"
+                bindLabel="label"
+                bindValue="id"
+                placeholder="Chọn trạng thái"
+                formControlName="status"
+            ></ecm-select>
         </div>
     </div>
 </form>

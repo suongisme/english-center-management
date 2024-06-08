@@ -2,10 +2,7 @@ package com.example.ecm.module.course;
 
 import com.example.ecm.model.ApiBody;
 import com.example.ecm.model.SearchRequest;
-import com.example.ecm.module.course.request.CreateCourseRequest;
-import com.example.ecm.module.course.request.GetDetailCourseRequest;
-import com.example.ecm.module.course.request.SearchCourserRequest;
-import com.example.ecm.module.course.request.UpdateCourseRequest;
+import com.example.ecm.module.course.request.*;
 
 public interface ICourseService {
 
@@ -18,4 +15,6 @@ public interface ICourseService {
     void updateCourse(UpdateCourseRequest updateCourseRequest);
 
     ApiBody getDetailById(GetDetailCourseRequest request);
+
+    ApiBody getStatisticalCourse(SearchRequest<GetStatisticalCourseRequest> searchRequest);
 }

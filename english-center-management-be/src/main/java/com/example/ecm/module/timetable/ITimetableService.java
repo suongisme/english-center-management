@@ -3,6 +3,7 @@ package com.example.ecm.module.timetable;
 import com.example.ecm.model.ApiBody;
 import com.example.ecm.model.SearchRequest;
 import com.example.ecm.module.timetable.request.CreateTimetableRequest;
+import com.example.ecm.module.timetable.request.GetStatisticTimetableRequest;
 import com.example.ecm.module.timetable.request.SearchTimetableRequest;
 import com.example.ecm.module.timetable.request.UpdateTimetableRequest;
 import org.springframework.lang.Nullable;
@@ -22,4 +23,6 @@ public interface ITimetableService {
     void updateTimetable(UpdateTimetableRequest updateTimetableRequest);
 
     ApiBody searchTimetable(SearchRequest<SearchTimetableRequest> searchRequest);
+
+    ApiBody statisticTimetable(SearchRequest<GetStatisticTimetableRequest> searchRequest);
 }

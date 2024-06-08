@@ -27,23 +27,26 @@
       "dom"
     ],
     "paths": {
-      "@ecm-module/auth": [
-        "src/app/module/auth/index.ts"
-      ],
       "@ecm-module/common": [
         "src/app/module/common/index.ts"
       ],
       "@ecm-module/user": [
         "src/app/module/user/index.ts"
       ],
+      "@ecm-module/grade-book": [
+        "src/app/module/grade-book/index.ts"
+      ],
+      "@ecm-module/auth": [
+        "src/app/module/auth/index.ts"
+      ],
       "@ecm-module/class-room": [
         "src/app/module/class-room/index.ts"
       ],
-      "@ecm-module/course": [
-        "src/app/module/course/index.ts"
-      ],
       "@ecm-module/timetable": [
         "src/app/module/timetable/index.ts"
+      ],
+      "@ecm-module/course": [
+        "src/app/module/course/index.ts"
       ],
       "@ecm-module/question": [
         "src/app/module/question/index.ts"
@@ -57,8 +60,8 @@
       "@ecm-module/resource": [
         "src/app/module/resource/index.ts"
       ],
-      "@ecm-module/grade-book": [
-        "src/app/module/grade-book/index.ts"
+      "@ecm-module/bill": [
+        "src/app/module/bill/index.ts"
       ],
       "@ecm-layout/main": [
         "src/app/layout/main/index.ts"

@@ -8,11 +8,9 @@ import com.example.ecm.model.SearchResponse;
 import com.example.ecm.module.course.CourseEntity;
 import com.example.ecm.module.course.ICourseRepository;
 import com.example.ecm.module.course.ICourseService;
-import com.example.ecm.module.course.request.CreateCourseRequest;
-import com.example.ecm.module.course.request.GetDetailCourseRequest;
-import com.example.ecm.module.course.request.SearchCourserRequest;
-import com.example.ecm.module.course.request.UpdateCourseRequest;
+import com.example.ecm.module.course.request.*;
 import com.example.ecm.module.course.response.ISearchCourseResponse;
+import com.example.ecm.module.course.response.IStatisticalCourseResponse;
 import com.example.ecm.module.resource.IResourceService;
 import com.example.ecm.module.resource.provider.IResourceProvider;
 import com.example.ecm.module.resource.request.CreateResourceRequest;
@@ -87,5 +85,17 @@ public class CourseServiceImpl implements ICourseService {
         return this.courseRepository.getDetailById(request)
                 .map(ApiBody::of)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RECORD));
+    }
+
+    @Override
+    public ApiBody getStatisticalCourse(SearchRequest<GetStatisticalCourseRequest> searchRequest) {
+        Pageable pageable = Pageable.unpaged();
+        if (searchRequest.isPaged()) {
+            pageable = PageRequest.of(searchRequest.getPageNo() - 1, searchRequest.getPageSize());
+        }
+        final GetStatisticalCourseRequest data = Optional.ofNullable(searchRequest.getData()).orElseGet(GetStatisticalCourseRequest::new);
+        final Page<IStatisticalCourseResponse> page = this.courseRepository.statisticalCourse(data, pageable);
+        final SearchResponse<IStatisticalCourseResponse> response = SearchResponse.of(page);
+        return ApiBody.of(response);
     }
 }

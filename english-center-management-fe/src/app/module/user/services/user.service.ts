@@ -4,6 +4,8 @@ import { Observable, map } from 'rxjs';
 import { ApiBody, ApiResponse, mappingDataResponse } from '@ecm-module/common';
 import {
     CreateUser,
+    GetStatisticUserRequest,
+    GetStatisticUserResponse,
     UpdateUser,
     UserSearchRequest,
     UserSearchResponse,
@@ -75,5 +77,16 @@ export class UserService {
             `${environment.BE_URL}/users/change-password`,
             request,
         );
+    }
+
+    public statisticUser(
+        userRequest: PagingRequest<GetStatisticUserRequest>,
+    ): Observable<PagingResponse<GetStatisticUserResponse>> {
+        const apiResponse = this.httpClient.post<ApiResponse>(
+            `${environment.BE_URL}/users/statistic-user`,
+            userRequest,
+        );
+
+        return mappingDataResponse(apiResponse);
     }
 }

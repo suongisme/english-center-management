@@ -61,7 +61,7 @@ public interface ICheckinRepository extends JpaRepository<CheckinEntity, Long> {
             u.firstName as firstName,
             u.lastName as lastName,
             u.id as id,
-            cks.absent as absent,
+            cks.present as present,
             cks.note as note
         FROM TimetableDetailEntity td
             JOIN TimetableStudentEntity ts ON td.timetableId = ts.timetableId
@@ -76,7 +76,7 @@ public interface ICheckinRepository extends JpaRepository<CheckinEntity, Long> {
         SELECT
             cks.id as id, ck.createdDate as checkedInDate,
             u.firstName as firstName, u.lastName as lastName,
-            cks.absent as absent, cks.note as note,
+            cks.present as present, cks.note as note,
             td.day as day, ck.createdBy as checkedInBy
             FROM CheckinStudentEntity cks
             JOIN CheckinEntity ck ON ck.id = cks.checkinId

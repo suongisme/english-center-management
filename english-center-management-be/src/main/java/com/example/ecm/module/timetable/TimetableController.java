@@ -4,6 +4,7 @@ import com.example.ecm.model.ApiBody;
 import com.example.ecm.model.ApiResponse;
 import com.example.ecm.model.SearchRequest;
 import com.example.ecm.module.timetable.request.CreateTimetableRequest;
+import com.example.ecm.module.timetable.request.GetStatisticTimetableRequest;
 import com.example.ecm.module.timetable.request.SearchTimetableRequest;
 import com.example.ecm.module.timetable.request.UpdateTimetableRequest;
 import jakarta.validation.Valid;
@@ -50,5 +51,12 @@ public class TimetableController {
     public ApiResponse updateTimetable(@RequestBody @Valid UpdateTimetableRequest updateTimetableRequest) {
         this.timetableService.updateTimetable(updateTimetableRequest);
         return ApiResponse.ok();
+    }
+
+    @PostMapping("/statistic-timetable")
+    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN')")
+    public ApiResponse getStatisticTimetable(@RequestBody SearchRequest<GetStatisticTimetableRequest> searchRequest) {
+        final ApiBody apiBody = this.timetableService.statisticTimetable(searchRequest);
+        return ApiResponse.ok(apiBody);
     }
 }

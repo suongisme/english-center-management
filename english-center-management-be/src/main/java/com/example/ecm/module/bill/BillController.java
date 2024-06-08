@@ -2,6 +2,8 @@ package com.example.ecm.module.bill;
 
 import com.example.ecm.model.ApiBody;
 import com.example.ecm.model.ApiResponse;
+import com.example.ecm.module.bill.request.StatisticBillRequest;
+import com.example.ecm.module.bill.request.StatisticRevenueRequest;
 import com.example.ecm.module.payment.request.PaymentRequest;
 import com.example.ecm.module.bill.request.SearchBillRequest;
 import jakarta.validation.Valid;
@@ -34,6 +36,20 @@ public class BillController {
     @PreAuthorize("hasAnyAuthority('SCOPE_STUDENT')")
     public ApiResponse payment(@RequestBody @Valid PaymentRequest paymentRequest) {
         ApiBody apiBody = this.billService.payment(paymentRequest);
+        return ApiResponse.ok(apiBody);
+    }
+
+    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN')")
+    @PostMapping("/statistic-revenue")
+    public ApiResponse statisticRevenue(@RequestBody StatisticRevenueRequest searchBillRequest) {
+        ApiBody apiBody = this.billService.statisticRevenue(searchBillRequest);
+        return ApiResponse.ok(apiBody);
+    }
+
+    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN')")
+    @PostMapping("/statistic-bill")
+    public ApiResponse statisticBill(@RequestBody StatisticBillRequest searchBillRequest) {
+        ApiBody apiBody = this.billService.statisticBill(searchBillRequest);
         return ApiResponse.ok(apiBody);
     }
 }

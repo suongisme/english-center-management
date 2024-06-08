@@ -24,3 +24,16 @@ export interface DetailResponse {
     score?: number;
     note?: string;
 }
+
+export interface GetStatisticScoreRequest {
+    timetableId: number;
+}
+
+export interface GetStatisticScoreResponse {
+    score: number;
+    totalAbsent: number;
+    totalPresent: number;
+    totalLesson: number;
+    id: number;
+    studentName: string;
+}

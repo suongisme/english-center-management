@@ -12,7 +12,7 @@ public interface IGetCheckedInResponse {
     Integer getDay();
     String getNote();
     Date getCheckedInDate();
-    Boolean getAbsent();
+    Boolean getPresent();
 
     String getCheckedInBy();
 

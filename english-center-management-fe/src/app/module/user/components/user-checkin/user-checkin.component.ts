@@ -45,10 +45,10 @@ export class UserCheckInComponent implements OnInit {
         this.users.forEach((u) => {
             this.studentFormArray.push(
                 this.formBuilder.group({
-                    absent: [
+                    present: [
                         {
                             disabled: this.readonly,
-                            value: u.absent,
+                            value: u.present,
                         },
                         [Validators.required],
                     ],

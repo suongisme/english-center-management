@@ -11,7 +11,7 @@ public class CreateCheckinStudentRequest {
     private Long studentId;
 
     @NotNull
-    private Boolean absent;
+    private Boolean present;
 
     @Size(max = 255)
     private String note;

@@ -21,4 +21,6 @@ public interface IUserService {
     void updateUserInfo(UpdateUserInfoRequest request);
 
     ApiBody getPaidStudent(Long courseId);
+
+    ApiBody statisticUser(SearchRequest<GetStatisticUserRequest> searchRequest);
 }

@@ -59,4 +59,12 @@ public class UserController {
         ApiBody apiBody = this.userService.getPaidStudent(courseId);
         return ApiResponse.ok(apiBody);
     }
+
+    @PostMapping("/statistic-user")
+    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN')")
+    public ApiResponse statisticUser(@RequestBody @Valid SearchRequest<GetStatisticUserRequest> searchRequest) {
+        ApiBody apiBody = this.userService.statisticUser(searchRequest);
+        return ApiResponse.ok(apiBody);
+    }
+
 }

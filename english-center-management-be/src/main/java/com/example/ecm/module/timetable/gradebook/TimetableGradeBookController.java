@@ -2,7 +2,9 @@ package com.example.ecm.module.timetable.gradebook;
 
 import com.example.ecm.model.ApiBody;
 import com.example.ecm.model.ApiResponse;
+import com.example.ecm.model.SearchRequest;
 import com.example.ecm.module.timetable.gradebook.request.CreateTimetableGradeBookRequest;
+import com.example.ecm.module.timetable.gradebook.request.GetStatisticScoreRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,5 +40,12 @@ public class TimetableGradeBookController {
     public ApiResponse createGradebook(@RequestBody @Valid CreateTimetableGradeBookRequest createTimetableGradeBookRequest) {
         this.timetableGradeBookService.createGradeBook(createTimetableGradeBookRequest);
         return ApiResponse.ok();
+    }
+
+    @PostMapping("/statistic-score")
+    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN')")
+    public ApiResponse statisticScore(@RequestBody @Valid SearchRequest<GetStatisticScoreRequest> searchRequest) {
+        final ApiBody apiBody = this.timetableGradeBookService.statisticScore(searchRequest);
+        return ApiResponse.ok(apiBody);
     }
 }

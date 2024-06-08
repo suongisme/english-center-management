@@ -8,7 +8,7 @@ public interface IGetStudentAndCheckinResultResponse {
     @Value("#{target.lastName + ' ' + target.firstName}")
     String getName();
 
-    Boolean getAbsent();
+    Boolean getPresent();
 
     String getNote();
 }

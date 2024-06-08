@@ -1,0 +1,8 @@
+<modal-wrapper [headerTitle]="'Thống kê lịch học'" [readonly]="true">
+    <div style="height: 300px">
+        <statistic-timetable-grid
+            [rowData]="$timetable | async"
+            (showStatisticScore)="ngStatisticScore($event)"
+        ></statistic-timetable-grid>
+    </div>
+</modal-wrapper>

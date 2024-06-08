@@ -4,24 +4,29 @@ import com.example.ecm.constant.AppConstant;
 import com.example.ecm.constant.ErrorCode;
 import com.example.ecm.exception.BusinessException;
 import com.example.ecm.model.ApiBody;
+import com.example.ecm.model.SearchRequest;
 import com.example.ecm.model.SearchResponse;
 import com.example.ecm.module.timetable.ITimetableService;
 import com.example.ecm.module.timetable.TimetableEntity;
 import com.example.ecm.module.timetable.gradebook.*;
 import com.example.ecm.module.timetable.gradebook.request.CreateTimetableGradeBookRequest;
+import com.example.ecm.module.timetable.gradebook.request.GetStatisticScoreRequest;
 import com.example.ecm.module.timetable.gradebook.response.IGetGradeBookDetailResponse;
+import com.example.ecm.module.timetable.gradebook.response.IGetStatisticScoreResponse;
 import com.example.ecm.module.timetable.gradebook.response.ISearchGradeBookResponse;
 import com.example.ecm.module.user.IUserService;
 import com.example.ecm.module.user.UserEntity;
 import com.example.ecm.utils.AuthenticationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -77,5 +82,18 @@ public class TimetableGradeBookServiceImpl implements ITimetableGradeBookService
                 })
                 .toList();
         this.timetableGradeBookDetailRepository.saveAll(entities);
+    }
+
+    @Override
+    public ApiBody statisticScore(SearchRequest<GetStatisticScoreRequest> searchRequest) {
+        Pageable pageable = Pageable.unpaged();
+        if (searchRequest.isPaged()) {
+            pageable = PageRequest.of(searchRequest.getPageNo() - 1, searchRequest.getPageSize());
+        }
+        final GetStatisticScoreRequest data = Optional.ofNullable(searchRequest.getData())
+                .orElseGet(GetStatisticScoreRequest::new);
+        final Page<IGetStatisticScoreResponse> page = this.timetableGradeBookRepository.statisticScore(data, pageable);
+        final SearchResponse<IGetStatisticScoreResponse> response = SearchResponse.of(page);
+        return ApiBody.of(response);
     }
 }

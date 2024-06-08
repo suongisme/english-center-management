@@ -41,6 +41,7 @@ export class EcmSelectComponent extends EcmInputComponent {
     @Input() bindValue: string;
     @Input() multiple: boolean = false;
     @Input() group: string;
+    @Input() clearable: boolean;
 
     @Input() templates: Array<{
         name: string;

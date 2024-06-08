@@ -1,6 +1,8 @@
 package com.example.ecm.module.timetable;
 
+import com.example.ecm.module.timetable.request.GetStatisticTimetableRequest;
 import com.example.ecm.module.timetable.request.SearchTimetableRequest;
+import com.example.ecm.module.timetable.response.IGetStatisticalTimetableResponse;
 import com.example.ecm.module.timetable.response.ISearchTimetableResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,4 +38,19 @@ public interface ITimetableRepository extends JpaRepository<TimetableEntity, Lon
             @Param("data") SearchTimetableRequest data,
             Pageable pageable
     );
+
+    @Query("""
+        SELECT
+            tb.id as id,
+            tb.status as status,
+            cr.name as className,
+            (SELECT count(1) FROM TimetableStudentEntity tbs WHERE tbs.timetableId = tb.id) as totalStudent,
+            u.firstName as firstName,
+            u.lastName as lastName
+        FROM TimetableEntity tb
+            JOIN ClassRoomEntity cr ON cr.id = tb.classRoomId
+            JOIN UserEntity u ON tb.teacherId = u.id
+        WHERE (:#{#data.courseId} IS NULL OR tb.courseId = :#{#data.courseId})
+    """)
+    Page<IGetStatisticalTimetableResponse> statisticTimetable(GetStatisticTimetableRequest data, Pageable pageable);
 }

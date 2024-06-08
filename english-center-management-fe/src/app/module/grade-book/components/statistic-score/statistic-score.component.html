@@ -1,0 +1,33 @@
+<modal-wrapper headerTitle="Kết quả học tập" [readonly]="true">
+    <div class="d-flex flex-column gap-3">
+        <ecm-box label="Thống kê điểm số">
+            <div class="d-flex flex-column gap-4">
+                <div *ngFor="let item of statisticScore">
+                    <h4 class="small font-weight-bold">
+                        {{ item.value }} Học viên {{ item.label }}
+                        <span class="float-right"
+                            >{{
+                                (item.value / score.length) * 100
+                                    | number: '1.0-0'
+                            }}%</span
+                        >
+                    </h4>
+                    <div class="progress">
+                        <div
+                            [class]="item.color"
+                            [style.width.%]="(item.value / score.length) * 100"
+                        ></div>
+                    </div>
+                </div>
+            </div>
+        </ecm-box>
+        <ecm-box label="Chi tiết">
+            <div style="height: 300px">
+                <statistic-student-grid
+                    [rowData]="score"
+                    [additionalColumn]="additionalColumnStudentGrid"
+                ></statistic-student-grid>
+            </div>
+        </ecm-box>
+    </div>
+</modal-wrapper>

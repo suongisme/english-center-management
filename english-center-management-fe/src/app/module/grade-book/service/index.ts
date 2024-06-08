@@ -2,11 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from 'environment';
 import { Observable } from 'rxjs';
-import { ApiResponse, PagingResponse } from '../../common/interface';
+import {
+    ApiResponse,
+    PagingRequest,
+    PagingResponse,
+} from '../../common/interface';
 import { mappingDataResponse } from '../../common/utils';
 import {
     CreateGradeBookRequest,
     DetailResponse,
+    GetStatisticScoreRequest,
+    GetStatisticScoreResponse,
     SearchGradeBookResponse,
 } from '../interface';
 
@@ -57,6 +63,16 @@ export class GradebookService {
                     timetableId: timetableId,
                 },
             },
+        );
+        return mappingDataResponse(apiResponse);
+    }
+
+    public statisticScore(
+        searchRequest: PagingRequest<GetStatisticScoreRequest>,
+    ): Observable<PagingResponse<GetStatisticScoreResponse>> {
+        const apiResponse = this.httpClient.post<ApiResponse>(
+            `${environment.BE_URL}/grade-book/statistic-score`,
+            searchRequest,
         );
         return mappingDataResponse(apiResponse);
     }

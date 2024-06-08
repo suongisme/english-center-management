@@ -1,12 +1,12 @@
 export interface CreateCheckStudentRequest {
     studentId: number;
-    absent: boolean;
+    present: boolean;
     note: string;
 }
 
 export interface GetStudentAndCheckinResult {
     id: number;
     name: string;
-    absent: boolean;
+    present: boolean;
     note: string;
 }

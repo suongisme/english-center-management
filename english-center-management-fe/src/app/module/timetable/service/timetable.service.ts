@@ -7,16 +7,18 @@ import {
     PagingResponse,
     mappingDataResponse,
 } from '@ecm-module/common';
+import { environment } from 'environment';
+import { Observable, map } from 'rxjs';
 import {
     CreateTimetableRequest,
     GetByIdRequest,
+    GetStatisticTimetableRequest,
+    GetStatisticTimetableResponse,
     GetTimetableResponse,
     SearchTimetableRequest,
     SearchTimetableResponse,
     TimetableResponse,
 } from '../interface';
-import { environment } from 'environment';
-import { Observable, map } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -90,5 +92,15 @@ export class TimetableService {
                 map<any, ApiBody>((x: ApiResponse) => x.apiBody),
                 map<ApiBody, GetTimetableResponse>((x) => x.data),
             );
+    }
+
+    public getStatisticTimetable(
+        request: PagingRequest<GetStatisticTimetableRequest>,
+    ): Observable<PagingResponse<GetStatisticTimetableResponse>> {
+        const apiResponse = this.httpClient.post<ApiResponse>(
+            `${TimetableService.ENDPOINT}/statistic-timetable`,
+            request,
+        );
+        return mappingDataResponse(apiResponse);
     }
 }

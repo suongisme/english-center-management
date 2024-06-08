@@ -1,0 +1,103 @@
+<div class="d-flex flex-column gap-4">
+    <div class="row">
+        <div class="col-md-6" *ngFor="let s of statistic">
+            <h4>{{ s.label }}</h4>
+            <div class="row">
+                <div class="col-xl-6 col-md-6">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="col mr-2">
+                                    <div
+                                        class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                                    >
+                                        Doanh thu
+                                    </div>
+                                    <div
+                                        class="h5 mb-0 font-weight-bold text-gray-800"
+                                    >
+                                        {{ s.totalPrice | money:'VND' }}
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <fa-icon
+                                        [icon]="['fas', 'money-bill']"
+                                        size="2x"
+                                        class="text-gray-300"
+                                    ></fa-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-md-6">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="col mr-2">
+                                    <div
+                                        class="text-xs font-weight-bold text-warning text-uppercase mb-1"
+                                    >
+                                        Hóa đơn
+                                    </div>
+                                    <div
+                                        class="h5 mb-0 font-weight-bold text-gray-800"
+                                    >
+                                        {{ s.totalBill }}
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <fa-icon
+                                        [icon]="['fas', 'money-bill']"
+                                        size="2x"
+                                        class="text-gray-300"
+                                    ></fa-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ecm-box>
+        <form
+            [formGroup]="formGroup"
+            class="d-flex gap-3 mb-4"
+            (submit)="ngSubmit()"
+        >
+            <ecm-select
+                class="col-md-3"
+                [items]="type"
+                [clearable]="false"
+                bindLabel="label"
+                bindValue="value"
+                formControlName="type"
+            ></ecm-select>
+            <ecm-input
+                type="number"
+                formControlName="year"
+                placeholder="Nhập năm"
+            />
+            <ecm-select
+                *ngIf="formGroup.controls.type.value === 'QUARTER'"
+                class="col-md-3"
+                [items]="quarters"
+                bindLabel="label"
+                bindValue="value"
+                formControlName="quarter"
+            ></ecm-select>
+            <button class="btn btn-sm btn-primary">Thống kê</button>
+        </form>
+        <div style="text-align: center">
+            <apx-chart
+                [series]="series"
+                [chart]="chart"
+                [xaxis]="xaxis"
+                [title]="title"
+            ></apx-chart>
+        </div>
+    </ecm-box>
+</div>

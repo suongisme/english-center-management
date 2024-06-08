@@ -21,9 +21,9 @@ public class CheckinStudentServiceImpl implements ICheckinStudentService {
         SaveBatch<CreateCheckinStudentRequest> saveBatch = new SaveBatch<>(requests, (ps, data) -> {
             ps.setLong(1, checkin);
             ps.setLong(2, data.getStudentId());
-            ps.setBoolean(3, Optional.ofNullable(data.getAbsent()).orElse(Boolean.FALSE));
+            ps.setBoolean(3, Optional.ofNullable(data.getPresent()).orElse(Boolean.FALSE));
             ps.setString(4, data.getNote());
         });
-        this.jdbcTemplate.batchUpdate("INSERT INTO TB_CHECKIN_STUDENT(CHECKIN_ID, STUDENT_ID, ABSENT, NOTE) VALUES(?, ?, ?, ?)", saveBatch);
+        this.jdbcTemplate.batchUpdate("INSERT INTO TB_CHECKIN_STUDENT(CHECKIN_ID, STUDENT_ID, PRESENT, NOTE) VALUES(?, ?, ?, ?)", saveBatch);
     }
 }

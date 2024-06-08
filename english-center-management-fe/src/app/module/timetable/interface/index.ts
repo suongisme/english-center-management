@@ -70,3 +70,15 @@ export interface SearchTimetableResponse {
     classRoomName: string;
     teacherName: string;
 }
+
+export interface GetStatisticTimetableRequest {
+    courseId?: number;
+}
+
+export interface GetStatisticTimetableResponse {
+    id: number;
+    className: string;
+    teacherName: string;
+    status: number;
+    totalStudent: number;
+}

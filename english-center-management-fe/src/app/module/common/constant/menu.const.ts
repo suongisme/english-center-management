@@ -1,9 +1,31 @@
-import { faTable } from '@fortawesome/free-solid-svg-icons';
+import { faDashboard, faTable } from '@fortawesome/free-solid-svg-icons';
 import { Authority } from '../../auth/constant';
 import { Menu } from '../interface/menu.interface';
 
 export const MENU: { [name: string]: Menu[] } = {
     [Authority.ADMIN]: [
+        {
+            label: 'Thống kê',
+            icon: faDashboard,
+            role: [Authority.ADMIN],
+            children: [
+                {
+                    label: 'Thông kê doanh thu',
+                    link: '/report/revenue',
+                    icon: faDashboard,
+                },
+                {
+                    label: 'Thống kê khóa học',
+                    link: '/report/course',
+                    icon: faDashboard,
+                },
+                {
+                    label: 'Thống kê học viên',
+                    link: '/report/student',
+                    icon: faDashboard,
+                },
+            ],
+        },
         {
             label: 'Quản lý lớp học',
             icon: faTable,

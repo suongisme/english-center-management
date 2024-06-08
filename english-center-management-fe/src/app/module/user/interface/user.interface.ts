@@ -23,3 +23,15 @@ export interface UserSearchRequest {
 }
 
 export interface UserSearchResponse extends UpdateUser {}
+
+export interface GetStatisticUserRequest {
+    name?: string;
+}
+
+export interface GetStatisticUserResponse {
+    id: number;
+    studentName: string;
+    totalPresent: number;
+    totalAbsent: number;
+    totalCourse: number;
+}

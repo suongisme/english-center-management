@@ -26,3 +26,16 @@ export interface SearchCourseResponse extends UpdateCourseRequest {
     createdBy: string;
     avatarUrl: string;
 }
+
+export interface GetStatisticalCourseRequest {
+    name?: string;
+}
+
+export interface GetStatisticalCourseResponse {
+    id: number;
+    name: string;
+    totalActiveTimetable: number;
+    totalFinishTimetable: number;
+    totalStudent: number;
+    totalTimetable: number;
+}

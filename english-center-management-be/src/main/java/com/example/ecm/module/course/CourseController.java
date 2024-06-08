@@ -3,10 +3,7 @@ package com.example.ecm.module.course;
 import com.example.ecm.model.ApiBody;
 import com.example.ecm.model.ApiResponse;
 import com.example.ecm.model.SearchRequest;
-import com.example.ecm.module.course.request.CreateCourseRequest;
-import com.example.ecm.module.course.request.GetDetailCourseRequest;
-import com.example.ecm.module.course.request.SearchCourserRequest;
-import com.example.ecm.module.course.request.UpdateCourseRequest;
+import com.example.ecm.module.course.request.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -44,5 +41,12 @@ public class CourseController {
     public ApiResponse updateCourse(@Valid UpdateCourseRequest updateCourseRequest) {
         this.courseService.updateCourse(updateCourseRequest);
         return ApiResponse.ok();
+    }
+
+    @PostMapping("/statistical-course")
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    public ApiResponse getStatisticalCourse(@RequestBody @Valid SearchRequest<GetStatisticalCourseRequest> searchRequest) {
+        final ApiBody apiBody = this.courseService.getStatisticalCourse(searchRequest);
+        return ApiResponse.ok(apiBody);
     }
 }

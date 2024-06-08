@@ -1,9 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { PagingRequest, PagingResponse } from '@ecm-module/common';
+import {
+    PagingRequest,
+    PagingResponse,
+    mappingDataResponse,
+} from '@ecm-module/common';
 import { Observable, map } from 'rxjs';
 import {
     CreateCourseRequest,
+    GetStatisticalCourseRequest,
+    GetStatisticalCourseResponse,
     SearchCourseRequest,
     SearchCourseResponse,
     UpdateCourseRequest,
@@ -60,5 +66,15 @@ export class CourseService {
             CourseService.ENDPOINT,
             formData,
         );
+    }
+
+    public getStatisticalCourse(
+        request: PagingRequest<GetStatisticalCourseRequest>,
+    ): Observable<PagingResponse<GetStatisticalCourseResponse>> {
+        const apiResponse = this.httpClient.post<ApiResponse>(
+            `${CourseService.ENDPOINT}/statistical-course`,
+            request,
+        );
+        return mappingDataResponse(apiResponse);
     }
 }

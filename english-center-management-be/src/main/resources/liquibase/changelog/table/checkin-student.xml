@@ -26,4 +26,8 @@
             <column name="NOTE" type="varchar(255)" />
         </createTable>
     </changeSet>
+    <changeSet id="${tableName}-2" author="anonymous">
+        <comment>RENAME column ABSENT to PRESENT</comment>
+        <renameColumn tableName="${tableName}" oldColumnName="ABSENT" newColumnName="PRESENT" columnDataType="boolean" />
+    </changeSet>
 </databaseChangeLog>

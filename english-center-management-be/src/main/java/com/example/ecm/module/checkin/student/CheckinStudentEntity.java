@@ -21,8 +21,8 @@ public class CheckinStudentEntity {
     @Column(name = "STUDENT_ID")
     private Long studentId;
 
-    @Column(name = "ABSENT")
-    private Boolean absent;
+    @Column(name = "PRESENT")
+    private Boolean present;
 
     @Column(name = "NOTE")
     private String note;

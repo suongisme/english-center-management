@@ -10,6 +10,7 @@ import com.example.ecm.model.SearchRequest;
 import com.example.ecm.module.user.IUserRepository;
 import com.example.ecm.module.user.IUserService;
 import com.example.ecm.module.user.UserEntity;
+import com.example.ecm.module.user.response.IGetStatisticUserResponse;
 import com.example.ecm.module.user.response.ISearchUserResponse;
 import com.example.ecm.module.user.response.IStudentTimetableResponse;
 import com.example.ecm.utils.AuthenticationUtil;
@@ -136,5 +137,17 @@ public class UserServiceImpl implements IUserService {
     @Override
     public ApiBody getPaidStudent(Long courseId) {
         return ApiBody.of(this.userRepository.getPaidStudent(courseId));
+    }
+
+    @Override
+    public ApiBody statisticUser(SearchRequest<GetStatisticUserRequest> searchRequest) {
+        Pageable pageable = Pageable.unpaged();
+        if (searchRequest.isPaged()) {
+            pageable = PageRequest.of(searchRequest.getPageNo() - 1, searchRequest.getPageSize());
+        }
+        final GetStatisticUserRequest data = Optional.ofNullable(searchRequest.getData()).orElseGet(GetStatisticUserRequest::new);
+        final Page<IGetStatisticUserResponse> page = this.userRepository.statisticStudent(data, pageable);
+        final SearchResponse<IGetStatisticUserResponse> response = SearchResponse.of(page);
+        return ApiBody.of(response);
     }
 }

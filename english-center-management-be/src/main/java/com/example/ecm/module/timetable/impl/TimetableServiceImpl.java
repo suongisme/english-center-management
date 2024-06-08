@@ -18,10 +18,12 @@ import com.example.ecm.module.timetable.TimetableEntity;
 import com.example.ecm.module.timetable.detail.ITimetableDetailService;
 import com.example.ecm.module.timetable.detail.response.IGetTimetableDetailResponse;
 import com.example.ecm.module.timetable.request.CreateTimetableRequest;
+import com.example.ecm.module.timetable.request.GetStatisticTimetableRequest;
 import com.example.ecm.module.timetable.request.SearchTimetableRequest;
 import com.example.ecm.module.timetable.request.UpdateTimetableRequest;
 import com.example.ecm.module.timetable.response.GetTimetableResponse;
 import com.example.ecm.module.timetable.detail.response.IUserTimetableDetailResponse;
+import com.example.ecm.module.timetable.response.IGetStatisticalTimetableResponse;
 import com.example.ecm.module.timetable.response.ISearchTimetableResponse;
 import com.example.ecm.module.timetable.student.ITimetableStudentService;
 import com.example.ecm.module.timetable.student.TimetableStudentEntity;
@@ -157,6 +159,18 @@ public class TimetableServiceImpl implements ITimetableService {
         final SearchTimetableRequest data = Optional.ofNullable(searchRequest.getData()).orElseGet(SearchTimetableRequest::new);
         final Page<ISearchTimetableResponse> page = this.timetableRepository.searchBy(data, pageable);
         final SearchResponse<ISearchTimetableResponse> response = SearchResponse.of(page);
+        return ApiBody.of(response);
+    }
+
+    @Override
+    public ApiBody statisticTimetable(SearchRequest<GetStatisticTimetableRequest> searchRequest) {
+        Pageable pageable = Pageable.unpaged();
+        if (searchRequest.isPaged()) {
+            pageable = PageRequest.of(searchRequest.getPageNo() - 1, searchRequest.getPageSize(), Sort.Direction.DESC, "createdDate");
+        }
+        final GetStatisticTimetableRequest data = Optional.ofNullable(searchRequest.getData()).orElseGet(GetStatisticTimetableRequest::new);
+        final Page<IGetStatisticalTimetableResponse> page = this.timetableRepository.statisticTimetable(data, pageable);
+        final SearchResponse<IGetStatisticalTimetableResponse> response = SearchResponse.of(page);
         return ApiBody.of(response);
     }
 }

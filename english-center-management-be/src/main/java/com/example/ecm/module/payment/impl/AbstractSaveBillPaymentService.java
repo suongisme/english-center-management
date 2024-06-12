@@ -30,13 +30,13 @@ public abstract class AbstractSaveBillPaymentService implements IPaymentService 
     protected final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Setter(onMethod_ = { @Autowired })
-    private IBillRepository billRepository;
+    protected IBillRepository billRepository;
 
     @Setter(onMethod_ = {@Autowired})
-    private IBIllDetailRepository ibIllDetailRepository;
+    protected IBIllDetailRepository ibIllDetailRepository;
 
     @Setter(onMethod_ = { @Autowired })
-    private ICourseRepository courseRepository;
+    protected ICourseRepository courseRepository;
 
     @Override
     @Transactional

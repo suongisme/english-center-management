@@ -64,7 +64,7 @@ resource:
 payment:
   vnpay:
     pay-url: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
-    return-url: http://localhost:4201/lich-su-thanh-toan
+    return-url: http://localhost:4201/xac-thuc-thanh-toan/vnpay
     tmn-code: VRCFOQFH
     secret-code: RTBABQTPJPILRDOYZUYZHMIEBJYOSZCY
     api-url: https://sandbox.vnpayment.vn/merchant_webapi/api

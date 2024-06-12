@@ -7,6 +7,7 @@ import { router as testingRouter } from '../../pages/testing/router';
 import { router as paymentHistoryRouter } from '../../pages/payment-history/router';
 import { router as timetableRouter } from '../../pages/timetable/router';
 import { router as paymentRouter } from '../../pages/payment/router';
+import { router as authenticatePaymentRouter } from '../../pages/payment/authenticate/router';
 import { MainLayout } from './main.layout';
 
 export const routes: Routes = [
@@ -22,6 +23,7 @@ export const routes: Routes = [
             paymentHistoryRouter,
             timetableRouter,
             paymentRouter,
+            authenticatePaymentRouter,
         ],
     },
 ];

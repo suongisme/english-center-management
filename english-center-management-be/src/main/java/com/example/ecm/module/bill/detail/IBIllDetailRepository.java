@@ -52,4 +52,8 @@ public interface IBIllDetailRepository extends JpaRepository<BillDetailEntity, L
         )
     """, nativeQuery = true)
     void updateTimetableId(long timetableId, long courseId, List<Long> studentIds);
+
+    @Modifying
+    @Query("DELETE BillDetailEntity d WHERE d.billId = ?1")
+    void deleteByBillId(Long billId);
 }

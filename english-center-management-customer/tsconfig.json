@@ -54,6 +54,9 @@
       "@ecm-module/bill": [
         "src/app/module/bill/index.ts"
       ],
+      "@ecm-module/payment": [
+        "src/app/module/payment/index.ts"
+      ],
       "@ecm-layout/main": [
         "src/app/layout/main/index.ts"
       ],

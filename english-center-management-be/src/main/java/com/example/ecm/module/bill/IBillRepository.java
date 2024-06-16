@@ -28,7 +28,7 @@ public interface IBillRepository extends JpaRepository<BillEntity, Long> {
     @Query("""
         SELECT sum(b.totalPrice) as totalPrice, month(b.createdDate) as month
         FROM BillEntity b
-        WHERE b.status = 1 AND year(b.createdDate) = ?1
+        WHERE b.status = 2 AND year(b.createdDate) = ?1
         GROUP BY month(b.createdDate)
         ORDER BY month(b.createdDate)
     """)

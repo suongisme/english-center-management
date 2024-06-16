@@ -56,9 +56,6 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void createUser(CreateUserRequest createStudentRequest) {
         try {
-            if (RoleEnum.STUDENT.equals(createStudentRequest.getRole())) {
-                throw new BusinessException(ErrorCode.VALIDATE_FAIL);
-            }
             final UserEntity student = createStudentRequest.toEntity();
             student.setPassword(this.passwordEncoder.encode(student.getPassword()));
             this.userRepository.save(student);

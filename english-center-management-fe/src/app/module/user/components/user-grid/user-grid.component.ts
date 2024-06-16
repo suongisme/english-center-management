@@ -148,6 +148,7 @@ export class UserGridComponent extends GridCore<any> {
             ...user,
             dob: formatDate(user.dob, 'yyyy-MM-dd'),
         };
+        modalRef.componentInstance.role = user.role;
         modalRef.closed.subscribe((res) => {
             if (res) {
                 this.afterUpdate.emit();

@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface IBIllDetailRepository extends JpaRepository<BillDetailEntity, Long> {
-
     @Query("""
         SELECT
              bd.id as id,
@@ -23,15 +22,16 @@ public interface IBIllDetailRepository extends JpaRepository<BillDetailEntity, L
         FROM BillDetailEntity bd
             JOIN BillEntity b ON b.id = bd.billId
             JOIN UserEntity user ON b.createdBy = user.username
+            JOIN CourseEntity c ON c.id = bd.courseId
             LEFT JOIN TimetableEntity t ON bd.timetableId = t.id
             LEFT JOIN ClassRoomEntity cr ON cr.id = t.classRoomId
-            LEFT JOIN CourseEntity c ON c.id = t.courseId
             LEFT JOIN UserEntity u ON u.id = t.teacherId
             LEFT JOIN TimetableGradeBookEntity gd ON gd.timetableId = t.id
             LEFT JOIN TimetableGradeBookDetailEntity gdd ON gdd.gradebookId = gd.id AND gdd.studentId = user.id
         WHERE b.id = ?1
     """)
     List<IGetDetailBillResponse> getByBillId(long billId);
+
 
     @Modifying
     @Query("update BillDetailEntity b set b.timetableId = null where b.timetableId = ?1")

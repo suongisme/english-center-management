@@ -1,11 +1,11 @@
 <div class="properties pb-20">
     <div class="properties__card">
         <div class="properties__img overlay1" style="height: 214px">
-            <img [src]="item.avatarUrl" [alt]="item.name" />
+            <img class="h-100" [src]="item.avatarUrl" [alt]="item.name" />
         </div>
         <div class="properties__caption">
-            <h3>
-                <a href="#">{{ item.name }}</a>
+            <h3 class="text-primary">
+                {{ item.name }}
             </h3>
             <p>
                 {{ item.shortDescription }}

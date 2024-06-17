@@ -2,13 +2,13 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import {
     Component,
     EventEmitter,
-    inject,
     Input,
     OnChanges,
     OnInit,
     Output,
     SimpleChanges,
     TemplateRef,
+    inject,
 } from '@angular/core';
 import {
     FormBuilder,
@@ -18,17 +18,12 @@ import {
     Validators,
 } from '@angular/forms';
 import {
-    DestroyService,
     EcmInputComponent,
     EcmSelectComponent,
-    mappingDataResponse,
     ModalWrapperComponent,
-    PagingResponse,
     STATUS,
 } from '@ecm-module/common';
 import { SelectCourseComponent } from '@ecm-module/course';
-import { TranslateModule } from '@ngx-translate/core';
-import { GetTestingResponse } from '../../interface';
 import {
     QuestionFormSearchComponent,
     QuestionGridComponent,
@@ -41,8 +36,10 @@ import {
     NgbModal,
     NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
-import { map, Observable, takeUntil } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 import { RowSelectedEvent } from 'ag-grid-community';
+import { Observable, map } from 'rxjs';
+import { GetTestingResponse } from '../../interface';
 
 @Component({
     selector: 'create-testing-form',
@@ -103,6 +100,11 @@ export class CreateTestingFormComponent implements OnChanges, OnInit {
 
     public ngOnInit(): void {
         this.buildFormGroup();
+        if (this.testing) {
+            this.formGroup.patchValue(this.testing);
+            this.questions = this.testing.questions;
+            this.selectedQuestions = [...this.questions];
+        }
         this.formInitialized.emit(this.formGroup);
     }
 
@@ -145,7 +147,7 @@ export class CreateTestingFormComponent implements OnChanges, OnInit {
     ): void {
         const data = event.data;
         const index = this.selectedQuestions.findIndex((x) => x.id === data.id);
-        if (event.node.isSelected) {
+        if (event.node.isSelected()) {
             if (index === -1) this.selectedQuestions.push(data);
         } else {
             this.selectedQuestions.splice(index, 1);

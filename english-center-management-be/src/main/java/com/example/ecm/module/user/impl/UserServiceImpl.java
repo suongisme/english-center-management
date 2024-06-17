@@ -69,8 +69,8 @@ public class UserServiceImpl implements IUserService {
         UserEntity user = this.userRepository.findById(updateStudentRequest.getId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RECORD));
         final UserEntity requestEntity = updateStudentRequest.toEntity();
-        if (StringUtils.isBlank(updateStudentRequest.getPassword())) {
-            requestEntity.setPassword(this.passwordEncoder.encode(user.getPassword()));
+        if (StringUtils.isNotBlank(updateStudentRequest.getPassword())) {
+            requestEntity.setPassword(this.passwordEncoder.encode(updateStudentRequest.getPassword()));
         } else {
             requestEntity.setPassword(user.getPassword());
         }

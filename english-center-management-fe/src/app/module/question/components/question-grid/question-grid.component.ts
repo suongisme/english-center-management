@@ -13,7 +13,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import {
     ColDef,
+    FirstDataRenderedEvent,
     ICellRendererParams,
+    IRowNode,
     RowSelectedEvent,
 } from 'ag-grid-community';
 import { LEVEL } from '../../constant';
@@ -32,6 +34,7 @@ import { CreateQuestionModal } from '../create-question-modal/create-question-mo
 export class QuestionGridComponent extends GridCore<SearchQuestionResponse> {
     @Input() action: string[] = ['EDIT'];
     @Input() showCheckbox: boolean = false;
+    @Input() selectedRow: SearchQuestionResponse[];
 
     @Output() afterUpdate = new EventEmitter();
     @Output() selectRow = new EventEmitter<RowSelectedEvent<any>>();
@@ -187,6 +190,21 @@ export class QuestionGridComponent extends GridCore<SearchQuestionResponse> {
         modalRef.closed.subscribe((res) => {
             if (res) {
                 this.deleteRow.emit(param.data);
+            }
+        });
+    }
+
+    public override onFirstDataRendered(
+        params: FirstDataRenderedEvent<SearchQuestionResponse>,
+    ) {
+        if (!this.selectedRow || this.selectedRow.length === 0) return;
+        const map = this.selectedRow.reduce((map, cur) => {
+            map.set(cur.id, cur);
+            return map;
+        }, new Map<number, SearchQuestionResponse>());
+        params.api.forEachNode((node: IRowNode) => {
+            if (map.has(node.data.id)) {
+                node.setSelected(true);
             }
         });
     }

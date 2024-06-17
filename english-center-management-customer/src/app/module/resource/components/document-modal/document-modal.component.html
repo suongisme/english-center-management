@@ -14,7 +14,14 @@
                     <p class="text-primary">{{ resource.fileName }}</p>
                 </td>
                 <td>
-                    <a class="text-primary" [href]="resource.url">Tải xuống</a>
+                    <a
+                        class="text-primary"
+                        [href]="resource.url"
+                        [download]="resource.fileName"
+                        target="_blank"
+                    >
+                        Tải xuống
+                    </a>
                 </td>
                 <td>{{ resource.createdDate | date: 'dd/MM/yyyy HH:mm' }}</td>
                 <td>{{ resource.createdBy }}</td>

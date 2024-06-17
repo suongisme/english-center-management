@@ -44,7 +44,7 @@ export class CourseService {
         const formData = new FormData();
         Object.keys(request).forEach((key) => {
             const value = request[key];
-            if (value) {
+            if (value || value === 0) {
                 formData.append(key, value);
             }
         });
@@ -58,7 +58,7 @@ export class CourseService {
         const formData = new FormData();
         Object.keys(request).forEach((key) => {
             const value = request[key];
-            if (value) {
+            if (value || value === 0) {
                 formData.append(key, value);
             }
         });

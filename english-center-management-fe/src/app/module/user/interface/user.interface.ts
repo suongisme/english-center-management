@@ -20,6 +20,7 @@ export interface UserSearchRequest {
     fullName?: string;
     status?: number;
     role?: Role;
+    userIds?: number[];
 }
 
 export interface UserSearchResponse extends UpdateUser {}

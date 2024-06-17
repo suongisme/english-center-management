@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import {
     ColDef,
+    FirstDataRenderedEvent,
     GridApi,
     GridOptions,
     GridReadyEvent,
@@ -61,4 +62,6 @@ export abstract class GridCore<T> implements OnInit, OnDestroy {
 
     public abstract getColumnDefs(): ColDef[];
     public abstract getRowData(): T[];
+
+    onFirstDataRendered(params: FirstDataRenderedEvent<T>) {}
 }

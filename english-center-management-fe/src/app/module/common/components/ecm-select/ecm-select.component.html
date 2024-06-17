@@ -17,6 +17,7 @@
         [(ngModel)]="value"
         (blur)="markAsTouched()"
         (ngModelChange)="onChangeValue()"
+        [disabled]="isDisabled"
     >
         <ng-container *ngFor="let tmp of templates" [ngSwitch]="tmp.name">
             <ng-template

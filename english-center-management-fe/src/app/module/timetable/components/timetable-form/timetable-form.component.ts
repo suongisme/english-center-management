@@ -26,7 +26,7 @@ import {
 } from '@ecm-module/common';
 import { CourseService, SearchCourseResponse } from '@ecm-module/course';
 import { UserSearchResponse } from '@ecm-module/user';
-import { Observable, map, of } from 'rxjs';
+import { Observable, forkJoin, map, of } from 'rxjs';
 import { PagingResponse } from 'src/app/module/common/interface/paging.interface';
 import { DATE_OF_WEEK } from '../../constant';
 import { UserService } from 'src/app/module/user/services';
@@ -78,6 +78,7 @@ export class TimetableFormComponent implements OnInit {
         this.loadClassRoom();
         if (this.timetable) {
             this.formGroup.patchValue(this.timetable);
+            this.formGroup.get('courseId').disable();
         }
     }
 
@@ -105,6 +106,21 @@ export class TimetableFormComponent implements OnInit {
             if (!value) {
                 this.$students = of();
             } else {
+                if (this.timetable) {
+                    this.$students = forkJoin([
+                        this.userService.searchUser({
+                            data: {
+                                userIds: this.timetable.students,
+                            },
+                        }),
+                        this.userService.getPaidStudent(value),
+                    ]).pipe(
+                        map(([res1, res2]) => {
+                            return [...(res1?.items ?? []), ...(res2 ?? [])];
+                        }),
+                    );
+                    return;
+                }
                 this.$students = this.userService.getPaidStudent(value);
             }
         });

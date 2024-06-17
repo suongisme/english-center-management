@@ -17,7 +17,7 @@ import { repeatPasswordValidator } from './repeat-password.validation';
     imports: [FormsModule, ReactiveFormsModule, EcmInputComponent],
 })
 export class ChangePasswordFormComponent implements OnInit {
-    @Output() submit = new EventEmitter<ChangePasswordRequest>();
+    @Output() submitChangePassword = new EventEmitter<ChangePasswordRequest>();
 
     public formGroup: FormGroup;
 
@@ -40,6 +40,6 @@ export class ChangePasswordFormComponent implements OnInit {
             this.formGroup.markAllAsTouched();
             return;
         }
-        this.submit.emit(this.formGroup.getRawValue());
+        this.submitChangePassword.emit(this.formGroup.getRawValue());
     }
 }

@@ -64,7 +64,7 @@ export class ResourceGridComponent extends GridCore<SearchResourceResponse> {
                 headerValueGetter: (param) => 'Tải xuống',
                 minWidth: 50,
                 cellRenderer: (param: ICellRendererParams) => {
-                    return `<a href="${param.data.url}">Tải xuống</a>`;
+                    return `<a href="${param.data.url}" download="${param.data.fileName}" target="_blank">Tải xuống</a>`;
                 },
             },
 

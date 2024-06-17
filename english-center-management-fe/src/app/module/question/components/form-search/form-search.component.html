@@ -15,6 +15,7 @@
         <div *ngIf="searchByStatus" class="col-md-4">
             <ecm-select
                 [items]="status"
+                [clearable]="true"
                 placeholder="Chọn trạng thái"
                 bindLabel="label"
                 bindValue="id"
@@ -26,6 +27,7 @@
         <div class="col-md-4">
             <ecm-select
                 [items]="level"
+                [clearable]="true"
                 bindLabel="label"
                 bindValue="id"
                 placeholder="Chọn cấp độ"

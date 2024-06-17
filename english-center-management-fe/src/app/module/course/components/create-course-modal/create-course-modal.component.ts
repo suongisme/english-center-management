@@ -1,16 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
-import { CreateCourseFormComponent } from '../course-form/course-form.component';
 import {
     DestroyService,
     ModalWrapperComponent,
     NotifierService,
 } from '@ecm-module/common';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { takeUntil } from 'rxjs';
-import { SearchCourseResponse, UpdateCourseRequest } from '../../interface';
+import { SearchCourseResponse } from '../../interface';
 import { CourseService } from '../../service';
+import { CreateCourseFormComponent } from '../course-form/course-form.component';
 
 @Component({
     selector: 'create-course-modal',

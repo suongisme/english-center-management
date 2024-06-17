@@ -15,6 +15,7 @@ public enum ErrorCode {
     TIMETABLE_EXIST("04", "Lịch đã trùng lặp"),
     USERNAME_EXIST("05", "Tên đăng nhập đã tồn tại"),
     TIMETABLE_CHECKED_IN("06", "Lịch học đã được điểm danh, không được phép chỉnh sửa"),
+    USER_DISABLED("95", "Tài khoản bị vô hiệu hóa, liên hệ với admin để được hỗ trợ."),
     METHOD_PAYMENT_NOT_SP("96", "Phương thức thanh toán được được nâng cấp"),
     USERNAME_PASSWORD_INCORRECT("97","Tài khoản hoặc mật khẩu không chính xác"),
     FORBIDDEN("98","Bạn không có quyền thực hiện"),

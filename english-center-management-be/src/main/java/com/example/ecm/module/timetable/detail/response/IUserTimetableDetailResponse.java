@@ -24,7 +24,7 @@ public interface IUserTimetableDetailResponse {
 
     String getClassRoomName();
 
-    @Value("#{target.firstName + ' ' + target.lastName}")
+    @Value("#{target.lastName + ' ' + target.firstName}")
     String getTeacherName();
 
     Long getParentId();

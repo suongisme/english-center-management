@@ -85,6 +85,7 @@
             <question-grid
                 [action]="[]"
                 [rowData]="$questions | async"
+                [selectedRow]="selectedQuestions"
                 [showCheckbox]="true"
                 (selectRow)="ngOnSelectQuestion($event)"
             ></question-grid>

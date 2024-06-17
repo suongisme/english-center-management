@@ -23,6 +23,7 @@ public interface IUserRepository extends JpaRepository<UserEntity, Long> {
         WHERE (:#{#data.status} IS NULL OR :#{#data.status} = s.status)
             AND (:#{#data.fullName} IS NULL OR s.firstName LIKE concat('%', :#{#data.fullName}, '%') OR s.lastName LIKE concat('%', :#{#data.fullName}, '%'))
             AND (:#{#data.role} IS NULL OR :#{#data.role} = s.role)
+            AND (:#{#data.userIds} IS NULL OR s.id IN :#{#data.userIds})
     """)
     Page<ISearchUserResponse> searchBy(@Param("data") SearchUserRequest searchStudentRequest, Pageable pageable);
 

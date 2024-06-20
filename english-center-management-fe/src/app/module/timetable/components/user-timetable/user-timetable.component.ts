@@ -1,10 +1,12 @@
 import { AsyncPipe, KeyValuePipe, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnInit, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import {
     ButtonBackComponent,
     DestroyService,
     STATUS,
 } from '@ecm-module/common';
+import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { takeUntil } from 'rxjs';
 import { DATE_OF_WEEK } from '../../constant';
 import { TimetableResponse } from '../../interface';
@@ -22,6 +24,8 @@ import { TimetableService } from '../../service';
         KeyValuePipe,
         AddTimePipe,
         ButtonBackComponent,
+        NgbPopoverModule,
+        RouterLink,
     ],
     providers: [DestroyService],
 })

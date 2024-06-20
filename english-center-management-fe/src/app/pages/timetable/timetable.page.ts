@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
+import { AuthService } from '@ecm-module/auth';
 import { UserTimetableComponent } from '@ecm-module/timetable';
 
 @Component({
@@ -7,6 +8,12 @@ import { UserTimetableComponent } from '@ecm-module/timetable';
     standalone: true,
     imports: [UserTimetableComponent],
 })
-export class TimetablePage {
-    @Input() userId: number;
+export class TimetablePage implements OnInit {
+    public userId: number;
+
+    private authService = inject(AuthService);
+
+    public ngOnInit(): void {
+        this.userId = this.authService.loginResponse.id;
+    }
 }

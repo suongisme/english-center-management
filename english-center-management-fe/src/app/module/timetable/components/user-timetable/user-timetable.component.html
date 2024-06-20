@@ -19,6 +19,8 @@
                             <button
                                 *ngIf="detail.day === day.id"
                                 class="border-0 bg-transparent d-flex flex-column row-gap-10px cursor-pointer"
+                                [ngbPopover]="popContent"
+                                [popoverTitle]="popTitle"
                             >
                                 <span
                                     class="border-bottom pb-1 w-100 text-start"
@@ -57,6 +59,22 @@
                                     </span>
                                 </span>
                             </button>
+                            <ng-template #popTitle> Thao Tác </ng-template>
+                            <ng-template #popContent>
+                                <button
+                                    class="bg-transparent border-0 outline-0"
+                                >
+                                    <a
+                                        [routerLink]="'/resource'"
+                                        [queryParams]="{
+                                            type: 'TIMETABLE',
+                                            keyId: detail.parentId
+                                        }"
+                                        class="text-primary"
+                                        >Tài nguyên khóa học</a
+                                    >
+                                </button>
+                            </ng-template>
                         </ng-container>
                     </td>
                 </tr>

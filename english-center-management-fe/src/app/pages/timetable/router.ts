@@ -4,7 +4,7 @@ import { Authority } from '@ecm-module/auth';
 export const router: Route = {
     path: 'timetable',
     data: {
-        role: [Authority.ADMIN, Authority.TEACHER],
+        role: [Authority.TEACHER],
     },
     children: [
         {

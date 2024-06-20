@@ -75,7 +75,13 @@ export const MENU: { [name: string]: Menu[] } = {
     ],
     [Authority.TEACHER]: [
         {
-            label: 'Lịch dạy và Điểm danh',
+            label: 'Lịch dạy',
+            icon: faTable,
+            link: 'timetable',
+            role: [Authority.TEACHER],
+        },
+        {
+            label: 'Điểm danh',
             icon: faTable,
             link: 'checkin',
             role: [Authority.TEACHER],

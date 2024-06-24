@@ -22,16 +22,12 @@
                                                 }}
                                             </p>
                                             <p
-                                                *ngIf="
-                                                    course.discount > 0 &&
-                                                    course.price *
-                                                        (course.discount /
-                                                            100) >
-                                                        0 as amtDiscount
-                                                "
+                                                *ngIf="course.discount > 0"
                                                 class="mb-0 text-decoration-line-through"
                                             >
-                                                {{ amtDiscount | money: 'VND' }}
+                                                {{
+                                                    course.price | money: 'VND'
+                                                }}
                                             </p>
                                         </div>
                                     </div>

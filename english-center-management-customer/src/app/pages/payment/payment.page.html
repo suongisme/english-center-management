@@ -19,9 +19,9 @@
                                 </h4>
                                 <h5
                                     class="mb-0 text-decoration-line-through text-secondary"
-                                    *ngIf="course.price | discount: course.discount as oldPrice"
+                                    *ngIf="course.discount > 0"
                                 >
-                                    {{ oldPrice | money: 'VND' }}
+                                    {{ course.price| money: 'VND' }}
                                 </h5>
                             </div>
                         </div>

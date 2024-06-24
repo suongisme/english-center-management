@@ -3,11 +3,11 @@ import {
     Component,
     ElementRef,
     EventEmitter,
-    inject,
     Input,
     OnInit,
     Output,
     ViewChild,
+    inject,
 } from '@angular/core';
 import {
     FormBuilder,
@@ -19,12 +19,14 @@ import {
 import {
     EcmInputComponent,
     EcmSelectComponent,
-    fileToImageUrl,
     ImagePreviewComponent,
+    MoneyPipe,
     STATUS,
+    fileToImageUrl,
 } from '@ecm-module/common';
-import { CreateCourseRequest, SearchCourseResponse } from '../../interface';
 import { EditorModule } from 'primeng/editor';
+import { debounceTime } from 'rxjs';
+import { SearchCourseResponse } from '../../interface';
 
 @Component({
     selector: 'create-course-form',
@@ -41,6 +43,7 @@ import { EditorModule } from 'primeng/editor';
 
         ImagePreviewComponent,
     ],
+    providers: [MoneyPipe],
 })
 export class CreateCourseFormComponent implements OnInit {
     @Input() course: SearchCourseResponse;
@@ -51,6 +54,7 @@ export class CreateCourseFormComponent implements OnInit {
     @ViewChild('avatarUploader') avatarUploader: ElementRef;
 
     private formBuilder: FormBuilder = inject(FormBuilder);
+    private moneyPipe = inject(MoneyPipe);
 
     public formGroup: FormGroup;
     public status = STATUS;
@@ -60,7 +64,11 @@ export class CreateCourseFormComponent implements OnInit {
         this.buildFormGroup();
         if (this.course) {
             this.imageUrl = this.course.avatarUrl;
-            this.formGroup.patchValue(this.course);
+            const newMoney = this.moneyPipe.transform(this.course.price, 'VND');
+            this.formGroup.patchValue({
+                ...this.course,
+                price: newMoney.substring(0, newMoney.length - 2),
+            });
         }
         this.formInitialized.emit(this.formGroup);
     }
@@ -85,6 +93,18 @@ export class CreateCourseFormComponent implements OnInit {
                 [Validators.required, Validators.maxLength(300)],
             ],
         });
+        const priceControl = this.formGroup.get('price');
+        priceControl.valueChanges.pipe(debounceTime(100)).subscribe((res) => {
+            const money = this.handleMoney(res);
+            if (!money) {
+                priceControl.setValue(null, { emitEvent: false });
+                return;
+            }
+            const newMoney = this.moneyPipe.transform(money, 'VND');
+            priceControl.setValue(newMoney.substring(0, newMoney.length - 2), {
+                emitEvent: false,
+            });
+        });
     }
 
     public onChangeAvatar(event): void {
@@ -98,5 +118,10 @@ export class CreateCourseFormComponent implements OnInit {
     public onRemoveAvatar(): void {
         this.imageUrl = null;
         this.changeAvatar.emit(null);
+    }
+
+    private handleMoney(value: string): string | null {
+        if (!value) return null;
+        return value.replace(/[^\d]/g, '');
     }
 }

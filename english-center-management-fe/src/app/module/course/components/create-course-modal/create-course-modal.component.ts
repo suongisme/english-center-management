@@ -38,9 +38,11 @@ export class CreateCourseModal {
         if (this.formGroup.invalid) {
             return;
         }
+        const formData = this.formGroup.getRawValue();
         const course = {
-            ...this.formGroup.getRawValue(),
+            ...formData,
             avatarFile: this.avatarFile,
+            price: formData.price.replace(/[^\d]/g, ''),
         };
         if (this.course) {
             this.courseService
